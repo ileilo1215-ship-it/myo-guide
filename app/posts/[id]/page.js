@@ -18,9 +18,6 @@ export default async function Post({ params }) {
       <header className={styles.header}>
         {postData.category && <span className={styles.category}>{postData.category}</span>}
         <h1 className={styles.title}>{postData.title}</h1>
-        <div className={styles.meta}>
-          <time className={styles.date}>{postData.date}</time>
-        </div>
       </header>
       
       {postData.image && (

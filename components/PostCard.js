@@ -21,7 +21,6 @@ export default function PostCard({ post }) {
           <h2 className="post-title">{post.title}</h2>
           <p className="excerpt">{excerpt}</p>
           <div className="card-footer">
-            {post.date && <time className="date">{post.date}</time>}
             <span className="read-more">Read Article</span>
           </div>
         </div>

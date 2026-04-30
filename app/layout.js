@@ -1,7 +1,8 @@
-import { Fredoka } from "next/font/google";
+import { Jua } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
-const fredoka = Fredoka({ subsets: ["latin"], weight: ["600"] });
+const jua = Jua({ subsets: ["latin"], weight: ["400"] });
 
 export const metadata = {
   title: "묘한 가이드",
@@ -14,12 +15,14 @@ export default function RootLayout({ children }) {
       <body>
         <header className="site-header">
           <nav className="main-nav">
-            <div className={`logo ${fredoka.className}`}>myo guide</div>
+            <Link href="/" style={{ textDecoration: 'none' }}>
+              <div className={`logo ${jua.className}`} style={{ fontSize: '1.8rem' }}>myo guide</div>
+            </Link>
             <ul className="nav-links">
-              <li><a href="/">Home</a></li>
-              <li><a href="#">Categories</a></li>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Subscribe</a></li>
+              <li><Link href="/">Home</Link></li>
+              <li><Link href="/categories">Categories</Link></li>
+              <li><Link href="/about">About</Link></li>
+              <li><Link href="#">Subscribe</Link></li>
             </ul>
           </nav>
         </header>
