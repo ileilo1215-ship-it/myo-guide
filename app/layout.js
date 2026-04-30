@@ -1,8 +1,8 @@
-import { Jua } from "next/font/google";
+﻿import { Sniglet } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
-const jua = Jua({ subsets: ["latin"], weight: ["400"] });
+const sniglet = Sniglet({ subsets: ["latin"], weight: ["400", "800"] });
 
 export const metadata = {
   title: "묘한 가이드",
@@ -16,13 +16,13 @@ export default function RootLayout({ children }) {
         <header className="site-header">
           <nav className="main-nav">
             <Link href="/" style={{ textDecoration: 'none' }}>
-              <div className={`logo ${jua.className}`} style={{ fontSize: '1.8rem' }}>myo guide</div>
+              <div className={logo } style={{ fontSize: '2.2rem', letterSpacing: '1px' }}>myo guide</div>
             </Link>
             <ul className="nav-links">
               <li><Link href="/">Home</Link></li>
               <li><Link href="/categories">Categories</Link></li>
               <li><Link href="/about">About</Link></li>
-              <li><Link href="#">Subscribe</Link></li>
+              <li><Link href="/subscribe">Subscribe</Link></li>
             </ul>
           </nav>
         </header>

@@ -1,6 +1,6 @@
-
-import { getPostData, getAllPostIds } from '@/lib/posts';
+﻿import { getPostData, getAllPostIds } from '@/lib/posts';
 import ReactionButtons from '@/components/ReactionButtons';
+import MemoComments from '@/components/MemoComments';
 import styles from './page.module.css';
 
 export async function generateStaticParams() {
@@ -36,6 +36,7 @@ export default async function Post({ params }) {
       <hr className={styles.divider} />
       
       <ReactionButtons postId={decodedId} />
+      <MemoComments postId={decodedId} />
     </article>
   );
 }
