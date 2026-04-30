@@ -1,3 +1,4 @@
+
 import { getSortedPostsData } from '@/lib/posts';
 import PostCard from '@/components/PostCard';
 import { Jua } from "next/font/google";
@@ -12,7 +13,6 @@ export const metadata = {
 export default function CategoriesPage() {
   const allPosts = getSortedPostsData();
   
-  // 그룹화: { '놀이': [post1, post2], '관리': [post3], ... }
   const groupedPosts = allPosts.reduce((acc, post) => {
     const category = post.category || '기타';
     if (!acc[category]) {

@@ -1,5 +1,6 @@
+
 import { getPostData, getAllPostIds } from '@/lib/posts';
-import GiscusComments from '@/components/GiscusComments';
+import ReactionButtons from '@/components/ReactionButtons';
 import styles from './page.module.css';
 
 export async function generateStaticParams() {
@@ -11,7 +12,8 @@ export async function generateStaticParams() {
 
 export default async function Post({ params }) {
   const { id } = await params;
-  const postData = await getPostData(id);
+  const decodedId = decodeURIComponent(id);
+  const postData = await getPostData(decodedId);
 
   return (
     <article className={styles.container}>
@@ -33,9 +35,7 @@ export default async function Post({ params }) {
 
       <hr className={styles.divider} />
       
-      <section className={styles.comments}>
-        <GiscusComments />
-      </section>
+      <ReactionButtons postId={decodedId} />
     </article>
   );
 }

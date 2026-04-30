@@ -1,4 +1,4 @@
-import Image from 'next/image';
+
 import { Jua } from "next/font/google";
 
 const jua = Jua({ subsets: ["latin"], weight: ["400"] });
