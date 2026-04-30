@@ -1,4 +1,7 @@
+import { Fredoka } from "next/font/google";
 import "./globals.css";
+
+const fredoka = Fredoka({ subsets: ["latin"], weight: ["600"] });
 
 export const metadata = {
   title: "묘한 가이드",
@@ -11,7 +14,7 @@ export default function RootLayout({ children }) {
       <body>
         <header className="site-header">
           <nav className="main-nav">
-            <div className="logo">MYO GUIDE</div>
+            <div className={`logo ${fredoka.className}`}>myo guide</div>
             <ul className="nav-links">
               <li><a href="/">Home</a></li>
               <li><a href="#">Categories</a></li>
