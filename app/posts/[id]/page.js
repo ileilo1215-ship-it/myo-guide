@@ -1,6 +1,6 @@
-﻿import { getPostData, getAllPostIds } from '@/lib/posts';
+import { getPostData, getAllPostIds } from '@/lib/posts';
 import ReactionButtons from '@/components/ReactionButtons';
-import MemoComments from '@/components/MemoComments';
+import GiscusComments from '@/components/GiscusComments';
 import styles from './page.module.css';
 
 export async function generateStaticParams() {
@@ -36,7 +36,17 @@ export default async function Post({ params }) {
       <hr className={styles.divider} />
       
       <ReactionButtons postId={decodedId} />
-      <MemoComments postId={decodedId} />
+      
+      <div style={{ marginTop: '4rem', padding: '2rem', backgroundColor: '#FFFBE6', borderRadius: '2px 15px 15px 15px', boxShadow: '3px 4px 10px rgba(0,0,0,0.08)', border: '1px solid #F6E9B2', position: 'relative' }}>
+        <div style={{ position: 'absolute', top: '-10px', left: '50%', transform: 'translateX(-50%)', width: '40px', height: '15px', backgroundColor: '#FFCF96', opacity: '0.6', borderRadius: '10px' }}></div>
+        <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#5A514A', textAlign: 'center', fontWeight: 'bold' }}>
+          📝 집사들의 꿀팁 메모장
+        </h3>
+        <p style={{ textAlign: 'center', color: '#8C8279', marginBottom: '2rem', fontSize: '0.9rem' }}>
+          이 글과 관련된 꿀팁을 남겨주세요! (GitHub 계정으로 로그인됩니다)
+        </p>
+        <GiscusComments />
+      </div>
     </article>
   );
 }

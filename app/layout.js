@@ -1,4 +1,4 @@
-﻿import { Sniglet } from "next/font/google";
+import { Sniglet } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
         <header className="site-header">
           <nav className="main-nav">
             <Link href="/" style={{ textDecoration: 'none' }}>
-              <div className={logo } style={{ fontSize: '2.2rem', letterSpacing: '1px' }}>myo guide</div>
+              <div className={sniglet.className} style={{ fontSize: '2.2rem', letterSpacing: '1px' }}>myo guide</div>
             </Link>
             <ul className="nav-links">
               <li><Link href="/">Home</Link></li>
