@@ -1,8 +1,6 @@
-import { Sniglet } from "next/font/google";
 import Link from "next/link";
+import Image from "next/image";
 import "./globals.css";
-
-const sniglet = Sniglet({ subsets: ["latin"], weight: ["400", "800"] });
 
 export const metadata = {
   title: "묘한 가이드",
@@ -15,8 +13,8 @@ export default function RootLayout({ children }) {
       <body>
         <header className="site-header">
           <nav className="main-nav">
-            <Link href="/" style={{ textDecoration: 'none' }}>
-              <div className={sniglet.className} style={{ fontSize: '2.2rem', letterSpacing: '1px' }}>myo guide</div>
+            <Link href="/" className="logo-wrapper">
+              <Image src="/logo.png" alt="Myo Guide Logo" width={240} height={90} className="logo-image" style={{ objectFit: 'contain' }} />
             </Link>
             <ul className="nav-links">
               <li><Link href="/">Home</Link></li>
@@ -28,7 +26,9 @@ export default function RootLayout({ children }) {
             </ul>
           </nav>
         </header>
-        {children}
+        <div className="main-content">
+          {children}
+        </div>
       </body>
     </html>
   );
