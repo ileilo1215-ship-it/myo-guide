@@ -25,17 +25,21 @@ export default async function Home({ searchParams }) {
 
   if (categoryParam) {
     if (categoryParam === 'Cat Care') {
-      bannerTitle = "Cat Care";
+      bannerTitle = "케어";
       bannerDesc = "우리 아이들의 건강과 행복을 위한 필수 돌봄 가이드";
       allPostsData = allPostsData.filter(post => ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play'].includes(post.category));
     } else if (categoryParam === 'Rescue') {
-      bannerTitle = "Rescue";
+      bannerTitle = "구조";
       bannerDesc = "위기에 처한 길 위의 생명들을 돕는 구조 및 공존 가이드";
       allPostsData = allPostsData.filter(post => ['Street Life', 'Rights'].includes(post.category));
     } else if (categoryParam === 'News') {
-      bannerTitle = "News";
-      bannerDesc = "기후위기부터 새로운 도시계획까지, 다양한 최신 소식";
+      bannerTitle = "묘한 뉴스";
+      bannerDesc = "출처가 분명한 동물권 및 공존 관련 최신 보도자료";
       allPostsData = allPostsData.filter(post => post.category === 'News');
+    } else if (categoryParam === 'Class') {
+      bannerTitle = "묘한 교실";
+      bannerDesc = "어린이부터 어른까지 함께 배우는 동물권 카드 및 교육 자료";
+      allPostsData = allPostsData.filter(post => post.category === 'Class');
     }
 
     return (
@@ -85,9 +89,12 @@ export default async function Home({ searchParams }) {
           background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%)',
           borderRadius: '8px'
         }}>
+          <h2 style={{ fontSize: '1.4rem', fontWeight: '500', marginBottom: '1rem', letterSpacing: '0', opacity: 0.9 }}>
+            모든 생명이 존중받는 세상을 위해
+          </h2>
           <span style={{ 
             display: 'inline-block', 
-            backgroundColor: 'var(--accent-color)', 
+            backgroundColor: 'var(--accent-sub)', 
             color: 'white', 
             padding: '6px 16px', 
             borderRadius: '30px', 
@@ -100,10 +107,10 @@ export default async function Home({ searchParams }) {
             오늘의 핫뉴스 🔥
           </span>
           <Link href={`/posts/${latestNews.id}`} style={{ textDecoration: 'none', color: 'white' }}>
-            <h1 style={{ fontSize: '3rem', fontWeight: '700', marginBottom: '1rem', letterSpacing: '-1px', lineHeight: '1.2' }}>
+            <h1 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '1rem', letterSpacing: '-1px', lineHeight: '1.2' }}>
               {latestNews.title}
             </h1>
-            <p style={{ fontSize: '1.2rem', fontWeight: '300', opacity: 0.9 }}>
+            <p style={{ fontSize: '0.8rem', fontWeight: '300', opacity: 0.9 }}>
               {latestNews.content ? latestNews.content.substring(0, 100) + '...' : ''}
             </p>
             <div style={{ marginTop: '2rem', fontWeight: '700', textTransform: 'uppercase', fontSize: '0.9rem', letterSpacing: '1px', display: 'inline-block', borderBottom: '2px solid white', paddingBottom: '4px' }}>

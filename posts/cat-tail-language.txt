@@ -2,7 +2,7 @@
 title: "고양이 꼬리 언어 해석하기"
 date: "2026-04-29"
 category: "Behavior"
-image: "https://images.unsplash.com/photo-1478098711619-5ab0b478d6e6?w=800&q=80"
+image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop"
 excerpt: "꼬리만 봐도 알 수 있는 고양이의 현재 기분"
 ---
 

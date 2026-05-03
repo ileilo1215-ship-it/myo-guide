@@ -2,7 +2,7 @@
 title: "고양이에게 안전한 식물 vs 위험한 식물"
 date: "2026-04-28"
 category: "Safety"
-image: "https://images.unsplash.com/photo-1511699564883-8f0a0d95cf37?w=800&q=80"
+image: "https://images.unsplash.com/photo-1511044568932-338cba0ad803?q=80&w=800&auto=format&fit=crop"
 excerpt: "집사라면 꼭 알아야 할 실내 식물 안전 가이드"
 ---
 

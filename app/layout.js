@@ -14,15 +14,16 @@ export default function RootLayout({ children }) {
         <header className="site-header">
           <nav className="main-nav">
             <Link href="/" className="logo-wrapper">
-              <Image src="/logo.png" alt="Myo Guide Logo" width={240} height={90} className="logo-image" style={{ objectFit: 'contain' }} />
+              <Image src="/logo-transparent.png" alt="Myo Guide Logo" width={240} height={90} className="logo-image" style={{ objectFit: 'contain' }} priority />
             </Link>
             <ul className="nav-links">
-              <li><Link href="/">Home</Link></li>
-              <li><Link href="/?category=Cat Care">Cat Care</Link></li>
-              <li><Link href="/?category=Rescue">Rescue</Link></li>
-              <li><Link href="/friends">Friends</Link></li>
-              <li><Link href="/?category=News">News</Link></li>
-              <li><Link href="/about">About</Link></li>
+              <li><Link href="/">홈</Link></li>
+              <li><Link href="/?category=Cat Care">케어</Link></li>
+              <li><Link href="/?category=Rescue">구조</Link></li>
+              <li><Link href="/?category=News">묘한 뉴스</Link></li>
+              <li><Link href="/?category=Class">묘한 교실</Link></li>
+              <li><Link href="/friends">친구들</Link></li>
+              <li><Link href="/about">소개</Link></li>
             </ul>
           </nav>
         </header>

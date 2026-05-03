@@ -2,7 +2,7 @@
 title: "유기동물을 발견했을 때 대처 방법 (필독)"
 date: "2026-05-03"
 category: "Street Life"
-image: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=800&q=80"
+image: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=800&auto=format&fit=crop"
 excerpt: "도움이 필요한 생명을 만났을 때, 우리가 해야 할 일과 주의사항"
 ---
 

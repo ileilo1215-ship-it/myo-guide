@@ -2,7 +2,7 @@
 title: "고양이 화장실, 어디에 두는 것이 좋을까?"
 date: "2026-04-27"
 category: "Environment"
-image: "https://images.unsplash.com/photo-1549545931-59bf067af9ab?w=800&q=80"
+image: "https://images.unsplash.com/photo-1529778456209-41712a201b1c?q=80&w=800&auto=format&fit=crop"
 excerpt: "까다로운 고양이의 화장실 위치 선정 노하우"
 ---
 
