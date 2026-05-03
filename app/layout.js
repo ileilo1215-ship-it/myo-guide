@@ -20,9 +20,11 @@ export default function RootLayout({ children }) {
             </Link>
             <ul className="nav-links">
               <li><Link href="/">Home</Link></li>
-              <li><Link href="/categories">Categories</Link></li>
+              <li><Link href="/?category=Cat Care">Cat Care</Link></li>
+              <li><Link href="/?category=Rescue">Rescue</Link></li>
+              <li><Link href="/friends">Friends</Link></li>
+              <li><Link href="/?category=News">News</Link></li>
               <li><Link href="/about">About</Link></li>
-              <li><Link href="/subscribe">Subscribe</Link></li>
             </ul>
           </nav>
         </header>
