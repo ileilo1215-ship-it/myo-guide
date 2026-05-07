@@ -1,9 +1,9 @@
-export default function Banner({ title = "🐾 묘한 가이드 🐾", description = "모든 생명이 존중받는 세상을 꿈꾸는 공존 가이드 🌿" }) {
+export default function Banner() {
   return (
     <div className="banner">
       <div className="banner-content">
-        <h1>{title}</h1>
-        <p>{description}</p>
+        <h1>묘한 가이드</h1>
+        <p>반려동물과 함께하는 특별하고 묘한 일상 가이드</p>
       </div>
     </div>
   );
