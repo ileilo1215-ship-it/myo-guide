@@ -1,3 +1,5 @@
+"use client";
+
 import Link from 'next/link';
 
 export default function PostCard({ post }) {
@@ -14,6 +16,10 @@ export default function PostCard({ post }) {
             alt="Post thumbnail" 
             className="card-image"
             loading="lazy"
+            onError={(e) => {
+              e.currentTarget.src = '/placeholder.png';
+              e.currentTarget.onerror = null; // Prevent infinite loop
+            }}
           />
         </div>
         <div className="card-content">
@@ -21,6 +27,7 @@ export default function PostCard({ post }) {
           <h2 className="post-title">{post.title}</h2>
           <p className="excerpt">{excerpt}</p>
           <div className="card-footer">
+            {post.date && <time className="date" style={{ fontSize: '0.8rem', color: '#888' }}>{post.date}</time>}
             <span className="read-more">Read Article</span>
           </div>
         </div>

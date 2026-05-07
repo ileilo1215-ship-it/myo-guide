@@ -1,6 +1,7 @@
 import { getPostData, getAllPostIds } from '@/lib/posts';
 import ReactionButtons from '@/components/ReactionButtons';
 import GiscusComments from '@/components/GiscusComments';
+import FallbackImage from '@/components/FallbackImage';
 import styles from './page.module.css';
 
 export async function generateStaticParams() {
@@ -24,7 +25,11 @@ export default async function Post({ params }) {
       
       {postData.image && (
         <div className={styles.imageWrapper}>
-          <img src={postData.image} alt={postData.title} className={styles.image} />
+          <FallbackImage 
+            src={postData.image} 
+            alt={postData.title} 
+            className={styles.image} 
+          />
         </div>
       )}
 
