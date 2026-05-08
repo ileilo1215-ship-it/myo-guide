@@ -94,20 +94,22 @@ h1, h2, h3 {
   inset: 0;
   background-color: var(--bg-color);
   z-index: 500;
-  padding: 6rem 2rem 2rem; /* Increased top padding for logo area */
+  padding: 5rem 1rem 2rem; /* Reduced padding for more width */
   overflow-y: auto;
 }
 
 .overlay-logo-link {
   display: block;
   width: 100%;
+  max-width: 600px;
   display: flex;
   justify-content: center;
+  margin-bottom: 2rem;
 }
 
 .overlay-logo {
-  width: 85vw !important;
-  max-width: 400px !important;
+  width: 90vw !important;
+  max-width: 600px !important;
   height: auto !important;
   transition: transform 0.3s ease;
 }

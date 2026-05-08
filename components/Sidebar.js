@@ -90,11 +90,12 @@ export default function Sidebar() {
             <Image
               src="/logo-new.png"
               alt="Myo Guide Logo"
-              width={480}
-              height={300}
+              width={600}
+              height={400}
               className="overlay-logo"
-              style={{ objectFit: "contain", marginBottom: "3rem" }}
+              style={{ objectFit: "contain", width: "100%", height: "auto", marginBottom: "3rem" }}
               priority
+              unoptimized
             />
           </Link>
           <nav>
