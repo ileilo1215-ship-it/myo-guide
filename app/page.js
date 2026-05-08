@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { getSortedPostsData } from '@/lib/posts';
 import '@/app/hero-credit.css';
 import Banner from '@/components/Banner';
@@ -93,11 +94,11 @@ export default async function Home({ searchParams }) {
   let authorName = null;
 
   if (heroImages.length > 0) {
-    // Use today's date as epoch day count for consistent daily rotation
-    const today = new Date();
-    const epochDay = Math.floor(
-      Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) / 86400000
-    );
+    // Use today's date in KST (UTC+9) for consistent daily rotation in Korea
+    const now = new Date();
+    const kstOffset = 9 * 60 * 60 * 1000;
+    const kstNow = new Date(now.getTime() + kstOffset);
+    const epochDay = Math.floor(kstNow.getTime() / 86400000);
     const index = epochDay % heroImages.length;
     const filename = heroImages[index];
     heroImageSrc = `/hero/${filename}`;

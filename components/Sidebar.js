@@ -36,7 +36,7 @@ export default function Sidebar() {
       <aside className="desktop-sidebar">
         <Link href="/" className="sidebar-logo-link">
           <Image
-            src="/logo-transparent.png"
+            src="/logo-v3.png"
             alt="Myo Guide Logo"
             width={180}
             height={110}
@@ -59,7 +59,7 @@ export default function Sidebar() {
       <header className="mobile-header">
         <Link href="/" className="mobile-logo-link">
           <Image
-            src="/logo-transparent.png"
+            src="/logo-v3.png"
             alt="Myo Guide Logo"
             width={240}
             height={148}
@@ -88,7 +88,7 @@ export default function Sidebar() {
           </button>
           <Link href="/" onClick={() => setIsOpen(false)} className="overlay-logo-link">
             <Image
-              src="/logo-transparent.png"
+              src="/logo-v3.png"
               alt="Myo Guide Logo"
               width={600}
               height={400}
