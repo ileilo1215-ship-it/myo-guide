@@ -3,6 +3,8 @@ title: "동물학대 처벌 대폭 강화, 개정 동물보호법 본격 시행"
 date: "2024-04-27"
 category: "News"
 image: "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?q=80&w=800&auto=format&fit=crop"
+source: "농림축산식품부 보도자료"
+sourceUrl: "https://www.mafra.go.kr/"
 ---
 
 **2024년 4월 27일, 농림축산식품부 보도자료 요약**

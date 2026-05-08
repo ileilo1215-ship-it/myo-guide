@@ -16,6 +16,45 @@ export default async function Post({ params }) {
   const decodedId = decodeURIComponent(id);
   const postData = await getPostData(decodedId);
 
+  if (postData.category === 'News') {
+    return (
+      <article className={styles.container}>
+        <header className={styles.header}>
+          <span className={styles.category}>{postData.category}</span>
+          <h1 className={styles.title}>{postData.title}</h1>
+          <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'space-between', color: '#888', fontSize: '0.9rem' }}>
+            <span>{postData.date}</span>
+            {postData.source && postData.sourceUrl && (
+              <a href={postData.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-color)', fontWeight: 'bold', textDecoration: 'none', backgroundColor: 'rgba(215, 114, 44, 0.1)', padding: '4px 8px', borderRadius: '4px' }}>
+                출처: {postData.source} ➔
+              </a>
+            )}
+          </div>
+        </header>
+        
+        {(!postData.image || postData.image) && (
+          <div className={styles.imageWrapper}>
+            <FallbackImage 
+              src={postData.image} 
+              alt={postData.title} 
+              className={styles.image} 
+              category={postData.category}
+            />
+          </div>
+        )}
+
+        <div 
+          className={styles.content}
+          dangerouslySetInnerHTML={{ __html: postData.contentHtml }} 
+        />
+
+        <hr className={styles.divider} />
+        
+        <ReactionButtons postId={decodedId} />
+      </article>
+    );
+  }
+
   return (
     <article className={styles.container}>
       <header className={styles.header}>
@@ -23,12 +62,13 @@ export default async function Post({ params }) {
         <h1 className={styles.title}>{postData.title}</h1>
       </header>
       
-      {postData.image && (
+      {(!postData.image || postData.image) && (
         <div className={styles.imageWrapper}>
           <FallbackImage 
             src={postData.image} 
             alt={postData.title} 
             className={styles.image} 
+            category={postData.category}
           />
         </div>
       )}

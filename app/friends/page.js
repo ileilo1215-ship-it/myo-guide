@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import styles from './friends.module.css';
 
 export const metadata = {
   title: 'Friends | 묘한 가이드',
@@ -97,38 +98,37 @@ const friendsList = [
 
 export default function FriendsPage() {
   return (
-    <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem' }}>
-      <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-        <h1 style={{ fontSize: '2.4rem', color: 'var(--text-primary)', marginBottom: '0.5rem' }}>Friends</h1>
-        <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)' }}>우리가 알아야 할, 생명을 살리는 멋진 단체와 매체들</p>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Friends</h1>
+        <p className={styles.subtitle}>우리가 알아야 할, 생명을 살리는 멋진 단체와 매체들</p>
       </div>
 
-      {/* Reduced gap and padding to show more information at a glance */}
-      <div style={{ display: 'grid', gap: '1.2rem' }}>
+      <div className={styles.grid}>
         {friendsList.map((friend, index) => (
-          <div key={index} style={{ display: 'flex', backgroundColor: 'var(--card-bg)', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 2px 10px rgba(0,0,0,0.05)', border: '1px solid var(--border-color)', height: '140px' }}>
+          <div key={index} className={styles.card}>
             
-            {/* Image Section - reduced width and fixed height */}
-            <div style={{ position: 'relative', width: '25%', height: '100%' }}>
+            <div className={styles.imageWrapper}>
               <Image src={friend.image} alt={friend.name} fill style={{ objectFit: 'cover' }} />
             </div>
 
-            {/* Content Section - smaller paddings and fonts */}
-            <div style={{ padding: '1.2rem 1.5rem', width: '75%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '0.4rem' }}>
-                {friend.tags.map((tag, i) => (
-                  <span key={i} style={{ backgroundColor: 'var(--banner-bg)', color: 'var(--accent-color)', padding: '0.2rem 0.6rem', borderRadius: '15px', fontSize: '0.75rem', fontWeight: 'bold' }}>
-                    #{tag}
-                  </span>
-                ))}
+            <div className={styles.cardContent}>
+              <div>
+                <div className={styles.tags}>
+                  {friend.tags.map((tag, i) => (
+                    <span key={i} className={styles.tag}>
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+                <h2 className={styles.cardTitle}>{friend.name}</h2>
+                <p className={styles.description}>
+                  {friend.description}
+                </p>
               </div>
-              <h2 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '0.4rem' }}>{friend.name}</h2>
-              <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: '1.4', marginBottom: '0.5rem', flexGrow: 1, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
-                {friend.description}
-              </p>
               
-              <a href={friend.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-color)', fontWeight: 'bold', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.9rem' }}>
-                방문하기 <span style={{ fontSize: '1.1rem' }}>→</span>
+              <a href={friend.url} target="_blank" rel="noopener noreferrer" className={styles.link}>
+                방문하기 <span className={styles.arrow}>→</span>
               </a>
             </div>
 
