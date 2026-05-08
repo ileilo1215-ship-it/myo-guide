@@ -61,14 +61,17 @@ h1, h2, h3 {
   top: 0;
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
-  padding: 2rem;
+  align-items: stretch;
+  justify-content: center;
+  padding: 1.5rem 2rem;
+  gap: 0;
   z-index: 100;
 }
 
 .sidebar-logo-link {
   display: block;
   width: 100%;
+  margin-bottom: 1.75rem;
 }
 
 /* ================================================
@@ -137,14 +140,15 @@ h1, h2, h3 {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 1.25rem;
 }
 
 .nav-links a {
   text-decoration: none;
   color: var(--text-primary);
-  font-size: 1.15rem;
-  font-weight: 400;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   transition: color 0.3s ease;
 }
 
@@ -190,6 +194,7 @@ h1, h2, h3 {
   .mobile-logo-link {
     display: flex;
     align-items: center;
+    height: 100%;
   }
 
   /* Hamburger button */

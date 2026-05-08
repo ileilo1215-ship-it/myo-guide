@@ -61,9 +61,9 @@ export default function Sidebar() {
           <Image
             src="/logo-new.png"
             alt="Myo Guide Logo"
-            width={90}
-            height={55}
-            style={{ objectFit: "contain", height: "44px", width: "auto" }}
+            width={120}
+            height={74}
+            style={{ objectFit: "contain", height: "52px", width: "auto" }}
             priority
           />
         </Link>
