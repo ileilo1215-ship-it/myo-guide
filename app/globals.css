@@ -63,7 +63,7 @@ h1, h2, h3 {
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
-  padding: 1.5rem 2rem;
+  padding: 12px 2rem;
   gap: 0;
   z-index: 100;
 }
@@ -118,8 +118,9 @@ h1, h2, h3 {
 }
 
 .overlay-nav-links a {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
   text-decoration: none;
   transition: color 0.2s ease;
@@ -140,16 +141,17 @@ h1, h2, h3 {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 .nav-links a {
   text-decoration: none;
   color: var(--text-primary);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: -0.01em;
   transition: color 0.3s ease;
+  display: block;
 }
 
 .nav-links a:hover {
@@ -187,7 +189,7 @@ h1, h2, h3 {
     height: var(--mobile-topbar-height);
     background-color: var(--bg-color);
     border-bottom: 1px solid var(--border-color);
-    padding: 0 1rem;
+    padding: 12px 1rem;
     z-index: 200;
   }
 
@@ -195,6 +197,16 @@ h1, h2, h3 {
     display: flex;
     align-items: center;
     height: 100%;
+  }
+
+  .mobile-logo-link img {
+    width: 80px !important;
+    height: auto !important;
+  }
+
+  /* 서브텍스트 숨기기 (클래스명이 logo-subtext인 경우 가정) */
+  .logo-subtext {
+    display: none !important;
   }
 
   /* Hamburger button */
