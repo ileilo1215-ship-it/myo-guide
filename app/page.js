@@ -110,7 +110,7 @@ export default async function Home({ searchParams }) {
 
   // Home Page Hero Section
   return (
-    <main style={{ position: 'relative', width: '100%', height: '100svh', overflow: 'hidden', backgroundColor: '#1a1a2e' }}>
+    <main style={{ position: 'relative', width: '100%', height: '100svh', overflow: 'hidden', backgroundColor: 'var(--bg-color)' }}>
       {heroImageSrc && (
         <Image 
           src={heroImageSrc} 

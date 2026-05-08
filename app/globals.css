@@ -7,7 +7,7 @@
   --accent-color: #2D5016;
   --accent-sub: #C4622D;
   --card-bg: #FFFFFF;
-  --banner-bg: #EAE6DF;
+  --banner-bg: #F8F5F0; /* Matching global bg as requested */
   --border-color: #E2DDD5;
   --sidebar-width: 260px;
   --mobile-topbar-height: 60px;
@@ -94,7 +94,7 @@ h1, h2, h3 {
   inset: 0;
   background-color: var(--bg-color);
   z-index: 500;
-  padding: 5rem 1rem 2rem; /* Reduced padding for more width */
+  padding: 3rem 1rem 2rem; /* Reduced top padding further */
   overflow-y: auto;
 }
 
@@ -108,8 +108,8 @@ h1, h2, h3 {
 }
 
 .overlay-logo {
-  width: 90vw !important;
-  max-width: 600px !important;
+  width: 45vw !important;
+  max-width: 300px !important;
   height: auto !important;
   transition: transform 0.3s ease;
 }
@@ -133,7 +133,7 @@ h1, h2, h3 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.2rem;
 }
 
 .overlay-nav-links a {
@@ -220,7 +220,7 @@ h1, h2, h3 {
   }
 
   .mobile-logo-link img {
-    width: 240px !important;
+    width: 120px !important;
     height: auto !important;
   }
 
@@ -325,11 +325,20 @@ h1, h2, h3 {
    POST CARD
    ================================================ */
 .post-card {
-  background-color: transparent;
+  background-color: var(--card-bg);
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
 }
 
 .post-card:hover .card-image {
@@ -338,9 +347,8 @@ h1, h2, h3 {
 
 .card-image-wrapper {
   overflow: hidden;
-  border-radius: 4px;
-  margin-bottom: 1.5rem;
-  aspect-ratio: 4 / 3;
+  margin-bottom: 0;
+  aspect-ratio: 16 / 10;
 }
 
 .card-image {
@@ -354,6 +362,7 @@ h1, h2, h3 {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  padding: 1.5rem;
 }
 
 .category {
