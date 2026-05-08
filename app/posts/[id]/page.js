@@ -1,5 +1,6 @@
 import { getPostData, getAllPostIds } from '@/lib/posts';
 import ReactionButtons from '@/components/ReactionButtons';
+import ShareButtons from '@/components/ShareButtons';
 import GiscusComments from '@/components/GiscusComments';
 import FallbackImage from '@/components/FallbackImage';
 import styles from './page.module.css';
@@ -50,7 +51,10 @@ export default async function Post({ params }) {
 
         <hr className={styles.divider} />
         
-        <ReactionButtons postId={decodedId} />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+          <ReactionButtons postId={decodedId} />
+          <ShareButtons title={postData.title} />
+        </div>
       </article>
     );
   }
@@ -80,7 +84,10 @@ export default async function Post({ params }) {
 
       <hr className={styles.divider} />
       
-      <ReactionButtons postId={decodedId} />
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+        <ReactionButtons postId={decodedId} />
+        <ShareButtons title={postData.title} />
+      </div>
       
       <div style={{ marginTop: '4rem', padding: '2rem', backgroundColor: '#FFFBE6', borderRadius: '2px 15px 15px 15px', boxShadow: '3px 4px 10px rgba(0,0,0,0.08)', border: '1px solid #F6E9B2', position: 'relative' }}>
         <div style={{ position: 'absolute', top: '-10px', left: '50%', transform: 'translateX(-50%)', width: '40px', height: '15px', backgroundColor: '#FFCF96', opacity: '0.6', borderRadius: '10px' }}></div>

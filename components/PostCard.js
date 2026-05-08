@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import ShareButtons from './ShareButtons';
 
 const categoryImages = {
   Health: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop",
@@ -69,7 +70,10 @@ export default function PostCard({ post }) {
                 </div>
               )}
             </div>
-            <span className="read-more">Read Article</span>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+              <ShareButtons title={post.title} url={`https://myo-guide.vercel.app/posts/${post.id}`} />
+              <span className="read-more">Read Article</span>
+            </div>
           </div>
         </div>
       </article>
