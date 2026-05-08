@@ -61,9 +61,9 @@ export default function Sidebar() {
           <Image
             src="/logo-new.png"
             alt="Myo Guide Logo"
-            width={120}
-            height={74}
-            style={{ objectFit: "contain", height: "52px", width: "auto" }}
+            width={240}
+            height={148}
+            style={{ objectFit: "contain", width: "auto" }}
             priority
           />
         </Link>
@@ -86,13 +86,14 @@ export default function Sidebar() {
           >
             ✕
           </button>
-          <Link href="/" onClick={() => setIsOpen(false)}>
+          <Link href="/" onClick={() => setIsOpen(false)} className="overlay-logo-link">
             <Image
               src="/logo-new.png"
               alt="Myo Guide Logo"
-              width={160}
-              height={100}
-              style={{ objectFit: "contain", marginBottom: "2rem" }}
+              width={480}
+              height={300}
+              className="overlay-logo"
+              style={{ objectFit: "contain", marginBottom: "3rem" }}
               priority
             />
           </Link>
