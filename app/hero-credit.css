@@ -1,0 +1,21 @@
+.hero-credit {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  font-size: 0.72rem;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  letter-spacing: 0.02em;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.hero-credit:hover {
+  background-color: rgba(0, 0, 0, 0.75);
+}

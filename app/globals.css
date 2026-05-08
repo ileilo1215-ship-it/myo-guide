@@ -9,6 +9,8 @@
   --card-bg: #FFFFFF;
   --banner-bg: #EAE6DF;
   --border-color: #E2DDD5;
+  --sidebar-width: 260px;
+  --mobile-topbar-height: 60px;
 }
 
 * {
@@ -28,6 +30,16 @@ body {
   min-height: 100vh;
 }
 
+/* Typography */
+h1, h2, h3 {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* ================================================
+   MAIN CONTENT AREA
+   ================================================ */
 .main-content {
   flex: 1;
   display: flex;
@@ -35,44 +47,92 @@ body {
   min-width: 0;
 }
 
-/* Typography */
-h1, h2, h3, .logo {
-  font-family: 'Pretendard', sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-/* Header & Navigation */
-.site-header {
-  width: 260px;
+/* ================================================
+   DESKTOP SIDEBAR (visible >= 768px)
+   ================================================ */
+.desktop-sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
   min-height: 100vh;
+  height: 100vh;
   border-right: 1px solid var(--border-color);
   background-color: var(--bg-color);
   position: sticky;
   top: 0;
   display: flex;
   flex-direction: column;
+  gap: 2.5rem;
   padding: 2rem;
   z-index: 100;
 }
 
-.main-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  width: 100%;
-}
-
-.logo-wrapper {
+.sidebar-logo-link {
   display: block;
   width: 100%;
 }
 
-.logo-image {
-  max-width: 100%;
-  height: auto;
+/* ================================================
+   MOBILE TOP BAR (hidden on desktop)
+   ================================================ */
+.mobile-header {
+  display: none; /* hidden on desktop */
 }
 
+/* ================================================
+   MOBILE OVERLAY MENU (initially hidden via JS)
+   ================================================ */
+.mobile-menu-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  background-color: var(--bg-color);
+  z-index: 500;
+  padding: 2rem;
+}
+
+.overlay-close-btn {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: var(--text-primary);
+  padding: 0.5rem;
+  line-height: 1;
+}
+
+.overlay-nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.overlay-nav-links a {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.overlay-nav-links a:hover {
+  color: var(--accent-color);
+}
+
+.mobile-overlay-backdrop {
+  display: none; /* backdrop used by JS toggle, rendered only when isOpen */
+}
+
+/* ================================================
+   SHARED NAV LINKS (desktop sidebar)
+   ================================================ */
 .nav-links {
   list-style: none;
   display: flex;
@@ -85,7 +145,6 @@ h1, h2, h3, .logo {
   color: var(--text-primary);
   font-size: 1.15rem;
   font-weight: 400;
-  letter-spacing: 0;
   transition: color 0.3s ease;
 }
 
@@ -93,7 +152,91 @@ h1, h2, h3, .logo {
   color: var(--accent-color);
 }
 
-/* Banner Styles */
+/* ================================================
+   MOBILE OVERRIDES  (< 768px)
+   ================================================ */
+@media (max-width: 767px) {
+  body {
+    flex-direction: column;
+  }
+
+  /* Full width content, offset by fixed top bar */
+  .main-content {
+    width: 100%;
+    margin-top: var(--mobile-topbar-height);
+  }
+
+  /* Hide the desktop sidebar entirely */
+  .desktop-sidebar {
+    display: none;
+  }
+
+  /* Show mobile top bar */
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--mobile-topbar-height);
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 1rem;
+    z-index: 200;
+  }
+
+  .mobile-logo-link {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Hamburger button */
+  .hamburger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: var(--text-primary);
+    padding: 0.25rem 0.5rem;
+    line-height: 1;
+  }
+
+  /* Content padding */
+  .posts-container {
+    padding: 0 16px 3rem !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .banner {
+    padding: 2rem 16px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Typography caps */
+  .banner-content h1 {
+    font-size: clamp(20px, 5.5vw, 24px) !important;
+    letter-spacing: -0.5px;
+    word-break: keep-all;
+  }
+
+  .banner-content p {
+    font-size: 0.95rem;
+  }
+
+  .post-title {
+    font-size: 1.15rem !important;
+    word-break: keep-all;
+  }
+}
+
+/* ================================================
+   BANNER
+   ================================================ */
 .banner {
   background-color: var(--banner-bg);
   padding: 4rem 2rem;
@@ -123,7 +266,9 @@ h1, h2, h3, .logo {
   letter-spacing: 0.5px;
 }
 
-/* Posts Container (3 Column Grid) */
+/* ================================================
+   POSTS GRID
+   ================================================ */
 .posts-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -133,26 +278,21 @@ h1, h2, h3, .logo {
   gap: 3rem 2.5rem;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px) and (min-width: 768px) {
   .posts-container {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 768px) {
-  .posts-container {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Post Card Styles (Magazine Look) */
+/* ================================================
+   POST CARD
+   ================================================ */
 .post-card {
   background-color: transparent;
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
   cursor: pointer;
-  group: true;
 }
 
 .post-card:hover .card-image {
@@ -184,7 +324,6 @@ h1, h2, h3, .logo {
   color: var(--accent-sub);
   font-size: 0.85rem;
   font-weight: 500;
-  letter-spacing: 0;
   margin-bottom: 0.8rem;
 }
 

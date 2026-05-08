@@ -1,19 +1,48 @@
 import { getSortedPostsData } from '@/lib/posts';
+import '@/app/hero-credit.css';
 import Banner from '@/components/Banner';
 import PostCard from '@/components/PostCard';
 import Image from 'next/image';
 import Link from 'next/link';
+import fs from 'fs';
+import path from 'path';
 
-// 7 High-quality Unsplash real cat/animal images
-const dailyImages = [
-  "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2043&auto=format&fit=crop", // Sunday
-  "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?q=80&w=2070&auto=format&fit=crop", // Monday
-  "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=1974&auto=format&fit=crop", // Tuesday
-  "https://images.unsplash.com/photo-1529778456209-41712a201b1c?q=80&w=2070&auto=format&fit=crop", // Wednesday
-  "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?q=80&w=1935&auto=format&fit=crop", // Thursday
-  "https://images.unsplash.com/photo-1511044568932-338cba0ad803?q=80&w=2070&auto=format&fit=crop", // Friday
-  "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?q=80&w=2070&auto=format&fit=crop", // Saturday
-];
+/**
+ * Reads hero images from /public/hero/ directory.
+ * Returns sorted list of .jpg/.jpeg/.png/.webp filenames.
+ */
+function getHeroImages() {
+  const heroDir = path.join(process.cwd(), 'public', 'hero');
+  try {
+    const files = fs.readdirSync(heroDir);
+    return files
+      .filter(f => /\.(jpg|jpeg|png|webp)$/i.test(f))
+      .sort(); // stable alphabetical order for consistent cycling
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Extracts a formatted author name from an Unsplash filename.
+ * Pattern: <author-name>-<unsplash-code>-unsplash.jpg
+ * Example: rishabh-p-s-D0JkVggwcV4-unsplash.jpg → "Rishabh P S"
+ */
+function extractAuthorName(filename) {
+  // Remove extension
+  const base = filename.replace(/\.[^.]+$/, '');
+  // Remove trailing -unsplash
+  const withoutSuffix = base.replace(/-unsplash$/, '');
+  // The last segment before the author name is the Unsplash code (all-caps or mixed with digits, 10-11 chars)
+  // Split by hyphen and drop the last token (the code)
+  const parts = withoutSuffix.split('-');
+  // The code is the last element — drop it
+  const authorParts = parts.slice(0, -1);
+  // Capitalize first letter of each word
+  return authorParts
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
 
 export default async function Home({ searchParams }) {
   const params = await searchParams;
@@ -58,9 +87,22 @@ export default async function Home({ searchParams }) {
     );
   }
 
-  // Calculate Daily Image Index
-  const currentDay = new Date().getDay(); // 0 (Sun) to 6 (Sat)
-  const heroImageUrl = dailyImages[currentDay];
+  // ── Daily Hero Image Selection ──────────────────────────────────────
+  const heroImages = getHeroImages();
+  let heroImageSrc = null;
+  let authorName = null;
+
+  if (heroImages.length > 0) {
+    // Use today's date as epoch day count for consistent daily rotation
+    const today = new Date();
+    const epochDay = Math.floor(
+      Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) / 86400000
+    );
+    const index = epochDay % heroImages.length;
+    const filename = heroImages[index];
+    heroImageSrc = `/hero/${filename}`;
+    authorName = extractAuthorName(filename);
+  }
 
   // Get Latest News Post
   const newsPosts = allPostsData.filter(post => post.category === 'News');
@@ -68,15 +110,18 @@ export default async function Home({ searchParams }) {
 
   // Home Page Hero Section
   return (
-    <main style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>
-      <Image 
-        src={heroImageUrl} 
-        alt="Daily Healing Animal" 
-        fill 
-        style={{ objectFit: 'cover' }}
-        priority
-        unoptimized
-      />
+    <main style={{ position: 'relative', width: '100%', height: '100svh', overflow: 'hidden', backgroundColor: '#1a1a2e' }}>
+      {heroImageSrc && (
+        <Image 
+          src={heroImageSrc} 
+          alt={authorName ? `Photo by ${authorName}` : 'Daily Animal Hero'} 
+          fill 
+          style={{ objectFit: 'cover' }}
+          priority
+        />
+      )}
+
+      {/* Latest News Overlay — bottom left */}
       {latestNews && (
         <div style={{
           position: 'absolute',
@@ -89,7 +134,7 @@ export default async function Home({ searchParams }) {
           background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%)',
           borderRadius: '8px'
         }}>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: '500', marginBottom: '1rem', letterSpacing: '0', opacity: 0.9 }}>
+          <h2 style={{ fontSize: 'clamp(1rem, 3vw, 1.4rem)', fontWeight: '500', marginBottom: '1rem', letterSpacing: '0', opacity: 0.9 }}>
             모든 생명이 존중받는 세상을 위해
           </h2>
           <span style={{ 
@@ -107,7 +152,7 @@ export default async function Home({ searchParams }) {
             오늘의 핫뉴스 🔥
           </span>
           <Link href={`/posts/${latestNews.id}`} style={{ textDecoration: 'none', color: 'white' }}>
-            <h1 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '1rem', letterSpacing: '-1px', lineHeight: '1.2' }}>
+            <h1 style={{ fontSize: 'clamp(1.3rem, 4vw, 2rem)', fontWeight: '700', marginBottom: '1rem', letterSpacing: '-1px', lineHeight: '1.3' }}>
               {latestNews.title}
             </h1>
             <p style={{ fontSize: '0.8rem', fontWeight: '300', opacity: 0.9 }}>
@@ -118,6 +163,18 @@ export default async function Home({ searchParams }) {
             </div>
           </Link>
         </div>
+      )}
+
+      {/* Photo Credit — bottom right */}
+      {authorName && (
+        <a
+          href="https://unsplash.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hero-credit"
+        >
+          📷 Photo by {authorName} on Unsplash
+        </a>
       )}
     </main>
   );
