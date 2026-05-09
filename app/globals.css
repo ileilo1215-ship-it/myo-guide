@@ -133,7 +133,7 @@ h1, h2, h3 {
 .overlay-logo-link {
   display: block;
   width: 100%;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem; /* Reduced from 2.5rem */
   text-align: left;
 }
 
@@ -147,7 +147,7 @@ h1, h2, h3 {
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Left aligned as requested */
-  gap: 1.5rem;
+  gap: 0.8rem; /* Reduced from 1.5rem */
   width: 100%;
 }
 
@@ -156,14 +156,14 @@ h1, h2, h3 {
 }
 
 .overlay-nav-links a {
-  font-size: 1.2rem;
+  font-size: 1.1rem; /* Slightly smaller font */
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--text-primary);
   text-decoration: none;
   transition: color 0.2s ease;
   display: block;
-  padding: 0.5rem 0;
+  padding: 0.35rem 0; /* Reduced from 0.5rem */
   border-bottom: 1px solid rgba(0,0,0,0.05); /* Subtle separator like the image */
 }
 
