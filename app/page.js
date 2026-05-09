@@ -132,13 +132,27 @@ export default async function Home({ searchParams }) {
       }
     }
 
-    if (selectedImage) {
+    // Get Latest News Post
+    const newsPosts = allPostsData.filter(post => post.category === 'News');
+    const latestNews = newsPosts.length > 0 ? newsPosts[0] : null;
+
+    if (latestNews && latestNews.image) {
+      heroImageSrc = latestNews.image;
+      // If it's a local path, we might not have an author name easily, 
+      // but if it's an Unsplash path we can try to extract it.
+      if (heroImageSrc.startsWith('/hero/')) {
+        authorName = extractAuthorName(heroImageSrc.replace('/hero/', ''));
+      } else if (heroImageSrc.includes('unsplash.com')) {
+        // Fallback for external unsplash links if any
+        authorName = "Unsplash";
+      }
+    } else if (selectedImage) {
       heroImageSrc = `/hero/${selectedImage}`;
       authorName = extractAuthorName(selectedImage);
     }
   }
 
-  // Get Latest News Post
+  // Get Latest News Post (already fetched above, but keeping the variable scope clear)
   const newsPosts = allPostsData.filter(post => post.category === 'News');
   const latestNews = newsPosts.length > 0 ? newsPosts[0] : null;
 
