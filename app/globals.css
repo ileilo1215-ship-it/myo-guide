@@ -382,6 +382,7 @@ h1, h2, h3 {
   overflow: hidden;
   margin-bottom: 0;
   aspect-ratio: 16 / 10;
+  position: relative;
 }
 
 .card-image {

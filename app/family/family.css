@@ -1,0 +1,191 @@
+.family-page {
+  min-height: 100vh;
+  padding-bottom: 5rem;
+}
+
+/* Filter Buttons */
+.filter-wrapper {
+  max-width: 1200px;
+  margin: -1.5rem auto 3rem;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 0.8rem;
+  padding: 0.6rem;
+  background: white;
+  border-radius: 50px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 0.6rem 1.5rem;
+  border-radius: 30px;
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filter-btn:hover {
+  background: rgba(82, 183, 136, 0.1);
+  color: var(--accent-color);
+}
+
+.filter-btn.active {
+  background: var(--accent-color);
+  color: white;
+  box-shadow: 0 4px 15px rgba(82, 183, 136, 0.3);
+}
+
+/* Family Grid */
+.family-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2.5rem;
+}
+
+/* Family Card */
+.family-card {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.family-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  border-color: var(--accent-color);
+}
+
+.family-card-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.family-card-image img {
+  transition: transform 0.6s ease;
+}
+
+.placeholder-image {
+  width: 100%;
+  height: 100%;
+  background: #fdfdfd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  color: var(--accent-color);
+  font-weight: 700;
+  font-size: 1.2rem;
+  transition: background 0.3s ease;
+  position: relative;
+}
+
+.family-card:hover .placeholder-image {
+  background: #f0fdf4; /* Very light green on hover */
+}
+
+.green-paw {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.paw-icon {
+  font-size: 1.8rem;
+  /* Making the emoji green using filters */
+  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(120deg) brightness(90%) contrast(101%);
+}
+
+.coming-soon-text {
+  letter-spacing: -0.02em;
+}
+
+.family-card:hover .family-card-image img {
+  transform: scale(1.1);
+}
+
+.family-card-info {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.family-type {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  background: rgba(82, 183, 136, 0.1);
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+}
+
+.family-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.family-age {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 5rem 0;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .filter-wrapper {
+    margin-top: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .filter-buttons {
+    gap: 0.5rem;
+    padding: 0.4rem;
+  }
+  
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .family-grid {
+    padding: 0 1rem;
+    gap: 1.5rem;
+  }
+}

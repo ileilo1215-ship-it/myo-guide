@@ -21,19 +21,20 @@ export default async function Post({ params }) {
     return (
       <article className={styles.container}>
         <header className={styles.header}>
-          <span className={styles.category}>{postData.category}</span>
-          <h1 className={styles.title}>{postData.title}</h1>
-          <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'space-between', color: '#888', fontSize: '0.9rem' }}>
-            <span>{postData.date}</span>
-            {postData.source && postData.sourceUrl && (
-              <a href={postData.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-color)', fontWeight: 'bold', textDecoration: 'none', backgroundColor: 'rgba(45, 106, 79, 0.1)', padding: '4px 8px', borderRadius: '4px' }}>
-                출처: {postData.source} ➔
-              </a>
-            )}
+          <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center', gap: '0.5rem' }}>
+            {postData.category && <span className={styles.category}>{postData.category}</span>}
+            {postData.tag && <span style={{ color: '#888', fontWeight: '500' }}>| {postData.tag}</span>}
           </div>
+          <h1 className={styles.title}>{postData.title}</h1>
         </header>
+
+        {postData.hook && (
+          <div className={styles.hook}>
+            🪝 {postData.hook}
+          </div>
+        )}
         
-        {(!postData.image || postData.image) && (
+        {postData.image && (
           <div className={styles.imageWrapper}>
             <FallbackImage 
               src={postData.image} 
@@ -44,10 +45,38 @@ export default async function Post({ params }) {
           </div>
         )}
 
+        {postData.summary && (
+          <div className={styles.summarySection}>
+            <div className={styles.summaryTitle}>📌 한 줄 요약</div>
+            <div className={styles.summaryText}>{postData.summary}</div>
+          </div>
+        )}
+
+        {postData.editorNote && (
+          <div className={styles.editorNote}>
+            <div className={styles.editorNoteTitle}>✏️ 편집자 한마디</div>
+            <div className={styles.editorNoteText}>{postData.editorNote}</div>
+          </div>
+        )}
+
+        <div className={styles.sectionTitle}>📖 상세 내용</div>
         <div 
           className={styles.content}
           dangerouslySetInnerHTML={{ __html: postData.contentHtml }} 
         />
+
+        <div className={styles.sourceFooter}>
+          <div className={styles.sourceMeta}>
+            <span>출처: {postData.source}</span>
+            <span>📅 {postData.date}</span>
+            {postData.readTime && <span>🕐 읽는 데 {postData.readTime}</span>}
+          </div>
+          {postData.sourceUrl && (
+            <a href={postData.sourceUrl} target="_blank" rel="noopener noreferrer" className={styles.sourceButton}>
+              기사 읽기 →
+            </a>
+          )}
+        </div>
 
         <hr className={styles.divider} />
         

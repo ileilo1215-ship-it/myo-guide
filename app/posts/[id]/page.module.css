@@ -20,6 +20,11 @@
 
   .content {
     font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .hook {
+    font-size: 1.1rem !important;
   }
 }
 
@@ -67,9 +72,112 @@
 
 .content {
   font-size: 1.1rem;
-  line-height: 1.8;
-  color: var(--text-secondary);
+  line-height: 1.9;
+  color: var(--text-primary);
   margin-bottom: 4rem;
+}
+
+.hook {
+  font-style: italic;
+  color: var(--accent-sub);
+  font-size: 1.4rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  font-weight: 500;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
+.summarySection {
+  background-color: #f0f7f4;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 3rem;
+}
+
+.summaryTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.summaryText {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.editorNote {
+  border-left: 4px solid var(--accent-sub);
+  background-color: rgba(45, 106, 79, 0.05);
+  padding: 1.5rem;
+  margin-bottom: 3rem;
+  border-radius: 0 8px 8px 0;
+}
+
+.editorNoteTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.editorNoteText {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.sourceFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  border-top: 1px dashed var(--border-color);
+  margin-top: 2rem;
+}
+
+.sourceMeta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #888;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.sourceButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent-sub);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  width: fit-content;
+}
+
+.sourceButton:hover {
+  background-color: var(--accent-color);
 }
 
 .content p {

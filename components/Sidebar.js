@@ -26,6 +26,7 @@ export default function Sidebar() {
     { href: "/?category=Rescue", label: "구조" },
     { href: "/?category=News", label: "묘한 뉴스" },
     { href: "/?category=Class", label: "묘한 교실" },
+    { href: "/family", label: "묘한 식구들" },
     { href: "/friends", label: "친구들" },
     { href: "/about", label: "소개" },
   ];

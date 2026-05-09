@@ -24,11 +24,6 @@ export default function PostCard({ post }) {
   const fallbackImageUrl = getFallbackImage(post.category);
   const imageUrl = post.image || fallbackImageUrl;
   
-  const handleSourceClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    window.open(post.sourceUrl, '_blank');
-  };
 
   return (
     <Link href={`/posts/${post.id}`} style={{ textDecoration: 'none', display: 'block' }}>
@@ -44,30 +39,33 @@ export default function PostCard({ post }) {
               e.currentTarget.onerror = null; // Prevent infinite loop
             }}
           />
+          {post.tag && (
+            <div style={{
+              position: 'absolute',
+              top: '12px',
+              left: '12px',
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              padding: '4px 10px',
+              borderRadius: '20px',
+              fontSize: '0.8rem',
+              fontWeight: '700',
+              boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+              zIndex: 2
+            }}>
+              {post.tag}
+            </div>
+          )}
         </div>
         <div className="card-content">
-          {post.category && <span className="category">{post.category}</span>}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
+            {post.category && <span className="category">{post.category}</span>}
+            {post.readTime && <span style={{ fontSize: '0.75rem', color: '#999' }}>⏱️ {post.readTime}</span>}
+          </div>
           <h2 className="post-title">{post.title}</h2>
-          <p className="excerpt">{excerpt}</p>
+          <p className="excerpt">{post.summary || excerpt}</p>
           <div className="card-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
               {post.date && <time className="date" style={{ fontSize: '0.8rem', color: '#888' }}>{post.date}</time>}
-              {post.source && post.sourceUrl && (
-                <div 
-                  onClick={handleSourceClick} 
-                  style={{ 
-                    fontSize: '0.8rem', 
-                    color: 'var(--accent-color)', 
-                    cursor: 'pointer',
-                    fontWeight: 'bold',
-                    padding: '2px 6px',
-                    backgroundColor: 'rgba(45, 106, 79, 0.1)',
-                    borderRadius: '4px'
-                  }}
-                >
-                  출처: {post.source}
-                </div>
-              )}
             </div>
             <span className="read-more">Read Article</span>
           </div>

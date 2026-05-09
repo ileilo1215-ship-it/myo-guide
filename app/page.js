@@ -1,6 +1,8 @@
 export const dynamic = "force-dynamic";
 import { getSortedPostsData } from '@/lib/posts';
 import '@/app/hero-credit.css';
+import '@/app/hero-section.css';
+
 import Banner from '@/components/Banner';
 import PostCard from '@/components/PostCard';
 import Image from 'next/image';
@@ -64,7 +66,7 @@ export default async function Home({ searchParams }) {
       allPostsData = allPostsData.filter(post => ['Street Life', 'Rights'].includes(post.category));
     } else if (categoryParam === 'News') {
       bannerTitle = "묘한 뉴스";
-      bannerDesc = "출처가 분명한 동물권 및 공존 관련 최신 보도자료";
+      bannerDesc = "동물권 및 공존과 관련된 최신 소식을 전해드려요";
       allPostsData = allPostsData.filter(post => post.category === 'News');
     } else if (categoryParam === 'Class') {
       bannerTitle = "묘한 교실";
@@ -94,15 +96,46 @@ export default async function Home({ searchParams }) {
   let authorName = null;
 
   if (heroImages.length > 0) {
+    const catImages = heroImages.filter(f => f.toLowerCase().includes('cat'));
+    const otherImages = heroImages.filter(f => !f.toLowerCase().includes('cat'));
+
     // Use today's date in KST (UTC+9) for consistent daily rotation in Korea
     const now = new Date();
     const kstOffset = 9 * 60 * 60 * 1000;
     const kstNow = new Date(now.getTime() + kstOffset);
+    
+    // getUTCDay() returns 0 for Sunday, 1 for Monday, etc.
+    // We'll use this to alternate categories.
+    const dayOfWeek = kstNow.getUTCDay();
     const epochDay = Math.floor(kstNow.getTime() / 86400000);
-    const index = epochDay % heroImages.length;
-    const filename = heroImages[index];
-    heroImageSrc = `/hero/${filename}`;
-    authorName = extractAuthorName(filename);
+    
+    let selectedImage;
+    // Monday(1), Wednesday(3), Friday(5), Sunday(0) -> Cats (Every other day starting from Mon)
+    // Tuesday(2), Thursday(4), Saturday(6) -> Others
+    // Actually, dayOfWeek % 2 === 1 is Mon, Wed, Fri. Let's make it more regular.
+    // Let's use Sun, Tue, Thu, Sat for Cats (0, 2, 4, 6) and Mon, Wed, Fri for Others (1, 3, 5)
+    if (dayOfWeek % 2 === 0) {
+      // Cat Days: Sun, Tue, Thu, Sat
+      if (catImages.length > 0) {
+        const index = epochDay % catImages.length;
+        selectedImage = catImages[index];
+      } else {
+        selectedImage = heroImages[epochDay % heroImages.length];
+      }
+    } else {
+      // Other Animal Days: Mon, Wed, Fri
+      if (otherImages.length > 0) {
+        const index = epochDay % otherImages.length;
+        selectedImage = otherImages[index];
+      } else {
+        selectedImage = heroImages[epochDay % heroImages.length];
+      }
+    }
+
+    if (selectedImage) {
+      heroImageSrc = `/hero/${selectedImage}`;
+      authorName = extractAuthorName(selectedImage);
+    }
   }
 
   // Get Latest News Post
@@ -111,16 +144,24 @@ export default async function Home({ searchParams }) {
 
   // Home Page Hero Section
   return (
-    <main style={{ position: 'relative', width: '100%', height: '100svh', overflow: 'hidden', backgroundColor: 'var(--bg-color)' }}>
+    <main className="hero-container">
       {heroImageSrc && (
-        <Image 
-          src={heroImageSrc} 
-          alt={authorName ? `Photo by ${authorName}` : 'Daily Animal Hero'} 
-          fill 
-          style={{ objectFit: 'cover' }}
-          priority
-        />
+        <>
+          {/* Main Hero Image */}
+          <div className="hero-main-layer">
+            <Image 
+              src={heroImageSrc} 
+              alt={authorName ? `Photo by ${authorName}` : 'Daily Animal Hero'} 
+              fill 
+              className="hero-main-image"
+              priority
+            />
+          </div>
+          {/* Subtle Overlay for Readability */}
+          <div className="hero-overlay"></div>
+        </>
       )}
+
 
       {/* Latest News Overlay — bottom left */}
       {latestNews && (
@@ -133,7 +174,8 @@ export default async function Home({ searchParams }) {
           maxWidth: '800px',
           padding: '2rem',
           background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%)',
-          borderRadius: '8px'
+          borderRadius: '8px',
+          zIndex: 5
         }}>
           <h2 style={{ fontSize: 'clamp(1rem, 3vw, 1.4rem)', fontWeight: '500', marginBottom: '1rem', letterSpacing: '0', opacity: 0.9 }}>
             모든 생명이 존중받는 세상을 위해
@@ -156,8 +198,8 @@ export default async function Home({ searchParams }) {
             <h1 style={{ fontSize: 'clamp(1.3rem, 4vw, 2rem)', fontWeight: '700', marginBottom: '1rem', letterSpacing: '-1px', lineHeight: '1.3' }}>
               {latestNews.title}
             </h1>
-            <p style={{ fontSize: '0.8rem', fontWeight: '300', opacity: 0.9 }}>
-              {latestNews.content ? latestNews.content.substring(0, 100) + '...' : ''}
+            <p style={{ fontSize: '0.95rem', fontWeight: '300', opacity: 0.9, lineHeight: '1.6', wordBreak: 'keep-all' }}>
+              {latestNews.summary || latestNews.hook || (latestNews.content ? latestNews.content.substring(0, 100) + '...' : '')}
             </p>
             <div style={{ marginTop: '2rem', fontWeight: '700', textTransform: 'uppercase', fontSize: '0.9rem', letterSpacing: '1px', display: 'inline-block', borderBottom: '2px solid white', paddingBottom: '4px' }}>
               뉴스 보러가기 ➔
