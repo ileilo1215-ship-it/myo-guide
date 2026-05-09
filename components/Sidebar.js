@@ -94,6 +94,7 @@ export default function Sidebar() {
         </div>
 
         <div className="overlay-content">
+          {/* Debug: Mobile Menu V2.1 */}
           <Link href="/" onClick={() => setIsOpen(false)} className="overlay-logo-link">
             <Image
               src="/logo-green-v2.png"
@@ -103,6 +104,7 @@ export default function Sidebar() {
               className="overlay-logo"
               style={{ objectFit: "contain" }}
               priority
+              unoptimized
             />
           </Link>
           
