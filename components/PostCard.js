@@ -61,7 +61,7 @@ export default function PostCard({ post }) {
                     cursor: 'pointer',
                     fontWeight: 'bold',
                     padding: '2px 6px',
-                    backgroundColor: 'rgba(215, 114, 44, 0.1)',
+                    backgroundColor: 'rgba(45, 106, 79, 0.1)',
                     borderRadius: '4px'
                   }}
                 >

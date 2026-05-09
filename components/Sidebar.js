@@ -36,7 +36,7 @@ export default function Sidebar() {
       <aside className="desktop-sidebar">
         <Link href="/" className="sidebar-logo-link">
           <Image
-            src="/logo-v3-compressed-fixed.png"
+            src="/logo-green-v2.png"
             alt="Myo Guide Logo"
             width={180}
             height={110}
@@ -59,7 +59,7 @@ export default function Sidebar() {
       <header className="mobile-header">
         <Link href="/" className="mobile-logo-link">
           <Image
-            src="/logo-v3-compressed-fixed.png"
+            src="/logo-green-v2.png"
             alt="Myo Guide Logo"
             width={240}
             height={148}
@@ -76,9 +76,14 @@ export default function Sidebar() {
         </button>
       </header>
 
-      {/* ── MOBILE FULL-SCREEN OVERLAY MENU ── */}
-      {isOpen && (
-        <div className="mobile-menu-overlay" role="dialog" aria-modal="true">
+      {/* ── MOBILE OVERLAY MENU (Slide-in from right) ── */}
+      <div 
+        className={`mobile-overlay-backdrop ${isOpen ? "is-open" : ""}`} 
+        onClick={() => setIsOpen(false)} 
+      />
+      
+      <div className={`mobile-menu-overlay ${isOpen ? "is-open" : ""}`} role="dialog" aria-modal="true">
+        <div className="mobile-overlay-header">
           <button
             className="overlay-close-btn"
             onClick={() => setIsOpen(false)}
@@ -86,19 +91,22 @@ export default function Sidebar() {
           >
             ✕
           </button>
+        </div>
+
+        <div className="overlay-content">
           <Link href="/" onClick={() => setIsOpen(false)} className="overlay-logo-link">
             <Image
-              src="/logo-v3-compressed-fixed.png"
+              src="/logo-green-v2.png"
               alt="Myo Guide Logo"
-              width={600}
-              height={400}
+              width={140}
+              height={86}
               className="overlay-logo"
-              style={{ objectFit: "contain", width: "100%", height: "auto", marginBottom: "1.5rem" }}
+              style={{ objectFit: "contain" }}
               priority
-              unoptimized
             />
           </Link>
-          <nav>
+          
+          <nav style={{ width: "100%" }}>
             <ul className="overlay-nav-links">
               {navLinks.map((item) => (
                 <li key={item.href}>
@@ -110,15 +118,7 @@ export default function Sidebar() {
             </ul>
           </nav>
         </div>
-      )}
-
-      {/* Dimmed backdrop */}
-      {isOpen && (
-        <div
-          className="mobile-overlay-backdrop"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
+      </div>
     </>
   );
 }

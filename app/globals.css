@@ -4,8 +4,8 @@
   --bg-color: #F8F5F0;
   --text-primary: #2C2C2A;
   --text-secondary: #555555;
-  --accent-color: #2D5016;
-  --accent-sub: #C4622D;
+  --accent-color: #52B788;
+  --accent-sub: #2D6A4F;
   --card-bg: #FFFFFF;
   --banner-bg: #F8F5F0; /* Matching global bg as requested */
   --border-color: #E2DDD5;
@@ -83,66 +83,88 @@ h1, h2, h3 {
 }
 
 /* ================================================
-   MOBILE OVERLAY MENU (initially hidden via JS)
+   MOBILE OVERLAY MENU (Slide-in from right)
    ================================================ */
 .mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 80%;
+  max-width: 400px;
+  background-color: var(--bg-color);
+  z-index: 1000;
+  padding: 0; /* Reset padding to handle inner layout */
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  position: fixed;
-  inset: 0;
-  background-color: var(--bg-color);
-  z-index: 500;
-  padding: 3rem 1rem 2rem; /* Reduced top padding further */
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-y: auto;
+}
+
+.mobile-menu-overlay.is-open {
+  transform: translateX(0);
+}
+
+.mobile-overlay-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+.overlay-close-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--text-primary);
+  padding: 0.5rem;
+  line-height: 1;
+}
+
+.overlay-content {
+  padding: 0 2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Left aligned as requested */
 }
 
 .overlay-logo-link {
   display: block;
   width: 100%;
-  max-width: 600px;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  text-align: left;
 }
 
 .overlay-logo {
-  width: 45vw !important;
-  max-width: 300px !important;
+  width: 140px !important;
   height: auto !important;
-  transition: transform 0.3s ease;
-}
-
-.overlay-close-btn {
-  position: fixed; /* Changed to fixed to stay at top-right even if scrolling */
-  top: 1.2rem;
-  right: 1.2rem;
-  background: none;
-  border: none;
-  font-size: 2rem; /* Slightly larger close icon */
-  cursor: pointer;
-  color: var(--text-primary);
-  padding: 0.5rem;
-  line-height: 1;
-  z-index: 600;
 }
 
 .overlay-nav-links {
   list-style: none;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1.2rem;
+  align-items: flex-start; /* Left aligned as requested */
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.overlay-nav-links li {
+  width: 100%;
 }
 
 .overlay-nav-links a {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
   text-decoration: none;
   transition: color 0.2s ease;
+  display: block;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05); /* Subtle separator like the image */
 }
 
 .overlay-nav-links a:hover {
@@ -150,7 +172,18 @@ h1, h2, h3 {
 }
 
 .mobile-overlay-backdrop {
-  display: none; /* backdrop used by JS toggle, rendered only when isOpen */
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4); /* Opacity as requested */
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mobile-overlay-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* ================================================

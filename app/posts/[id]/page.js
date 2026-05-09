@@ -26,7 +26,7 @@ export default async function Post({ params }) {
           <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'space-between', color: '#888', fontSize: '0.9rem' }}>
             <span>{postData.date}</span>
             {postData.source && postData.sourceUrl && (
-              <a href={postData.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-color)', fontWeight: 'bold', textDecoration: 'none', backgroundColor: 'rgba(215, 114, 44, 0.1)', padding: '4px 8px', borderRadius: '4px' }}>
+              <a href={postData.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-color)', fontWeight: 'bold', textDecoration: 'none', backgroundColor: 'rgba(45, 106, 79, 0.1)', padding: '4px 8px', borderRadius: '4px' }}>
                 출처: {postData.source} ➔
               </a>
             )}
