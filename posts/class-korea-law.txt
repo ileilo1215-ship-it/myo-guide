@@ -2,7 +2,7 @@
 title: "알기 쉬운 한국의 동물보호법"
 date: "2024-05-15"
 category: "Class"
-image: "https://images.unsplash.com/photo-1511044568932-338cba0ad803?q=80&w=800&auto=format&fit=crop"
+image: "/cat/marko-blazevic-zBvVuRJ71vU-unsplash.jpg"
 ---
 
 ### 📜 동물보호법이란?

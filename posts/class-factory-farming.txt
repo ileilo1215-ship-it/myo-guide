@@ -2,7 +2,7 @@
 title: "공장식 축산이란 무엇일까?"
 date: "2024-05-10"
 category: "Class"
-image: "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?q=80&w=800&auto=format&fit=crop"
+image: "/cat/oleksandr-dorokhov-9EEmky5Qwko-unsplash.jpg"
 ---
 
 ### 🐄 왜 고기를 많이 먹게 되었을까?

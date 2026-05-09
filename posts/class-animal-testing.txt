@@ -2,7 +2,7 @@
 title: "실험동물은 어떻게 보호받나?"
 date: "2024-05-12"
 category: "Class"
-image: "https://images.unsplash.com/photo-1529778456209-41712a201b1c?q=80&w=800&auto=format&fit=crop"
+image: "/cat/nihal-karkala--vcg9-w_yMk-unsplash.jpg"
 ---
 
 ### 🐰 실험실의 동물들
