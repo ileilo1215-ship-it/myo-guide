@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Sidebar from "@/components/Sidebar";
 import ScrollToTop from "@/components/ScrollToTop";
 import "./globals.css";
@@ -11,7 +12,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko">
       <body>
-        <Sidebar />
+        <Suspense fallback={null}>
+          <Sidebar />
+        </Suspense>
         <div className="main-content">
           {children}
         </div>
