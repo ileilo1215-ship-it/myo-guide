@@ -1,0 +1,138 @@
+.pageContainer {
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.a4Page {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 20mm;
+  background: white;
+  background-image: radial-gradient(#2D6A4F 0.5px, transparent 0.5px);
+  background-size: 20px 20px;
+  background-attachment: local;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 2px solid #2D6A4F;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+}
+
+.headerLeft {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.characterBadge {
+  font-size: 2.5rem;
+  background: #f0f7f4;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid #2D6A4F;
+}
+
+.siteTitle {
+  font-size: 0.9rem;
+  color: #2D6A4F;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #1a202c;
+  margin: 0;
+}
+
+.headerRight {
+  text-align: right;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #718096;
+  font-weight: 500;
+}
+
+.pageNumber {
+  font-size: 0.8rem;
+  color: #a0aec0;
+  margin-top: 5px;
+}
+
+.mainContent {
+  flex: 1;
+}
+
+.footer {
+  margin-top: 30px;
+}
+
+.footerLine {
+  height: 1px;
+  background: #e2e8f0;
+  margin-bottom: 10px;
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #a0aec0;
+}
+
+.printButton {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #2D6A4F;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  transition: transform 0.2s;
+}
+
+.printButton:hover {
+  transform: translateY(-2px);
+}
+
+@media print {
+  .pageContainer {
+    background: none;
+    padding: 0;
+  }
+  .a4Page {
+    width: 210mm;
+    height: 297mm;
+    box-shadow: none;
+    padding: 15mm; /* Standard print margins */
+  }
+  .printButton {
+    display: none;
+  }
+}

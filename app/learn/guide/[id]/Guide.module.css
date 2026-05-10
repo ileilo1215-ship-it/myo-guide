@@ -1,0 +1,139 @@
+.container {
+  padding-top: 10px;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #2D6A4F;
+  margin-bottom: 15px;
+  border-left: 5px solid #2D6A4F;
+  padding-left: 12px;
+}
+
+.objectivesList {
+  background: #f0f7f4;
+  padding: 20px 20px 20px 40px;
+  border-radius: 12px;
+  list-style-type: decimal;
+}
+
+.objectivesList li {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 35px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #e2e8f0;
+}
+
+.timelineItem {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  position: relative;
+}
+
+.timeBadge {
+  background: #2D6A4F;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  min-width: 50px;
+  text-align: center;
+  z-index: 1;
+}
+
+.stepContent {
+  flex: 1;
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 12px 20px;
+  border-radius: 8px;
+}
+
+.stepName {
+  font-weight: 800;
+  color: #2D6A4F;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.stepActivity {
+  font-size: 1rem;
+  color: #4a5568;
+}
+
+.twoColumn {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 30px;
+}
+
+.legalTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.legalTable th {
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  padding: 10px;
+  text-align: left;
+  color: #2D6A4F;
+}
+
+.legalTable td {
+  border: 1px solid #e2e8f0;
+  padding: 10px;
+  line-height: 1.5;
+}
+
+.tableLabel {
+  font-weight: 700;
+  background: #fdfdfd;
+  width: 100px;
+}
+
+.tipsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tipBox {
+  background: #fffaf0;
+  border: 1px solid #feebc8;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  gap: 10px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.tipIcon {
+  font-size: 1.2rem;
+}

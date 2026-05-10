@@ -28,20 +28,30 @@ export default async function Post({ params }) {
 
     const PdfButtons = () => (
       <div className={styles.pdfButtonGroup}>
-        <a 
-          href={hasStudentPdf ? postData.pdfStudent : '#'} 
-          className={`${styles.pdfButton} ${!hasStudentPdf ? styles.pdfButtonDisabled : ''}`}
-          download={hasStudentPdf}
-        >
-          {hasStudentPdf ? '📥 학생용 활동지 내려받기' : '📥 학생용 활동지 (준비 중)'}
-        </a>
-        <a 
-          href={hasTeacherPdf ? postData.pdfTeacher : '#'} 
-          className={`${styles.pdfButton} ${!hasTeacherPdf ? styles.pdfButtonDisabled : ''}`}
-          download={hasTeacherPdf}
-        >
-          {hasTeacherPdf ? '📥 교사용 수업 가이드 내려받기' : '📥 교사용 수업 가이드 (준비 중)'}
-        </a>
+        <div className={styles.pdfButtonWrapper}>
+          <a 
+            href={`/learn/worksheet/${decodedId}`} 
+            className={styles.pdfButton}
+            target="_blank"
+          >
+            📥 학생용 활동지 (PDF/인쇄)
+          </a>
+          <div className={styles.pdfThumbnail}>
+            <img src="/previews/worksheet-thumb.png" alt="활동지 미리보기" />
+          </div>
+        </div>
+        <div className={styles.pdfButtonWrapper}>
+          <a 
+            href={`/learn/guide/${decodedId}`} 
+            className={styles.pdfButton}
+            target="_blank"
+          >
+            📋 교사용 가이드 (PDF/인쇄)
+          </a>
+          <div className={styles.pdfThumbnail}>
+            <img src="/previews/guide-thumb.png" alt="가이드 미리보기" />
+          </div>
+        </div>
       </div>
     );
 

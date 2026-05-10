@@ -278,7 +278,54 @@
 
 .pdfButtonGroup {
   display: flex;
-  gap: 0.5rem;
+  gap: 1.5rem;
+}
+
+.pdfButtonWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.pdfThumbnail {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  width: 180px;
+  background: white;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+  border: 1px solid var(--border-color);
+}
+
+.pdfThumbnail::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+}
+
+.pdfThumbnail img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  display: block;
+}
+
+.pdfButtonWrapper:hover .pdfThumbnail {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
 }
 
 .pdfButton {
