@@ -88,8 +88,8 @@ export default async function Home({ searchParams }) {
   // ── Home Page Multi-Section ──────────────────────────────────────
   
   // 1. Data Prep
-  let heroImageSrc = '/hero/wolf-hero.png';
-  let authorName = 'Majestic Wolf';
+  let heroImageSrc = '/cat/lily-banse-bZT3YDRjacc-unsplash.png';
+  let authorName = 'Lily Banse';
 
   const newsPosts = allPostsData.filter(post => post.category === 'News');
   const latestNews = newsPosts.length > 0 ? newsPosts[0] : null;

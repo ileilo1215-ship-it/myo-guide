@@ -119,7 +119,11 @@ export default async function CarePage({ searchParams }) {
       <section className="posts-container">
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => (
-            <PostCard key={post.id} post={post} />
+            <PostCard 
+              key={post.id} 
+              post={post} 
+              objectPosition={post.id === 'rescue-tnr-guide' ? 'center 25%' : 'center 20%'}
+            />
           ))
         ) : (
           <p style={{ textAlign: 'center', gridColumn: '1 / -1', padding: '5rem 0', color: 'var(--text-secondary)', fontSize: '1.1rem' }}>

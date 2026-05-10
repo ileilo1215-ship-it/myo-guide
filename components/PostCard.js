@@ -35,7 +35,7 @@ const categoryImages = {
   Play: "/cat/joyful-kvUTrJdsYg8-unsplash.jpg",
   News: "/cat/katya-guseva0-cat-2605502_1920.jpg",
   Class: "/cat/milada-vigerova-aR-eWYIEaOQ-unsplash.jpg",
-  'Street Life': "/cat/marko-blazevic-zBvVuRJ71vU-unsplash.jpg",
+  'Street Life': "/cat/lily-banse-bZT3YDRjacc-unsplash.png",
   Rights: "/cat/raquel-pedrotti-AHgpNYkX9dc-unsplash.jpg",
 };
 
@@ -72,7 +72,10 @@ export default function PostCard({ post, objectPosition = 'center 20%' }) {
             src={imageUrl} 
             alt="Post thumbnail" 
             className="card-image"
-            style={{ objectPosition: objectPosition }}
+            style={{ 
+              objectPosition: objectPosition,
+              '--image-scale': post.id === 'rescue-tnr-guide' ? '1.25' : '1'
+            }}
             loading="lazy"
             onError={(e) => {
               e.currentTarget.src = fallbackImageUrl;

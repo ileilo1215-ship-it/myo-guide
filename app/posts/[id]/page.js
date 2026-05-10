@@ -104,6 +104,10 @@ export default async function Post({ params }) {
             alt={postData.title} 
             className={styles.image} 
             category={postData.category}
+            style={decodedId === 'rescue-tnr-guide' ? { 
+              objectPosition: 'center 25%',
+              transform: 'scale(1.2)',
+            } : {}}
           />
         </div>
       )}

@@ -2,7 +2,7 @@
 title: "길고양이 TNR, 어떻게 신청하나요?"
 date: "2026-05-10"
 category: "🚨 구조"
-image: "/cat/marko-blazevic-zBvVuRJ71vU-unsplash.jpg"
+image: "/cat/lily-banse-bZT3YDRjacc-unsplash.png"
 hook: "TNR은 길고양이와 사람이 함께 살아가는 가장 현실적인 방법이에요."
 ---
 

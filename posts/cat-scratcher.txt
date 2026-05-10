@@ -2,7 +2,7 @@
 title: "고양이 스크래쳐, 왜 필요할까?"
 date: "2026-04-24"
 category: "Environment"
-image: "/cat/congerdesign-kittens-3535404_1920.jpg"
+image: "/cat/victor-serban-L1MD3L6Q-eM-unsplash.jpg"
 excerpt: "소파를 지키고 고양이 스트레스도 푸는 필수템"
 ---
 

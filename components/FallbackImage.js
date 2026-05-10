@@ -11,7 +11,7 @@ const categoryImages = {
   Play: "https://images.unsplash.com/photo-1511044568932-338cba0ad803?q=80&w=800&auto=format&fit=crop",
   News: "https://images.unsplash.com/photo-1598439210625-5067c578f3f6?q=80&w=800&auto=format&fit=crop",
   Class: "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?q=80&w=800&auto=format&fit=crop",
-  'Street Life': "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop",
+  'Street Life': "/cat/lily-banse-bZT3YDRjacc-unsplash.png",
   Rights: "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?q=80&w=800&auto=format&fit=crop",
 };
 
@@ -19,7 +19,7 @@ const getFallbackImage = (category) => {
   return categoryImages[category] || '/placeholder.png';
 };
 
-export default function FallbackImage({ src, alt, className, category }) {
+export default function FallbackImage({ src, alt, className, category, style }) {
   const defaultImage = getFallbackImage(category);
   const [imgSrc, setImgSrc] = useState(src || defaultImage);
 
@@ -28,6 +28,7 @@ export default function FallbackImage({ src, alt, className, category }) {
       src={imgSrc} 
       alt={alt} 
       className={className}
+      style={style}
       onError={() => {
         if (imgSrc !== defaultImage) {
           setImgSrc(defaultImage);
