@@ -1,0 +1,28 @@
+---
+title: "립스틱 하나를 위해 토끼가 희생됩니다 — EU가 드디어 움직였어요"
+date: "2024-05-02"
+category: "News"
+tag: "⚖️ 법·정책"
+hook: "내가 바르는 립스틱이 동물실험을 거쳤을 수도 있다는 걸 알고 계셨나요?"
+summary: "EU가 화장품 동물실험을 단계적으로 완전 철폐하는 로드맵을 추진 중이에요. 2022년부터 동물실험 화장품 판매가 전면 금지됐지만, 화학물질 안전성 평가에선 여전히 예외가 남아있어요."
+editorNote: "크루얼티 프리(cruelty-free) 마크를 찾아본 적 있으신가요? EU에서는 이미 법으로 금지되어 있어서 오히려 그 표시가 불법이에요. 다 금지됐으니까요. 근데 아직 완전하지 않다는 게 이 기사의 핵심이에요."
+source: "유럽 집행위원회, Humane Society International"
+sourceUrl: "https://single-market-economy.ec.europa.eu/sectors/cosmetics/ban-animal-testing_en"
+readTime: "약 4분"
+image: "/hero/rabbit-news.png"
+---
+
+### 🐰 무슨 일이 있었나요?
+EU는 2004년부터 완성된 화장품의 동물실험을 금지하기 시작했고, 2009년에는 성분 실험까지 금지 범위를 넓혔어요. 2022년 4월부터는 동물실험을 거친 화장품의 판매 자체가 전면 금지됐습니다.
+
+### ⚠️ 그런데 아직 끝나지 않았어요
+문제는 화장품 성분이 REACH(화학물질 규정)에도 적용될 경우예요. 이 규정에서는 안전성 평가를 위해 여전히 동물실험이 허용될 수 있어요. EU와 영국 모두 이 틈새를 메우는 작업을 진행 중이에요.
+
+### 🗺️ EU의 다음 계획은?
+유럽 시민 발의(ECI) "크루얼티 프리 화장품을 지켜주세요"에 응답해, 유럽 집행위원회는 동물실험을 단계적으로 완전 철폐하는 로드맵을 2026년 초 발표할 계획이에요.
+
+### 💬 같이 생각해봐요
+한국은 어떨까요? 국내 화장품 동물실험 현황도 한번 찾아보면 좋겠어요.
+
+[ 유럽 집행위원회 공식 발표 보기 → ](https://single-market-economy.ec.europa.eu/sectors/cosmetics/ban-animal-testing_en)
+[ HSI 동물실험 철폐 캠페인 → ](https://www.humaneworld.org/en/blog/breaking-european-parliament-votes)
