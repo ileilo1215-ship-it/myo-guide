@@ -22,8 +22,7 @@ export default function Sidebar() {
 
   const navLinks = [
     { href: "/", label: "홈" },
-    { href: "/?category=Cat Care", label: "케어" },
-    { href: "/?category=Rescue", label: "구조" },
+    { href: "/care", label: "돌봄" },
     { href: "/?category=News", label: "묘한 뉴스" },
     { href: "/?category=Class", label: "묘한 교실" },
     { href: "/family", label: "묘한 식구들" },

@@ -2,7 +2,7 @@
 title: "우리 고양이 털 관리 완벽 가이드"
 date: "2026-05-01"
 category: "Grooming"
-image: "/cat/anton-ponomarenko-j7uVTlpwI0o-unsplash.jpg"
+image: "/cat/adinavoicu-cat-3336579_1920.jpg"
 excerpt: "헤어볼 예방과 윤기 나는 털을 위한 빗질 노하우"
 ---
 
