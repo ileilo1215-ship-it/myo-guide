@@ -62,7 +62,7 @@ export default async function Home({ searchParams }) {
       filteredPosts = allPostsData.filter(post => ['Street Life', 'Rights'].includes(post.category));
     } else if (categoryParam === 'News') {
       bannerTitle = "묘한 뉴스";
-      bannerDesc = "동물권 및 공존과 관련된 최신 소식을 전해드려요";
+      bannerDesc = "동물권 및 공존과 관련된 의미 있는 소식을 전해드려요";
       filteredPosts = allPostsData.filter(post => post.category === 'News');
     } else if (categoryParam === 'Class') {
       bannerTitle = "묘한 교실";
@@ -235,7 +235,7 @@ export default async function Home({ searchParams }) {
         <div className="section-container">
           <div className="section-header">
             <h2 className="section-title">묘한 뉴스</h2>
-            <p className="section-subtitle">동물권 및 공존과 관련된 최신 소식을 전해드려요</p>
+            <p className="section-subtitle">동물권 및 공존과 관련된 의미 있는 소식을 전해드려요</p>
           </div>
           <div className="section-grid cols-2">
             {latestTwoNews.map(post => {
