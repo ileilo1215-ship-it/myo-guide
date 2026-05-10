@@ -59,6 +59,9 @@ export default async function CarePage({ searchParams }) {
           display: flex;
           justify-content: center;
           gap: 16px;
+          background: transparent;
+          border: none;
+          box-shadow: none;
         }
         .filter-btn {
           padding: 10px 24px;

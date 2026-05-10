@@ -11,7 +11,7 @@ export default function FriendsPage() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.title}>Friends</h1>
+        <h1 className={styles.title}>친구들</h1>
         <p className={styles.subtitle}>우리가 알아야 할, 생명을 살리는 멋진 단체와 매체들</p>
       </div>
 

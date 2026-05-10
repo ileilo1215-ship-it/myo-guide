@@ -325,7 +325,7 @@ h1, h2, h3 {
 .banner-content h1 {
   font-size: 3.5rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--accent-sub);
   margin-bottom: 1rem;
   letter-spacing: -1px;
 }
@@ -499,7 +499,7 @@ h1, h2, h3 {
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: var(--text-primary);
+  color: var(--accent-sub);
 }
 
 .section-subtitle {

@@ -251,27 +251,13 @@ export default async function Home({ searchParams }) {
                         className="card-image"
                         style={{ objectPosition: 'center top' }}
                       />
-                      <div style={{
-                        position: 'absolute',
-                        top: '12px',
-                        left: '12px',
-                        backgroundColor: 'white',
-                        padding: '4px 10px',
-                        borderRadius: '20px',
-                        fontSize: '0.85rem',
-                        fontWeight: '700',
-                        boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-                        zIndex: 2
-                      }}>
-                        {emoji} {post.tag || '뉴스'}
-                      </div>
-                    </div>
                     <div className="card-content">
                       <h2 className="post-title" style={{ fontSize: '1.4rem' }}>{post.title}</h2>
                       <p className="excerpt" style={{ fontSize: '0.9rem', color: '#2D6A4F', fontWeight: '500', fontStyle: 'italic', marginBottom: '0.5rem' }}>
                         {post.hook}
                       </p>
-                      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 'auto', fontSize: '0.8rem', color: '#999' }}>
+                      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '1rem', marginTop: 'auto', fontSize: '0.8rem', color: '#999' }}>
+                        {post.date && <span>📅 {post.date}</span>}
                         <span>⏱️ {post.readTime || '3 min read'}</span>
                       </div>
                     </div>

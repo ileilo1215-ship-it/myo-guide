@@ -49,10 +49,6 @@
   display: flex;
   gap: 0.6rem;
   padding: 0.5rem;
-  background: white;
-  border-radius: 50px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--border-color);
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;

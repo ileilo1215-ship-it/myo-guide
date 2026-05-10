@@ -64,6 +64,26 @@ export default function PostCard({ post, objectPosition = 'center 20%' }) {
   const isRescue = ['Street Life', 'Rights', '🚨 구조'].includes(post.category);
   const isCare = ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play'].includes(post.category);
 
+  const isClass = post.category === 'Class';
+  const isNews = post.category === 'News';
+
+  const categoryMap = {
+    'Health': '건강',
+    'Grooming': '미용',
+    'Environment': '환경',
+    'Safety': '안전',
+    'Behavior': '행동',
+    'Play': '놀이',
+    'Class': '교실',
+    'News': '뉴스',
+    'Street Life': '길 위 생명',
+    'Rights': '동물권'
+  };
+
+  const translatedCategory = categoryMap[post.category] || post.category;
+  const hideCategoryLabel = isClass || isNews;
+  const hideReadMore = isCare || isRescue || isClass || isNews;
+
   return (
     <Link href={`/posts/${post.id}`} style={{ textDecoration: 'none', display: 'block' }}>
       <article className="post-card" style={isRescue ? { borderLeft: '4px solid #2D6A4F' } : {}}>
@@ -140,16 +160,16 @@ export default function PostCard({ post, objectPosition = 'center 20%' }) {
         </div>
         <div className="card-content">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
-            {post.category && <span className="category">{post.category}</span>}
+            {post.category && !hideCategoryLabel && <span className="category">{translatedCategory}</span>}
             {post.readTime && <span style={{ fontSize: '0.75rem', color: '#999' }}>⏱️ {post.readTime}</span>}
           </div>
           <h2 className="post-title">{post.title}</h2>
           <p className="excerpt">{post.summary || excerpt}</p>
-          <div className="card-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="card-footer" style={{ display: 'flex', justifyContent: isNews ? 'flex-end' : 'space-between', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-              {!isCare && !isRescue && post.date && <time className="date" style={{ fontSize: '0.8rem', color: '#888' }}>{post.date}</time>}
+              {!isCare && !isRescue && !isClass && post.date && <time className="date" style={{ fontSize: '0.8rem', color: '#888' }}>{post.date}</time>}
             </div>
-            <span className="read-more">Read Article</span>
+            {!hideReadMore && <span className="read-more">Read Article</span>}
           </div>
         </div>
       </article>
