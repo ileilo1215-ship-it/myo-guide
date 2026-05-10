@@ -76,8 +76,8 @@ export default function PostCard({ post, objectPosition = 'center 20%' }) {
     'Play': '놀이',
     'Class': '교실',
     'News': '뉴스',
-    'Street Life': '구조',
-    'Rights': '동물권'
+    'Street Life': '🚨 구조',
+    'Rights': '🚨 동물권'
   };
 
   const translatedCategory = categoryMap[post.category] || post.category;
