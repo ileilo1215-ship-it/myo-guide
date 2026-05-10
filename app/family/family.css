@@ -3,6 +3,29 @@
   padding-bottom: 5rem;
 }
 
+/* Actions Section removed from JSX */
+
+.submit-family-btn {
+  background: var(--accent-color) !important;
+  color: white !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 12px rgba(82, 183, 136, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.submit-family-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(82, 183, 136, 0.3);
+  filter: brightness(1.05);
+}
+
+.submit-family-btn:active {
+  transform: translateY(0);
+}
+
 /* Filter Buttons */
 .filter-wrapper {
   max-width: 1200px;
@@ -16,24 +39,30 @@
 
 .filter-buttons {
   display: flex;
-  gap: 0.8rem;
-  padding: 0.6rem;
+  gap: 0.6rem;
+  padding: 0.5rem;
   background: white;
   border-radius: 50px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   border: 1px solid var(--border-color);
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
 }
 
 .filter-btn {
-  padding: 0.6rem 1.5rem;
+  padding: 0.6rem 1.4rem;
   border-radius: 30px;
   text-decoration: none;
   color: var(--text-secondary);
   font-size: 0.95rem;
   font-weight: 500;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px; /* Fixed height for consistent thickness */
+  white-space: nowrap;
 }
 
 .filter-btn:hover {
@@ -45,6 +74,14 @@
   background: var(--accent-color);
   color: white;
   box-shadow: 0 4px 15px rgba(82, 183, 136, 0.3);
+}
+
+.submit-family-btn {
+  background: var(--accent-color) !important;
+  color: white !important;
+  font-weight: 700 !important;
+  border-radius: 30px !important;
+  padding: 0 1.6rem !important; /* Slightly more horizontal padding */
 }
 
 /* Family Grid */

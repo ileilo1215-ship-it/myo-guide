@@ -3,16 +3,17 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   // Close menu when route changes
   useEffect(() => {
     setIsOpen(false);
-  }, [pathname]);
+  }, [pathname, searchParams]);
 
   // Lock body scroll when overlay is open
   useEffect(() => {
@@ -20,12 +21,27 @@ export default function Sidebar() {
     return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
+  const handleLinkClick = (e, href) => {
+    // Construct current URL with search params
+    const currentQuery = searchParams.toString();
+    const currentFullHref = currentQuery ? `${pathname}?${currentQuery}` : pathname;
+    
+    // Normalize href for comparison (ensure it starts with /)
+    const normalizedHref = href.startsWith("/") ? href : `/${href}`;
+
+    if (currentFullHref === normalizedHref) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    setIsOpen(false);
+  };
+
   const navLinks = [
     { href: "/", label: "홈" },
     { href: "/care", label: "돌봄" },
     { href: "/?category=News", label: "묘한 뉴스" },
     { href: "/?category=Class", label: "묘한 교실" },
-    { href: "/family", label: "묘한 식구들" },
+    { href: "/family", label: "묘한 가족들" },
     { href: "/friends", label: "친구들" },
     { href: "/about", label: "소개" },
   ];
@@ -34,7 +50,7 @@ export default function Sidebar() {
     <>
       {/* ── DESKTOP SIDEBAR (hidden on mobile via CSS) ── */}
       <aside className="desktop-sidebar">
-        <Link href="/" className="sidebar-logo-link">
+        <Link href="/" className="sidebar-logo-link" onClick={(e) => handleLinkClick(e, "/")}>
           <Image
             src="/logo-green-v2.png"
             alt="Myo Guide Logo"
@@ -48,7 +64,9 @@ export default function Sidebar() {
           <ul className="nav-links">
             {navLinks.map((item) => (
               <li key={item.href}>
-                <Link href={item.href}>{item.label}</Link>
+                <Link href={item.href} onClick={(e) => handleLinkClick(e, item.href)}>
+                  {item.label}
+                </Link>
               </li>
             ))}
           </ul>
@@ -57,7 +75,7 @@ export default function Sidebar() {
 
       {/* ── MOBILE TOP BAR (hidden on desktop via CSS) ── */}
       <header className="mobile-header">
-        <Link href="/" className="mobile-logo-link">
+        <Link href="/" className="mobile-logo-link" onClick={(e) => handleLinkClick(e, "/")}>
           <Image
             src="/logo-green-v2.png"
             alt="Myo Guide Logo"
@@ -95,7 +113,7 @@ export default function Sidebar() {
 
         <div className="overlay-content">
           {/* Debug: Mobile Menu V2.1 */}
-          <Link href="/" onClick={() => setIsOpen(false)} className="overlay-logo-link">
+          <Link href="/" onClick={(e) => handleLinkClick(e, "/")} className="overlay-logo-link">
             <Image
               src="/logo-green-v2.png"
               alt="Myo Guide Logo"
@@ -112,7 +130,7 @@ export default function Sidebar() {
             <ul className="overlay-nav-links">
               {navLinks.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} onClick={() => setIsOpen(false)}>
+                  <Link href={item.href} onClick={(e) => handleLinkClick(e, item.href)}>
                     {item.label}
                   </Link>
                 </li>

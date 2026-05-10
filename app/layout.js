@@ -1,4 +1,5 @@
 import Sidebar from "@/components/Sidebar";
+import ScrollToTop from "@/components/ScrollToTop";
 import "./globals.css";
 
 export const metadata = {
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
         <div className="main-content">
           {children}
         </div>
+        <ScrollToTop />
       </body>
     </html>
   );

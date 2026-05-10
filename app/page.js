@@ -337,11 +337,11 @@ export default async function Home({ searchParams }) {
       {/* SECTION 7: FAMILY TEASER */}
       <section className="home-section bg-cream">
         <div className="section-container" style={{ textAlign: 'center' }}>
-          <h2 className="section-title">묘한 식구들</h2>
+          <h2 className="section-title">묘한 가족들</h2>
           <p className="section-subtitle" style={{ marginBottom: '2rem' }}>
-            고양이부터 도마뱀까지, 우리와 함께 사는 모든 식구들
+            고양이부터 도마뱀까지, 우리와 함께 사는 모든 가족들
           </p>
-          <Link href="/family" className="btn-primary">우리 식구 소개하기 →</Link>
+          <Link href="/family" className="btn-primary">우리 가족 소개하기 →</Link>
         </div>
       </section>
 

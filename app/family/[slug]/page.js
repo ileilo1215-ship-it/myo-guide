@@ -22,7 +22,7 @@ export default async function FamilyDetailsPage({ params }) {
     <main className="details-page">
       <div className="details-container">
         <Link href="/family" className="back-link">
-          ← 식구 목록으로 돌아가기
+          ← 가족 목록으로 돌아가기
         </Link>
 
         <div className="profile-header">

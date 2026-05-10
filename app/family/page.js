@@ -5,6 +5,7 @@ import Image from 'next/image';
 import fs from 'fs';
 import path from 'path';
 import './family.css';
+import { GOOGLE_FORM_URL } from '@/lib/constants';
 
 export const dynamic = 'force-dynamic';
 
@@ -22,10 +23,10 @@ export default async function FamilyPage({ searchParams }) {
   return (
     <main className="family-page">
       <Banner 
-        title="묘한 식구들" 
-        description="고양이부터 도마뱀까지, 우리와 함께 사는 모든 식구들을 소개합니다." 
+        title="묘한 가족들" 
+        description="고양이부터 도마뱀까지, 우리와 함께 사는 모든 가족들을 소개합니다." 
       />
-      
+
       <div className="filter-wrapper">
         <div className="filter-buttons">
           {types.map((type) => (
@@ -38,6 +39,14 @@ export default async function FamilyPage({ searchParams }) {
               {type}
             </Link>
           ))}
+          <a 
+            href={GOOGLE_FORM_URL} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="filter-btn submit-family-btn"
+          >
+            우리 가족 소개하기 🐾
+          </a>
         </div>
       </div>
 
@@ -77,7 +86,7 @@ export default async function FamilyPage({ searchParams }) {
           })
         ) : (
           <div className="no-results">
-            <p>아직 등록된 {filter} 식구가 없어요! 🐾</p>
+            <p>아직 등록된 {filter} 가족이 없어요! 🐾</p>
           </div>
         )}
       </section>
