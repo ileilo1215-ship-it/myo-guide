@@ -160,17 +160,22 @@ export default function PostCard({ post, objectPosition = 'center 20%' }) {
         </div>
         <div className="card-content">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
-            {post.category && !hideCategoryLabel && <span className="category">{translatedCategory}</span>}
-            {post.readTime && <span style={{ fontSize: '0.75rem', color: '#999' }}>⏱️ {post.readTime}</span>}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              {post.category && !hideCategoryLabel && <span className="category">{translatedCategory}</span>}
+              {post.readTime && <span style={{ fontSize: '0.75rem', color: '#999' }}>⏱️ {post.readTime}</span>}
+            </div>
+            {isNews && post.date && <time className="date" style={{ fontSize: '0.8rem', color: '#888' }}>{post.date}</time>}
           </div>
           <h2 className="post-title">{post.title}</h2>
           <p className="excerpt">{post.summary || excerpt}</p>
-          <div className="card-footer" style={{ display: 'flex', justifyContent: isNews ? 'flex-end' : 'space-between', alignItems: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-              {!isCare && !isRescue && !isClass && post.date && <time className="date" style={{ fontSize: '0.8rem', color: '#888' }}>{post.date}</time>}
+          {((!isCare && !isRescue && !isClass && !isNews && post.date) || !hideReadMore) && (
+            <div className="card-footer" style={{ display: 'flex', justifyContent: isNews ? 'flex-end' : 'space-between', alignItems: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                {!isCare && !isRescue && !isClass && !isNews && post.date && <time className="date" style={{ fontSize: '0.8rem', color: '#888' }}>{post.date}</time>}
+              </div>
+              {!hideReadMore && <span className="read-more">Read Article</span>}
             </div>
-            {!hideReadMore && <span className="read-more">Read Article</span>}
-          </div>
+          )}
         </div>
       </article>
     </Link>

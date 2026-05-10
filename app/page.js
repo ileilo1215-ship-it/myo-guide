@@ -253,14 +253,14 @@ export default async function Home({ searchParams }) {
                       />
                     </div>
                     <div className="card-content">
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem', fontSize: '0.8rem', color: '#999' }}>
+                        <span>⏱️ {post.readTime || '3 min read'}</span>
+                        {post.date && <span>{post.date}</span>}
+                      </div>
                       <h2 className="post-title" style={{ fontSize: '1.4rem' }}>{post.title}</h2>
                       <p className="excerpt" style={{ fontSize: '0.9rem', color: '#2D6A4F', fontWeight: '500', fontStyle: 'italic', marginBottom: '0.5rem' }}>
                         {post.hook}
                       </p>
-                      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '1rem', marginTop: 'auto', fontSize: '0.8rem', color: '#999' }}>
-                        {post.date && <span>📅 {post.date}</span>}
-                        <span>⏱️ {post.readTime || '3 min read'}</span>
-                      </div>
                     </div>
                   </div>
                 </Link>
