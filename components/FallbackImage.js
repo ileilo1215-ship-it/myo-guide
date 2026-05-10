@@ -11,7 +11,7 @@ const categoryImages = {
   Play: "https://images.unsplash.com/photo-1511044568932-338cba0ad803?q=80&w=800&auto=format&fit=crop",
   News: "https://images.unsplash.com/photo-1598439210625-5067c578f3f6?q=80&w=800&auto=format&fit=crop",
   Class: "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?q=80&w=800&auto=format&fit=crop",
-  'Street Life': "/cat/lily-banse-bZT3YDRjacc-unsplash.png",
+  'Street Life': "/cat/lily-banse-bZT3YDRjacc-unsplash.jpg",
   Rights: "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?q=80&w=800&auto=format&fit=crop",
 };
 

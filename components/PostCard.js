@@ -35,7 +35,7 @@ const categoryImages = {
   Play: "/cat/joyful-kvUTrJdsYg8-unsplash.jpg",
   News: "/cat/katya-guseva0-cat-2605502_1920.jpg",
   Class: "/cat/milada-vigerova-aR-eWYIEaOQ-unsplash.jpg",
-  'Street Life': "/cat/lily-banse-bZT3YDRjacc-unsplash.png",
+  'Street Life': "/cat/lily-banse-bZT3YDRjacc-unsplash.jpg",
   Rights: "/cat/raquel-pedrotti-AHgpNYkX9dc-unsplash.jpg",
 };
 
