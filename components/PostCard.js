@@ -56,7 +56,7 @@ const getFallbackImage = (category, id) => {
   return getDeterministicImage(id);
 };
 
-export default function PostCard({ post }) {
+export default function PostCard({ post, objectPosition = 'center 20%' }) {
   const excerpt = post.content ? post.content.substring(0, 100) + '...' : '';
   const fallbackImageUrl = getFallbackImage(post.category, post.id);
   const imageUrl = post.image || fallbackImageUrl;
@@ -72,7 +72,7 @@ export default function PostCard({ post }) {
             src={imageUrl} 
             alt="Post thumbnail" 
             className="card-image"
-            style={{ objectPosition: 'center 20%' }}
+            style={{ objectPosition: objectPosition }}
             loading="lazy"
             onError={(e) => {
               e.currentTarget.src = fallbackImageUrl;
