@@ -251,6 +251,7 @@ export default async function Home({ searchParams }) {
                         className="card-image"
                         style={{ objectPosition: 'center top' }}
                       />
+                    </div>
                     <div className="card-content">
                       <h2 className="post-title" style={{ fontSize: '1.4rem' }}>{post.title}</h2>
                       <p className="excerpt" style={{ fontSize: '0.9rem', color: '#2D6A4F', fontWeight: '500', fontStyle: 'italic', marginBottom: '0.5rem' }}>
