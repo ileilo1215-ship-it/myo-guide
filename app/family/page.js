@@ -39,15 +39,15 @@ export default async function FamilyPage({ searchParams }) {
               {type}
             </Link>
           ))}
-          <a 
-            href={GOOGLE_FORM_URL} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="filter-btn submit-family-btn"
-          >
-            우리 가족 소개하기 🐾
-          </a>
         </div>
+        <a 
+          href={GOOGLE_FORM_URL} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="submit-family-btn"
+        >
+          우리 가족 소개하기 🐾
+        </a>
       </div>
 
       <section className="family-grid">

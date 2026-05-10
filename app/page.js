@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import { getSortedPostsData } from '@/lib/posts';
 import { friendsList } from '@/lib/friends';
+import { GOOGLE_FORM_URL } from '@/lib/constants';
 import '@/app/hero-credit.css';
 import '@/app/hero-section.css';
 
@@ -341,7 +342,18 @@ export default async function Home({ searchParams }) {
           <p className="section-subtitle" style={{ marginBottom: '2rem' }}>
             고양이부터 도마뱀까지, 우리와 함께 사는 모든 가족들
           </p>
-          <Link href="/family" className="btn-primary">우리 가족 소개하기 →</Link>
+          <div className="btn-group" style={{ justifyContent: 'center' }}>
+            <Link href="/family" className="btn-primary">묘한 가족들 만나기 →</Link>
+            <a 
+              href={GOOGLE_FORM_URL} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn-primary" 
+              style={{ backgroundColor: 'transparent', color: 'var(--accent-sub)', border: '2px solid var(--accent-sub)' }}
+            >
+              우리 가족 소개하기 →
+            </a>
+          </div>
         </div>
       </section>
 

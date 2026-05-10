@@ -9,16 +9,22 @@
   background: var(--accent-color) !important;
   color: white !important;
   font-weight: 700 !important;
-  box-shadow: 0 4px 12px rgba(82, 183, 136, 0.2);
+  height: 58px; /* Matching thickness of .filter-buttons (40px + 0.5rem*2 + 2px border) */
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-left: 0.5rem;
+  justify-content: center;
+  padding: 0 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
 }
 
 .submit-family-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(82, 183, 136, 0.3);
+  box-shadow: 0 15px 35px rgba(82, 183, 136, 0.2);
   filter: brightness(1.05);
 }
 
@@ -33,6 +39,8 @@
   padding: 0 2rem;
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 1rem;
   position: relative;
   z-index: 10;
 }
@@ -76,13 +84,7 @@
   box-shadow: 0 4px 15px rgba(82, 183, 136, 0.3);
 }
 
-.submit-family-btn {
-  background: var(--accent-color) !important;
-  color: white !important;
-  font-weight: 700 !important;
-  border-radius: 30px !important;
-  padding: 0 1.6rem !important; /* Slightly more horizontal padding */
-}
+
 
 /* Family Grid */
 .family-grid {
@@ -209,6 +211,14 @@
   .filter-wrapper {
     margin-top: 1rem;
     padding: 0 1rem;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .submit-family-btn {
+    height: 55px; /* Adjusted for mobile filter-buttons height (40px + 0.4rem*2 + 2px border) */
+    width: 100%; /* Make it full width on mobile if it wraps */
+    font-size: 0.95rem;
   }
   
   .filter-buttons {
