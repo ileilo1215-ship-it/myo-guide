@@ -9,7 +9,7 @@ editorNote: "처음엔 유기동물 이야기인 줄만 알았어요. 읽다 보
 source: "아는동네 큐레이션"
 sourceUrl: "https://www.iknowhere.co.kr/curation/post/130"
 readTime: "약 2분"
-image: "/hero/ham-ham-book-cover.jpg"
+image: "/news/9791185860374.jpg"
 ---
 
 ### 🐕 어떤 책인가요?
