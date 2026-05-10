@@ -6,6 +6,8 @@ import FallbackImage from '@/components/FallbackImage';
 import PostButton from '@/components/PostButton';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import styles from './page.module.css';
+import fs from 'fs';
+import path from 'path';
 
 
 export async function generateStaticParams() {
@@ -19,6 +21,62 @@ export default async function Post({ params }) {
   const { id } = await params;
   const decodedId = decodeURIComponent(id);
   const postData = await getPostData(decodedId);
+
+  if (postData.category === 'Class') {
+    const hasStudentPdf = postData.pdfStudent && fs.existsSync(path.join(process.cwd(), 'public', postData.pdfStudent));
+    const hasTeacherPdf = postData.pdfTeacher && fs.existsSync(path.join(process.cwd(), 'public', postData.pdfTeacher));
+
+    const PdfButtons = () => (
+      <div className={styles.pdfButtonGroup}>
+        <a 
+          href={hasStudentPdf ? postData.pdfStudent : '#'} 
+          className={`${styles.pdfButton} ${!hasStudentPdf ? styles.pdfButtonDisabled : ''}`}
+          download={hasStudentPdf}
+        >
+          {hasStudentPdf ? '📥 학생용 활동지 내려받기' : '📥 학생용 활동지 (준비 중)'}
+        </a>
+        <a 
+          href={hasTeacherPdf ? postData.pdfTeacher : '#'} 
+          className={`${styles.pdfButton} ${!hasTeacherPdf ? styles.pdfButtonDisabled : ''}`}
+          download={hasTeacherPdf}
+        >
+          {hasTeacherPdf ? '📥 교사용 수업 가이드 내려받기' : '📥 교사용 수업 가이드 (준비 중)'}
+        </a>
+      </div>
+    );
+
+    return (
+      <article className={styles.container}>
+        <header className={styles.header}>
+          <span className={styles.category}>{postData.category}</span>
+          <h1 className={styles.title}>{postData.title}</h1>
+        </header>
+
+        <div className={styles.learnInfoBar}>
+          <div className={styles.learnBadges}>
+            {postData.grade && <span className={styles.gradeBadge}>{postData.grade}</span>}
+            {postData.duration && <span className={styles.durationBadge}>⏱️ {postData.duration}분 소요</span>}
+          </div>
+          <PdfButtons />
+        </div>
+
+        {postData.coreQuestion && (
+          <div className={styles.coreQuestionBox}>
+            <span className={styles.coreQuestionLabel}>🪝 핵심 질문</span>
+            <div className={styles.coreQuestionText}>{postData.coreQuestion}</div>
+          </div>
+        )}
+
+        <div className={styles.content}>
+          <MarkdownRenderer content={postData.content} />
+        </div>
+
+        <div className={styles.bottomDownload}>
+          <PdfButtons />
+        </div>
+      </article>
+    );
+  }
 
   if (postData.category === 'News') {
     return (

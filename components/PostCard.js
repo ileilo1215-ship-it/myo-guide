@@ -140,19 +140,30 @@ export default function PostCard({ post, objectPosition = 'center 20%' }) {
             </div>
           )}
 
-          {/* Legacy tag support */}
+          {/* Tag Badges (Class, News, etc.) */}
           {!isCare && !isRescue && post.tag && (
             <div style={{
               position: 'absolute',
               top: '12px',
               left: '12px',
-              backgroundColor: 'rgba(255, 255, 255, 0.9)',
-              padding: '4px 10px',
+              backgroundColor: (post.tag.includes('법') || post.tag.includes('정책') || post.tag.includes('환경')) 
+                ? '#EAF5F0' // Light green/mint
+                : (post.tag.includes('권') || post.tag.includes('실험') || post.tag.includes('축산'))
+                  ? '#2D6A4F' // Dark green
+                  : 'rgba(255, 255, 255, 0.95)',
+              color: (post.tag.includes('권') || post.tag.includes('실험') || post.tag.includes('축산'))
+                ? '#FFFFFF'
+                : '#2D6A4F',
+              padding: '4px 12px',
               borderRadius: '20px',
-              fontSize: '0.8rem',
+              fontSize: '0.75rem',
               fontWeight: '700',
-              boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-              zIndex: 2
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+              border: (post.tag.includes('권') || post.tag.includes('실험') || post.tag.includes('축산'))
+                ? 'none'
+                : '1px solid rgba(45, 106, 79, 0.2)',
+              zIndex: 2,
+              backdropFilter: 'blur(4px)'
             }}>
               {post.tag}
             </div>

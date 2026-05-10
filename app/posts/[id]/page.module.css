@@ -44,11 +44,12 @@
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: 2.2rem; /* Reduced from 2.5rem for better balance */
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.35;
   margin-bottom: 1rem;
   color: var(--text-primary);
+  word-break: keep-all;
 }
 
 .meta {
@@ -72,8 +73,8 @@
 }
 
 .content {
-  font-size: 1.1rem;
-  line-height: 1.9;
+  font-size: 1rem;
+  line-height: 1.7;
   color: var(--text-primary);
   margin-bottom: 4rem;
 }
@@ -139,8 +140,8 @@
   align-items: center;
   gap: 0.5rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
-  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
   border-bottom: 2px solid var(--border-color);
   padding-bottom: 0.5rem;
 }
@@ -182,7 +183,50 @@
 }
 
 .content p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.content ol, .content ul {
+  padding-left: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.content li {
+  margin-bottom: 0.8rem;
+}
+
+.content li > p {
+  margin-bottom: 0.5rem;
+}
+
+.content h2 {
+  font-size: 1.5rem;
+  margin: 1.8rem 0 0.8rem;
+  color: var(--accent-sub);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.content h3 {
+  font-size: 1.25rem;
+  margin: 1.2rem 0 0.6rem;
+  color: var(--text-primary);
+}
+
+.content hr {
+  border: 0;
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 1rem 0; /* Reduced from 2.5rem to minimize scrolling */
+}
+
+.content blockquote {
+  border-left: 4px solid var(--accent-color);
+  background-color: rgba(82, 183, 136, 0.05);
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
 }
 
 .divider {
@@ -194,4 +238,178 @@
 
 .comments {
   margin-top: 2rem;
+}
+
+/* Learn Section Styles */
+.learnInfoBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.learnBadges {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.gradeBadge {
+  background-color: #f0f4f8;
+  color: #4a5568;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.durationBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #718096;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.pdfButtonGroup {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pdfButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #2D6A4F;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.pdfButton:hover {
+  opacity: 0.9;
+}
+
+.pdfButtonDisabled {
+  background-color: #e2e8f0;
+  color: #a0aec0;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.coreQuestionBox {
+  background-color: #2D6A4F;
+  color: white;
+  padding: 2rem; /* Slightly reduced */
+  border-radius: 12px;
+  margin-bottom: 3rem;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(45, 106, 79, 0.1);
+}
+
+.coreQuestionLabel {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.coreQuestionText {
+  font-size: 1.5rem; /* Reduced from 1.8rem */
+  font-weight: 700;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.learnSection {
+  margin-bottom: 3rem;
+}
+
+.learnSectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.3rem; /* Reduced from 1.5rem */
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1a202c;
+}
+
+.discussionBox {
+  background-color: #f7fafc;
+  border-left: 5px solid #2D6A4F;
+  padding: 2rem;
+  border-radius: 0 12px 12px 0;
+  margin: 3rem 0;
+}
+
+.discussionTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.discussionList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.discussionItem {
+  margin-bottom: 0.8rem;
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.6;
+}
+
+.discussionItem::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #2D6A4F;
+  font-weight: bold;
+}
+
+.bottomDownload {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .learnInfoBar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .pdfButtonGroup {
+    width: 100%;
+    flex-direction: column;
+  }
+  
+  .pdfButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .coreQuestionText {
+    font-size: 1.4rem;
+  }
 }
