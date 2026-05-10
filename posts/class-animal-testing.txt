@@ -8,7 +8,7 @@ duration: 40
 pdfStudent: "/learn/pdf/animal-testing-student.pdf"
 pdfTeacher: "/learn/pdf/animal-testing-teacher.pdf"
 coreQuestion: "사람을 위해 동물을 실험에 이용하는 것은 괜찮을까요?"
-image: "/cat/nihal-karkala--vcg9-w_yMk-unsplash.jpg"
+image: "/class/emiliano-vittoriosi-3FSBkX4yG80-unsplash.jpg"
 ---
 
 ## 🎯 수업 목표

@@ -8,7 +8,7 @@ duration: 40
 pdfStudent: "/learn/pdf/korea-law-student.pdf"
 pdfTeacher: "/learn/pdf/korea-law-teacher.pdf"
 coreQuestion: "동물을 보호하는 법이 왜 필요할까요?"
-image: "/cat/animal-law.png"
+image: "/class/stijn-te-strake-UdhpcfImQ9Y-unsplash.jpg"
 ---
 
 ## 🎯 수업 목표

@@ -8,7 +8,7 @@ duration: 40
 pdfStudent: "/learn/pdf/factory-farming-student.pdf"
 pdfTeacher: "/learn/pdf/factory-farming-teacher.pdf"
 coreQuestion: "맛있는 음식이 어디서 오는지 알고 먹는 것이 왜 중요할까요?"
-image: "/cat/oleksandr-dorokhov-9EEmky5Qwko-unsplash.jpg"
+image: "/class/james-wainscoat-yEW23jxVsNI-unsplash.jpg"
 ---
 
 ## 🎯 수업 목표
