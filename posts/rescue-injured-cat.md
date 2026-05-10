@@ -2,7 +2,7 @@
 title: "다친 고양이를 발견했다면, 이렇게 해주세요"
 date: "2026-05-10"
 category: "🚨 구조"
-image: "/cat/ayla-meinberg-AL2-t0GrSko-unsplash.jpg"
+image: "/care/rescue-injured-cat.jpg"
 hook: "당신의 5분이 한 생명을 살릴 수 있습니다."
 ---
 

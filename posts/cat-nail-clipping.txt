@@ -2,7 +2,7 @@
 title: "고양이 발톱 깎기, 두려워하지 마세요"
 date: "2026-04-23"
 category: "Grooming"
-image: "/cat/erik-jan-leusink-gr1UYHBFkD4-unsplash.jpg"
+image: "/care/cat-nail-clipping.jpg"
 excerpt: "초보 집사도 성공하는 안전하고 빠른 발톱 관리법"
 ---
 

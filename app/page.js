@@ -71,7 +71,7 @@ export default async function Home({ searchParams }) {
     }
 
     return (
-      <main>
+      <div style={{ width: '100%' }}>
         <Banner title={bannerTitle} description={bannerDesc} />
         <section className="posts-container">
           {filteredPosts.length > 0 ? (
@@ -82,7 +82,7 @@ export default async function Home({ searchParams }) {
             <p style={{ textAlign: 'center', gridColumn: '1 / -1', padding: '3rem 0', color: 'var(--text-secondary)' }}>해당 카테고리에 게시물이 없습니다.</p>
           )}
         </section>
-      </main>
+      </div>
     );
   }
 
@@ -344,19 +344,6 @@ export default async function Home({ searchParams }) {
         </div>
       </section>
 
-      {/* SECTION 8: FOOTER */}
-      <footer className="home-section bg-dark main-footer">
-        <div className="section-container">
-          <h3 className="footer-slogan">
-            <span>🐱</span>
-            <span>모든 생명이 존중받는 세상을 위해</span>
-          </h3>
-          <p className="footer-motto">KNOW MORE. CARE BETTER.</p>
-          <div className="footer-copyright">
-            Copyright 2026 묘한 가이드
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

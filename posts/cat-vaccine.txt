@@ -2,7 +2,7 @@
 title: "초보 집사를 위한 필수 예방접종 정리"
 date: "2026-04-30"
 category: "Health"
-image: "/cat/eric-han-Hd7vwFzZpH0-unsplash.jpg"
+image: "/care/cat-vaccine.jpg"
 excerpt: "우리아이 건강을 지키는 첫 걸음, 백신 접종 가이드"
 ---
 

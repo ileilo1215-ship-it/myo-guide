@@ -2,7 +2,7 @@
 title: "혼자 하지 않아도 돼요 — 함께하는 구조 단체들"
 date: "2026-05-10"
 category: "🚨 구조"
-image: "/cat/mccarthy-beckan-X04knqn7Mmc-unsplash.jpg"
+image: "/care/katelyn-g-RoK8dfDGc7o-unsplash.jpg"
 hook: "구조가 막막할 때, 먼저 손을 내밀어준 곳들이 있어요."
 ---
 

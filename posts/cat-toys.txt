@@ -2,7 +2,7 @@
 title: "고양이가 좋아하는 장난감 고르는 방법"
 date: "2026-04-25"
 category: "Play"
-image: "/cat/jaclou-dl-cat-5098930_1920.jpg"
+image: "/care/cat-toys.jpg"
 excerpt: "사냥 본능을 자극하는 완벽한 장난감 선택 가이드"
 ---
 

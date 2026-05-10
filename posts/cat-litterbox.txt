@@ -2,7 +2,7 @@
 title: "고양이 화장실, 어디에 두는 것이 좋을까?"
 date: "2026-04-27"
 category: "Environment"
-image: "/cat/mikkekylilt-cat-4260536_1920.jpg"
+image: "/care/cat-litterbox.jpg"
 excerpt: "까다로운 고양이의 화장실 위치 선정 노하우"
 ---
 

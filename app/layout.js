@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import Sidebar from "@/components/Sidebar";
+import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import "./globals.css";
 
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
         </Suspense>
         <div className="main-content">
           {children}
+          <Footer />
         </div>
         <ScrollToTop />
       </body>
