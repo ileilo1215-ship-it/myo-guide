@@ -366,7 +366,7 @@ export default async function Home({ searchParams }) {
       <footer className="home-section bg-dark main-footer">
         <div className="section-container">
           <div className="footer-logo">
-            <Image src="/logo-v3.png" alt="묘한 가이드" width={140} height={50} style={{ filter: 'brightness(0) invert(1)' }} />
+            <Image src="/logo-green-v2.png" alt="묘한 가이드" width={140} height={86} style={{ filter: 'brightness(0) invert(1)', width: 'auto', height: '60px' }} />
           </div>
           <h3 className="footer-slogan">모든 생명이 존중받는 세상을 위해</h3>
           <p className="footer-motto">KNOW MORE. CARE BETTER.</p>
