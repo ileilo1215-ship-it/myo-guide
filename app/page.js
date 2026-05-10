@@ -88,41 +88,8 @@ export default async function Home({ searchParams }) {
   // ── Home Page Multi-Section ──────────────────────────────────────
   
   // 1. Data Prep
-  const heroImages = getHeroImages();
-  let heroImageSrc = null;
-  let authorName = null;
-
-  if (heroImages.length > 0) {
-    const catImages = heroImages.filter(f => f.toLowerCase().includes('cat'));
-    const otherImages = heroImages.filter(f => !f.toLowerCase().includes('cat'));
-    const now = new Date();
-    const kstOffset = 9 * 60 * 60 * 1000;
-    const kstNow = new Date(now.getTime() + kstOffset);
-    const dayOfWeek = kstNow.getUTCDay();
-    const epochDay = Math.floor(kstNow.getTime() / 86400000);
-    
-    let selectedImage;
-    if (dayOfWeek % 2 === 0) {
-      if (catImages.length > 0) {
-        const index = epochDay % catImages.length;
-        selectedImage = catImages[index];
-      } else {
-        selectedImage = heroImages[epochDay % heroImages.length];
-      }
-    } else {
-      if (otherImages.length > 0) {
-        const index = epochDay % otherImages.length;
-        selectedImage = otherImages[index];
-      } else {
-        selectedImage = heroImages[epochDay % heroImages.length];
-      }
-    }
-
-    if (selectedImage) {
-      heroImageSrc = `/hero/${selectedImage}`;
-      authorName = extractAuthorName(selectedImage);
-    }
-  }
+  let heroImageSrc = '/hero/wolf-hero.png';
+  let authorName = 'Majestic Wolf';
 
   const newsPosts = allPostsData.filter(post => post.category === 'News');
   const latestNews = newsPosts.length > 0 ? newsPosts[0] : null;
@@ -202,7 +169,7 @@ export default async function Home({ searchParams }) {
               textShadow: 'none',
               letterSpacing: '0.5px'
             }}>
-              오늘의 핫뉴스 🔥
+              묘한 시선 👁️
             </span>
             <Link href={`/posts/${latestNews.id}`} style={{ textDecoration: 'none', color: 'white' }}>
               <h1 style={{ fontSize: 'clamp(1.5rem, 5vw, 2.8rem)', fontWeight: '800', marginBottom: '1.2rem', letterSpacing: '-1.5px', lineHeight: '1.2' }}>
@@ -212,7 +179,7 @@ export default async function Home({ searchParams }) {
                 {latestNews.summary || latestNews.hook || (latestNews.content ? latestNews.content.substring(0, 120) + '...' : '')}
               </p>
               <div style={{ marginTop: '2.5rem', fontWeight: '700', textTransform: 'uppercase', fontSize: '0.85rem', letterSpacing: '1.5px', display: 'inline-flex', alignItems: 'center', gap: '10px', borderBottom: '2px solid white', paddingBottom: '6px' }}>
-                뉴스 보러가기 ➔
+                묘한 시선 ➔
               </div>
             </Link>
           </div>
