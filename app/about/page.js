@@ -7,7 +7,7 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div style={{ maxWidth: '800px', margin: '4rem auto', padding: '0 clamp(16px, 4vw, 2rem)' }}>
-      <h1 style={{ fontSize: 'clamp(20px, 5vw, 2.5rem)', marginBottom: '2rem', color: 'var(--text-primary)', textAlign: 'center' }}>
+      <h1 style={{ fontSize: 'clamp(20px, 5vw, 2.5rem)', marginBottom: '2rem', color: 'var(--accent-sub)', textAlign: 'center' }}>
         우리가 사랑하는 생명들, 그리고 공존
       </h1>
       
