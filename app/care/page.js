@@ -13,18 +13,21 @@ export default async function CarePage({ searchParams }) {
   
   // Define categories for 'Care' (돌봄)
   const careCategories = ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play'];
-  const rescueCategories = ['Street Life', 'Rights'];
+  const rescueCategories = ['Street Life', 'Rights', '🚨 구조'];
   
-  // Filter for both care and rescue
-  let filteredPosts = allPostsData.filter(post => 
-    careCategories.includes(post.category) || rescueCategories.includes(post.category)
-  );
-
-  // Sub-filter based on user selection
+  const carePosts = allPostsData.filter(post => careCategories.includes(post.category));
+  const rescuePosts = allPostsData.filter(post => rescueCategories.includes(post.category));
+  let filteredPosts = [];
   if (filter === 'care') {
-    filteredPosts = filteredPosts.filter(post => careCategories.includes(post.category));
+    filteredPosts = carePosts;
   } else if (filter === 'rescue') {
-    filteredPosts = filteredPosts.filter(post => rescueCategories.includes(post.category));
+    filteredPosts = rescuePosts;
+  } else {
+    const maxLength = Math.max(carePosts.length, rescuePosts.length);
+    for (let i = 0; i < maxLength; i++) {
+      if (i < carePosts.length) filteredPosts.push(carePosts[i]);
+      if (i < rescuePosts.length) filteredPosts.push(rescuePosts[i]);
+    }
   }
 
   const bannerTitle = "돌봄";
@@ -84,9 +87,18 @@ export default async function CarePage({ searchParams }) {
           border-color: var(--accent-sub);
           box-shadow: 0 4px 15px rgba(45, 106, 79, 0.3);
         }
+        /* Specific override for Care button to be white as requested */
+        .filter-btn[href*="filter=care"].active {
+          background-color: white;
+          color: var(--accent-sub);
+          border-color: var(--accent-sub);
+        }
         .filter-btn.active:hover {
           background-color: #1a4731;
           transform: translateY(-2px);
+        }
+        .filter-btn[href*="filter=care"].active:hover {
+          background-color: #f8fcf9;
         }
       `}} />
       

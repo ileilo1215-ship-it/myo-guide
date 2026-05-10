@@ -61,7 +61,7 @@ export default function PostCard({ post, objectPosition = 'center 20%' }) {
   const fallbackImageUrl = getFallbackImage(post.category, post.id);
   const imageUrl = post.image || fallbackImageUrl;
   
-  const isRescue = ['Street Life', 'Rights'].includes(post.category);
+  const isRescue = ['Street Life', 'Rights', '🚨 구조'].includes(post.category);
   const isCare = ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play'].includes(post.category);
 
   return (
@@ -86,13 +86,14 @@ export default function PostCard({ post, objectPosition = 'center 20%' }) {
               position: 'absolute',
               top: '12px',
               left: '12px',
-              backgroundColor: '#2D6A4F',
-              color: 'white',
+              backgroundColor: 'white',
+              color: '#2D6A4F',
               padding: '4px 12px',
               borderRadius: '20px',
               fontSize: '0.8rem',
               fontWeight: '700',
-              boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+              boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+              border: '1px solid #2D6A4F',
               zIndex: 2
             }}>
               🌿 케어

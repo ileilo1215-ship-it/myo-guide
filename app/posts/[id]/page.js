@@ -3,7 +3,10 @@ import ReactionButtons from '@/components/ReactionButtons';
 import ShareButtons from '@/components/ShareButtons';
 import GiscusComments from '@/components/GiscusComments';
 import FallbackImage from '@/components/FallbackImage';
+import PostButton from '@/components/PostButton';
+import MarkdownRenderer from '@/components/MarkdownRenderer';
 import styles from './page.module.css';
+
 
 export async function generateStaticParams() {
   const paths = getAllPostIds();
@@ -60,10 +63,9 @@ export default async function Post({ params }) {
         )}
 
         <div className={styles.sectionTitle}>📖 상세 내용</div>
-        <div 
-          className={styles.content}
-          dangerouslySetInnerHTML={{ __html: postData.contentHtml }} 
-        />
+        <div className={styles.content}>
+          <MarkdownRenderer content={postData.content} />
+        </div>
 
         <div className={styles.sourceFooter}>
           <div className={styles.sourceMeta}>
@@ -106,10 +108,9 @@ export default async function Post({ params }) {
         </div>
       )}
 
-      <div 
-        className={styles.content}
-        dangerouslySetInnerHTML={{ __html: postData.contentHtml }} 
-      />
+      <div className={styles.content}>
+        <MarkdownRenderer content={postData.content} />
+      </div>
 
       <hr className={styles.divider} />
       

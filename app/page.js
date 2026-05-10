@@ -128,10 +128,26 @@ export default async function Home({ searchParams }) {
   const latestNews = newsPosts.length > 0 ? newsPosts[0] : null;
   const latestTwoNews = newsPosts.slice(0, 2);
 
-  const careRescuePosts = allPostsData.filter(post => 
-    ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play', 'Street Life', 'Rights'].includes(post.category)
+  const carePosts = allPostsData.filter(post => 
+    ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play'].includes(post.category)
   );
-  const latestTwoCare = careRescuePosts.slice(0, 2);
+  const rescuePosts = allPostsData.filter(post => 
+    ['Street Life', 'Rights', '🚨 구조'].includes(post.category)
+  );
+
+  let latestTwoCare = [];
+  // Pick one from each if available to ensure "mixing"
+  if (carePosts.length > 0) latestTwoCare.push(carePosts[0]);
+  if (rescuePosts.length > 0) latestTwoCare.push(rescuePosts[0]);
+  
+  // Fill to 2 if one category is empty
+  if (latestTwoCare.length < 2) {
+    if (carePosts.length > 1 && latestTwoCare.length === 1 && carePosts[0] === latestTwoCare[0]) {
+      latestTwoCare.push(carePosts[1]);
+    } else if (rescuePosts.length > 1 && latestTwoCare.length === 1 && rescuePosts[0] === latestTwoCare[0]) {
+      latestTwoCare.push(rescuePosts[1]);
+    }
+  }
 
   const featuredFriends = friendsList.slice(0, 3);
 
