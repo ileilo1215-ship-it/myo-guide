@@ -557,15 +557,16 @@ h1, h2, h3 {
   text-align: center;
 }
 
-.footer-logo {
-  margin-bottom: 1.5rem;
-  display: inline-block;
-}
+
 
 .footer-slogan {
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .footer-motto {

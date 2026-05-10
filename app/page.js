@@ -365,10 +365,10 @@ export default async function Home({ searchParams }) {
       {/* SECTION 8: FOOTER */}
       <footer className="home-section bg-dark main-footer">
         <div className="section-container">
-          <div className="footer-logo">
-            <Image src="/logo-icon-white.png" alt="묘한 가이드" width={80} height={80} style={{ width: '80px', height: 'auto' }} />
-          </div>
-          <h3 className="footer-slogan">모든 생명이 존중받는 세상을 위해</h3>
+          <h3 className="footer-slogan">
+            <span>🐱</span>
+            <span>모든 생명이 존중받는 세상을 위해</span>
+          </h3>
           <p className="footer-motto">KNOW MORE. CARE BETTER.</p>
           <div className="footer-copyright">
             Copyright 2026 묘한 가이드
