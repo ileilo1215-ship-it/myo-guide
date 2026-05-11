@@ -129,12 +129,20 @@ export default async function Home({ searchParams }) {
     })
     .sort((a, b) => new Date(b.date) - new Date(a.date)); // Newest first
 
-  // For the Hero section, only use news from 2026 to keep it "fresh"
+  // For the Hero section, prioritize the specific news article requested by the user
+  const featuredNewsId = 'news-2026-animal-law';
+  const featuredNews = newsPosts.find(p => p.id === featuredNewsId);
+  
   const recentNewsPosts = newsPosts.filter(post => post.date && post.date.startsWith('2026'));
   const heroNewsPool = recentNewsPosts.length > 0 ? recentNewsPosts : newsPosts.slice(0, 3);
 
-  const latestNews = heroNewsPool.length > 0 ? heroNewsPool[dayCount % heroNewsPool.length] : allPostsData[0];
-  const latestTwoNews = newsPosts.slice(0, 2);
+  const latestNews = featuredNews || (heroNewsPool.length > 0 ? heroNewsPool[dayCount % heroNewsPool.length] : allPostsData[0]);
+  
+  // Ensure the featured news also appears in the preview list if it's not already there
+  let latestTwoNews = newsPosts.slice(0, 2);
+  if (featuredNews && !latestTwoNews.find(p => p.id === featuredNewsId)) {
+    latestTwoNews = [featuredNews, ...newsPosts.filter(p => p.id !== featuredNewsId).slice(0, 1)];
+  }
 
   const carePosts = allPostsData.filter(post => {
     const cat = post.category?.replace(/['"]/g, '').trim() || '';
