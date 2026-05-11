@@ -112,7 +112,7 @@ function ClassroomView({ posts, selectedTag }) {
   
   // Filter posts by tag
   const filteredPosts = selectedTag && selectedTag !== '전체' 
-    ? posts.filter(p => p.tag?.includes(selectedTag))
+    ? posts.filter(p => p.tag?.replace(/^[^\s]+\s*/, '') === selectedTag)
     : posts;
 
   // Pick a question for the box (either from the first post or a random one)
@@ -228,7 +228,7 @@ export default async function Home({ searchParams }) {
       ];
 
       const filteredNews = selectedTag && selectedTag !== '전체'
-        ? newsPosts.filter(p => p.tag?.includes(selectedTag))
+        ? newsPosts.filter(p => p.tag?.replace(/^[^\s]+\s*/, '') === selectedTag)
         : newsPosts;
 
       return (
