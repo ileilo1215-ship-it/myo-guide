@@ -235,19 +235,38 @@ export default async function Home({ searchParams }) {
       if (selectedTag && selectedTag !== '전체') {
         filteredNews = newsPosts.filter(p => p.tag?.replace(/^[^\s]+\s*/, '') === selectedTag);
       } else {
-        // 태그별로 그룹화
-        const tagGroups = {};
+        // 태그별로 그룹화하되, 문화/책 카테고리를 우선순위로 둡니다.
+        const priorityTags = ['📚 책', '🎬 문화/영화', '🎬 문화'];
+        
+        // 우선순위 그룹과 일반 그룹 분리
+        const priorityGroup = [];
+        const otherTagGroups = {};
+        
         for (const post of newsPosts) {
           const tag = post.tag || '기타';
-          if (!tagGroups[tag]) tagGroups[tag] = [];
-          tagGroups[tag].push(post);
+          if (priorityTags.some(p => tag.includes(p.replace(/^[^\s]+\s*/, '')) || tag === p)) {
+            priorityGroup.push(post);
+          } else {
+            if (!otherTagGroups[tag]) otherTagGroups[tag] = [];
+            otherTagGroups[tag].push(post);
+          }
         }
-        // 라운드-로빈으로 섞기: 각 태그에서 하나씩 번갈아 가져옴
-        const groups = Object.values(tagGroups);
+
+        // 라운드-로빈으로 섞기
         const interleaved = [];
-        const maxLen = Math.max(...groups.map(g => g.length));
+        
+        // 1. 우선순위 포스트를 맨 앞에 하나 배치 (사용자 요청)
+        if (priorityGroup.length > 0) {
+          interleaved.push(priorityGroup.shift());
+        }
+        
+        // 2. 나머지 포스트들을 라운드-로빈으로 섞기 (우선순위 남은 것 포함)
+        const allGroups = Object.values(otherTagGroups);
+        if (priorityGroup.length > 0) allGroups.unshift(priorityGroup);
+        
+        const maxLen = Math.max(...allGroups.map(g => g.length), 0);
         for (let i = 0; i < maxLen; i++) {
-          for (const group of groups) {
+          for (const group of allGroups) {
             if (i < group.length) interleaved.push(group[i]);
           }
         }
@@ -384,7 +403,18 @@ export default async function Home({ searchParams }) {
   ];
 
   const latestTwoCare = allCareAndRescue.slice(0, 2);
-  const latestThreeNews = newsPosts.slice(0, 3);
+  
+  // 메인 페이지 미리보기에서도 문화/책 기사를 우선적으로 하나 포함시킵니다.
+  const homePriorityTags = ['📚 책', '🎬 문화/영화', '🎬 문화'];
+  const homeCultureNews = newsPosts.filter(p => homePriorityTags.some(pt => p.tag?.includes(pt.replace(/^[^\s]+\s*/, '')) || p.tag === pt));
+  const homeOtherNews = newsPosts.filter(p => !homePriorityTags.some(pt => p.tag?.includes(pt.replace(/^[^\s]+\s*/, '')) || p.tag === pt));
+  
+  let latestThreeNews;
+  if (homeCultureNews.length > 0) {
+    latestThreeNews = [homeCultureNews[0], ...homeOtherNews.slice(0, 2)];
+  } else {
+    latestThreeNews = newsPosts.slice(0, 3);
+  }
   const teaserFamilyMembers = allFamilyMembers.filter(m => m.hasImage && m.images?.[0]).slice(0, 4);
 
   const featuredFriends = friendsList.slice(0, 3);
