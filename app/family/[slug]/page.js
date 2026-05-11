@@ -57,7 +57,7 @@ export default async function FamilyDetailsPage({ params }) {
           <div className="header-info">
             <span className="badge">{member.type}</span>
             <h1 className="name">{member.name}</h1>
-            <p className="intro-text">"{member.contentHtml.replace(/<[^>]*>?/gm, '').substring(0, 100)}..."</p>
+            <p className="intro-text">"{member.contentHtml.replace(/<[^>]*>?/gm, '').trim()}"</p>
           </div>
         </div>
 
@@ -105,7 +105,7 @@ export default async function FamilyDetailsPage({ params }) {
               <span className="value mbti-tag">{member.mbti}</span>
             </div>
             <div className="info-item">
-              <span className="label">⭐ 집사 평점</span>
+              <span className="label">⭐ 집사 평점 (반려동물이 주는 점수)</span>
               <span className="value stars">{renderStars(member.rating)}</span>
             </div>
           </div>
@@ -141,7 +141,6 @@ export default async function FamilyDetailsPage({ params }) {
           </div>
         )}
         
-        <div className="long-description" dangerouslySetInnerHTML={{ __html: member.contentHtml }} />
       </div>
     </main>
   );
