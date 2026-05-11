@@ -9,6 +9,14 @@ export const metadata = {
   description: "반려동물과 함께하는 특별하고 묘한 일상 가이드",
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#F8F5F0',
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">
