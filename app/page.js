@@ -471,36 +471,44 @@ export default async function Home({ searchParams }) {
         </div>
       </section>
 
-      {/* SECTION 4: FAMILY TEASER (DAILY) */}
-      <section className="home-section bg-cream">
-        <div className="section-container" style={{ textAlign: 'center' }}>
-          <div className="section-header">
-            <h2 className="section-title">묘한 가족들</h2>
-            <p className="section-subtitle">고양이부터 도마뱀까지, 우리와 함께 사는 모든 가족들</p>
+      {/* SECTION 4: FAMILY TEASER (MINIMALIST) */}
+      <section className="home-section bg-cream" style={{ padding: '6rem 0' }}>
+        <div className="section-container" style={{ textAlign: 'center', maxWidth: '800px' }}>
+          <div className="section-header" style={{ marginBottom: '3rem' }}>
+            <span style={{ 
+              color: 'var(--accent-color)', 
+              fontWeight: '800', 
+              fontSize: '0.9rem', 
+              textTransform: 'uppercase', 
+              letterSpacing: '2px',
+              display: 'block',
+              marginBottom: '1rem'
+            }}>Family & Discovery</span>
+            <h2 className="section-title" style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>묘한 가족들</h2>
+            <p className="section-subtitle" style={{ fontSize: '1.2rem', color: '#666', lineHeight: '1.6' }}>
+              우리 집 반려동물 자랑부터 집사들의 발견까지,<br />
+              함께 만들어가는 소중한 공간입니다.
+            </p>
           </div>
           
-          <div className="section-grid cols-4" style={{ marginBottom: '2rem' }}>
-            {dailyFamilyPreview.map((member) => (
-              <Link href={`/family/${member.slug}`} key={member.slug} className="family-teaser-card">
-                <div className="family-teaser-image">
-                  <img src={member.images[0]} alt={member.name} />
-                </div>
-                <h3 className="family-teaser-name">{member.name}</h3>
-              </Link>
-            ))}
-          </div>
-
-          <div className="btn-group" style={{ justifyContent: 'center', marginTop: '1rem' }}>
-            <Link href="/family" className="btn-primary">묘한 가족들 만나기 &gt;</Link>
-            <a 
-              href={GOOGLE_FORM_URL} 
-              target="_blank" 
-              rel="noopener noreferrer" 
+          <div className="btn-group" style={{ justifyContent: 'center', gap: '1.5rem' }}>
+            <Link href="/family?tab=family" className="btn-primary" style={{ padding: '1rem 2.5rem', fontSize: '1.1rem' }}>
+              우리 가족 보기 →
+            </Link>
+            <Link 
+              href="/family?tab=discovery" 
               className="btn-primary" 
-              style={{ backgroundColor: 'transparent', color: 'var(--accent-sub)', border: '2px solid var(--accent-sub)' }}
+              style={{ 
+                padding: '1rem 2.5rem', 
+                fontSize: '1.1rem',
+                backgroundColor: 'white', 
+                color: 'var(--accent-sub)', 
+                border: '1px solid var(--accent-sub)',
+                boxShadow: 'none'
+              }}
             >
-              우리 가족 소개하기 &gt;
-            </a>
+              집사의 발견 →
+            </Link>
           </div>
         </div>
       </section>
