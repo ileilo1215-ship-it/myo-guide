@@ -41,6 +41,163 @@ function extractAuthorName(filename) {
     .join(' ');
 }
 
+// --- NEWS PAGE ITEM COMPONENT ---
+// --- NEWS PAGE ITEM COMPONENT ---
+function NewsPageItem({ post }) {
+  const getTagStyle = (tag) => {
+    if (!tag) return { background: '#e8f4ee', color: '#2D6A4F' };
+    const t = tag.toLowerCase();
+    if (t.includes('법') || t.includes('정책')) return { background: '#e8f4ee', color: '#2D6A4F' };
+    if (t.includes('도시') || t.includes('환경')) return { background: '#e1f5ee', color: '#0F6E56' };
+    if (t.includes('책')) return { background: '#faeeda', color: '#854F0B' };
+    if (t.includes('동물권')) return { background: '#e8f4ee', color: '#1a4731' };
+    return { background: '#e8f4ee', color: '#2D6A4F' };
+  };
+
+  const tagStyle = getTagStyle(post.tag);
+
+  return (
+    <article className="news-article-entry">
+      <div className="news-image-area">
+        {post.image ? (
+          <img 
+            src={post.image} 
+            alt={post.title} 
+            className="news-entry-image"
+          />
+        ) : (
+          <div className="news-image-placeholder">🐾</div>
+        )}
+      </div>
+      
+      <div className="news-text-area">
+        <div className="news-meta-row">
+          <span className="news-tag" style={tagStyle}>
+            {post.tag || '🐾 뉴스'}
+          </span>
+          <span className="news-meta-divider">·</span>
+          <span>{post.date}</span>
+          <span className="news-meta-divider">·</span>
+          <span>{post.source || '매체'}</span>
+          <span className="news-meta-divider">·</span>
+          <span>{post.readTime || '3분'}</span>
+        </div>
+        
+        {post.hook && <p className="news-hook">{post.hook}</p>}
+        
+        <div className="news-title-row">
+          <h2 className="news-title">{post.title}</h2>
+          <Link href={`/posts/${post.id}`} className="news-read-pill-button">
+            기사 읽기
+          </Link>
+        </div>
+        
+        {post.editorNote && (
+          <div className="news-editor-note">
+            {post.editorNote}
+          </div>
+        )}
+      </div>
+    </article>
+  );
+}
+
+import { educationalContent } from '@/lib/educational-content';
+
+// --- CLASSROOM PAGE COMPONENTS ---
+function ClassCard({ post }) {
+  const hasEducationalContent = !!educationalContent[post.id];
+
+  return (
+    <article className="classroom-card">
+      {post.image && (
+        <div style={{ width: '100%', height: '140px', borderRadius: '8px', overflow: 'hidden', marginBottom: '8px' }}>
+          <img src={post.image} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        </div>
+      )}
+      <div className="classroom-card-meta">
+        <span className="classroom-grade-badge">{post.grade || '전체'}</span>
+        <span style={{ fontSize: '12px', color: '#888' }}>{post.duration || '40'}분 수업</span>
+      </div>
+      <h3 className="classroom-card-title">{post.title}</h3>
+      <div className="classroom-card-footer">
+        <div className="classroom-btn-group">
+          <Link href={`/posts/${post.id}`} className="classroom-btn-start">
+            수업 시작
+          </Link>
+          {hasEducationalContent && (
+            <>
+              <Link href={`/learn/worksheet/${post.id}`} target="_blank" className="classroom-pdf-btn">
+                학생용 자료
+              </Link>
+              <Link href={`/learn/guide/${post.id}`} target="_blank" className="classroom-pdf-btn">
+                교사용 가이드
+              </Link>
+            </>
+          )}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function ClassroomView({ posts, selectedTag }) {
+  // Extract unique tags from posts
+  const allTags = ['전체', ...new Set(posts.map(p => p.tag?.replace(/^[^\s]+\s*/, '')).filter(Boolean))];
+  
+  // Filter posts by tag
+  const filteredPosts = selectedTag && selectedTag !== '전체' 
+    ? posts.filter(p => p.tag?.includes(selectedTag))
+    : posts;
+
+  // Pick a question for the box (either from the first post or a random one)
+  const questionPost = filteredPosts.find(p => p.coreQuestion) || posts.find(p => p.coreQuestion);
+  const displayQuestion = questionPost?.coreQuestion || "우리는 동물과 어떻게 함께 살아가야 할까요?";
+  const bgImage = questionPost?.image || '/hero/sam-grozyan-hQPoYovqWR0-unsplash.jpg';
+
+  return (
+    <div className="classroom-wrapper">
+      <div className="classroom-container">
+        {/* Question Box */}
+        <div className="classroom-question-box">
+          <img src={bgImage} alt="" className="classroom-question-bg" />
+          <div className="classroom-question-content">
+            <span className="classroom-question-label">오늘의 질문</span>
+            <h2 className="classroom-question-text">
+              {displayQuestion}
+            </h2>
+          </div>
+        </div>
+
+        {/* Tag Cloud */}
+        <div className="classroom-tag-cloud">
+          {allTags.map(tag => (
+            <Link 
+              key={tag} 
+              href={`/?category=Class${tag === '전체' ? '' : `&tag=${tag}`}`}
+              className={`classroom-tag-pill ${selectedTag === tag || (!selectedTag && tag === '전체') ? 'active' : ''}`}
+            >
+              #{tag}
+            </Link>
+          ))}
+        </div>
+
+        {/* Lesson Cards */}
+        <section className="classroom-grid">
+          {filteredPosts.length > 0 ? (
+            filteredPosts.map(post => (
+              <ClassCard key={post.id} post={post} />
+            ))
+          ) : (
+            <p style={{ textAlign: 'center', gridColumn: '1 / -1', padding: '3rem 0', color: 'var(--text-secondary)' }}>해당 주제의 수업이 아직 준비 중입니다.</p>
+          )}
+        </section>
+      </div>
+    </div>
+  );
+}
+
+
 export default async function Home({ searchParams }) {
   const params = await searchParams;
   const categoryParam = params?.category;
@@ -64,10 +221,28 @@ export default async function Home({ searchParams }) {
       bannerTitle = "묘한 뉴스";
       bannerDesc = "동물권 및 공존과 관련된 의미 있는 소식을 전해드려요";
       filteredPosts = allPostsData.filter(post => post.category === 'News');
+      
+      return (
+        <div className="news-page-wrapper">
+          <Banner title={bannerTitle} description={bannerDesc} />
+          <section className="news-page-container">
+            {filteredPosts.length > 0 ? (
+              filteredPosts.map((post) => (
+                <NewsPageItem key={post.id} post={post} />
+              ))
+            ) : (
+              <p style={{ textAlign: 'center', padding: '3rem 0', color: 'var(--text-secondary)' }}>해당 카테고리에 게시물이 없습니다.</p>
+            )}
+          </section>
+        </div>
+      );
     } else if (categoryParam === 'Class') {
-      bannerTitle = "묘한 교실";
-      bannerDesc = "어린이부터 어른까지 함께 배우는 동물권 카드 및 교육 자료";
+      const selectedTag = params?.tag;
       filteredPosts = allPostsData.filter(post => post.category === 'Class');
+      
+      return (
+        <ClassroomView posts={filteredPosts} selectedTag={selectedTag} />
+      );
     }
 
     return (
@@ -153,19 +328,12 @@ export default async function Home({ searchParams }) {
     return ['Street Life', 'Rights', '🚨 구조'].includes(cat);
   });
 
-  let latestTwoCare = [];
-  // Pick one from each if available to ensure "mixing"
-  if (carePosts.length > 0) latestTwoCare.push(carePosts[0]);
-  if (rescuePosts.length > 0) latestTwoCare.push(rescuePosts[0]);
+  // Combine and sort all care/rescue posts to get the absolute 2 latest
+  const allCareAndRescue = [...carePosts, ...rescuePosts].sort((a, b) => {
+    return new Date(b.date || 0) - new Date(a.date || 0);
+  });
   
-  // Fill to 2 if one category is empty
-  if (latestTwoCare.length < 2) {
-    if (carePosts.length > 1 && latestTwoCare.length === 1 && carePosts[0] === latestTwoCare[0]) {
-      latestTwoCare.push(carePosts[1]);
-    } else if (rescuePosts.length > 1 && latestTwoCare.length === 1 && rescuePosts[0] === latestTwoCare[0]) {
-      latestTwoCare.push(rescuePosts[1]);
-    }
-  }
+  const latestTwoCare = allCareAndRescue.slice(0, 2);
 
   const featuredFriends = friendsList.slice(0, 3);
 
@@ -240,7 +408,7 @@ export default async function Home({ searchParams }) {
           </div>
           <div className="section-grid cols-2">
             {latestTwoCare.map(post => (
-              <PostCard key={post.id} post={post} objectPosition="center top" />
+              <PostCard key={post.id} post={post} objectPosition="center 20%" />
             ))}
           </div>
           <div className="section-footer">
@@ -250,41 +418,16 @@ export default async function Home({ searchParams }) {
       </section>
 
       {/* SECTION 4: NEWS PREVIEW */}
-      <section className="home-section bg-mint">
+      <section className="home-section bg-mint" style={{ backgroundColor: '#e8f4ee' }}>
         <div className="section-container">
           <div className="section-header">
             <h2 className="section-title">묘한 뉴스</h2>
             <p className="section-subtitle">동물권 및 공존과 관련된 의미 있는 소식을 전해드려요</p>
           </div>
-          <div className="section-grid cols-2">
-            {latestTwoNews.map(post => {
-              const isEvent = post.tags?.includes('이벤트') || post.category === 'Event';
-              const emoji = isEvent ? '🎁' : (post.category === 'News' ? '📰' : '🐾');
-              return (
-                <Link href={`/posts/${post.id}`} key={post.id} style={{ textDecoration: 'none' }}>
-                  <div className="post-card" style={{ height: '100%' }}>
-                    <div className="card-image-wrapper">
-                      <img 
-                        src={post.image || '/cat/katya-guseva0-cat-2605502_1920.jpg'} 
-                        alt={post.title} 
-                        className="card-image"
-                        style={{ objectPosition: 'center top' }}
-                      />
-                    </div>
-                    <div className="card-content">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem', fontSize: '0.8rem', color: '#999' }}>
-                        <span>⏱️ {post.readTime || '3 min read'}</span>
-                        {post.date && <span>{post.date}</span>}
-                      </div>
-                      <h2 className="post-title" style={{ fontSize: '1.4rem' }}>{post.title}</h2>
-                      <p className="excerpt" style={{ fontSize: '0.9rem', color: '#2D6A4F', fontWeight: '500', fontStyle: 'italic', marginBottom: '0.5rem' }}>
-                        {post.hook}
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
+          <div className="news-page-container" style={{ background: 'transparent', padding: 0 }}>
+            {latestTwoNews.map(post => (
+              <NewsPageItem key={post.id} post={post} />
+            ))}
           </div>
           <div className="section-footer">
             <Link href="/?category=News" className="section-link">묘한 뉴스 더보기 →</Link>

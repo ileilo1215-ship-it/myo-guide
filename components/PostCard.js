@@ -58,14 +58,15 @@ const getFallbackImage = (category, id) => {
 
 export default function PostCard({ post, objectPosition = 'center 20%' }) {
   const excerpt = post.content ? post.content.substring(0, 100) + '...' : '';
-  const fallbackImageUrl = getFallbackImage(post.category, post.id);
+  const rawCategory = post.category?.replace(/['"]/g, '').trim() || '';
+  const fallbackImageUrl = getFallbackImage(rawCategory, post.id);
   const imageUrl = post.image || fallbackImageUrl;
   
-  const isRescue = ['Street Life', 'Rights', '🚨 구조'].includes(post.category);
-  const isCare = ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play'].includes(post.category);
+  const isRescue = ['Street Life', 'Rights', '🚨 구조'].includes(rawCategory);
+  const isCare = ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play'].includes(rawCategory);
 
-  const isClass = post.category === 'Class';
-  const isNews = post.category === 'News';
+  const isClass = rawCategory === 'Class';
+  const isNews = rawCategory === 'News';
 
   const categoryMap = {
     'Health': '건강',
@@ -80,7 +81,7 @@ export default function PostCard({ post, objectPosition = 'center 20%' }) {
     'Rights': '🚨 동물권'
   };
 
-  const translatedCategory = categoryMap[post.category] || post.category;
+  const translatedCategory = categoryMap[rawCategory] || rawCategory;
   const hideCategoryLabel = isClass || isNews;
   const hideReadMore = isCare || isRescue || isClass || isNews;
 
@@ -139,40 +140,11 @@ export default function PostCard({ post, objectPosition = 'center 20%' }) {
               🚨 구조
             </div>
           )}
-
-          {/* Tag Badges (Class, News, etc.) */}
-          {!isCare && !isRescue && post.tag && (
-            <div style={{
-              position: 'absolute',
-              top: '12px',
-              left: '12px',
-              backgroundColor: (post.tag.includes('법') || post.tag.includes('정책') || post.tag.includes('환경')) 
-                ? '#EAF5F0' // Light green/mint
-                : (post.tag.includes('권') || post.tag.includes('실험') || post.tag.includes('축산'))
-                  ? '#2D6A4F' // Dark green
-                  : 'rgba(255, 255, 255, 0.95)',
-              color: (post.tag.includes('권') || post.tag.includes('실험') || post.tag.includes('축산'))
-                ? '#FFFFFF'
-                : '#2D6A4F',
-              padding: '4px 12px',
-              borderRadius: '20px',
-              fontSize: '0.75rem',
-              fontWeight: '700',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-              border: (post.tag.includes('권') || post.tag.includes('실험') || post.tag.includes('축산'))
-                ? 'none'
-                : '1px solid rgba(45, 106, 79, 0.2)',
-              zIndex: 2,
-              backdropFilter: 'blur(4px)'
-            }}>
-              {post.tag}
-            </div>
-          )}
         </div>
         <div className="card-content">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              {post.category && !hideCategoryLabel && <span className="category">{translatedCategory}</span>}
+              {rawCategory && !hideCategoryLabel && <span className="category">{translatedCategory}</span>}
               {post.readTime && <span style={{ fontSize: '0.75rem', color: '#999' }}>⏱️ {post.readTime}</span>}
             </div>
             {isNews && post.date && <time className="date" style={{ fontSize: '0.8rem', color: '#888' }}>{post.date}</time>}
