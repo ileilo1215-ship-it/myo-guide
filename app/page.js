@@ -1,4 +1,5 @@
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 import { getSortedPostsData } from '@/lib/posts';
 import { friendsList } from '@/lib/friends';
 import { GOOGLE_FORM_URL } from '@/lib/constants';
@@ -12,6 +13,22 @@ import Link from 'next/link';
 import fs from 'fs';
 import path from 'path';
 
+
+// --- HELPERS ---
+function getDailySelection(items, count, seed) {
+  if (!items || items.length === 0) return [];
+  if (items.length <= count) return items;
+  
+  const result = [];
+  const pool = [...items];
+  
+  // Deterministic shuffle/pick based on seed
+  for (let i = 0; i < count; i++) {
+    const index = (seed + i * 13) % pool.length; // Use 13 as a prime skip
+    result.push(pool.splice(index, 1)[0]);
+  }
+  return result;
+}
 
 // --- NEWS PAGE ITEM COMPONENT ---
 function NewsPageItem({ post }) {
@@ -202,7 +219,6 @@ export default async function Home({ searchParams }) {
   }
 
   if (categoryParam) {
-    // ... existing category filtering logic ...
     let filteredPosts = allPostsData;
     let bannerTitle = "";
     let bannerDesc = "";
@@ -353,18 +369,14 @@ export default async function Home({ searchParams }) {
 
   const classroomPosts = allPostsData.filter(post => post.category === 'Class');
   const allFamilyMembers = getFamilyData();
-
-  // 3. Daily Selection Logic
-  const carePool = allCareAndRescue.slice(0, 7); // Pick from 7 latest care posts
-  const newsPool = newsPosts.slice(0, 7); // Pick from 7 latest news posts
-  const classroomPool = classroomPosts.slice(0, 7);
-  // Filter familyPool to only include those with existing images
   const familyPool = allFamilyMembers.filter(m => m.hasImage && m.images?.[0]);
 
-  const dailyCare = carePool[dayCount % carePool.length] || allCareAndRescue[0];
-  const dailyNews = newsPool[dayCount % newsPool.length] || newsPosts[0];
-  const dailyClass = classroomPool[dayCount % classroomPool.length] || classroomPosts[0];
-  const dailyFamily = familyPool[dayCount % familyPool.length];
+  // 3. Daily Selection Logic for All Sections
+  // We use dayCount as a seed to rotate items daily.
+  const dailyCare = getDailySelection(allCareAndRescue, 1, dayCount)[0];
+  const dailyNews = getDailySelection(newsPosts, 1, dayCount + 10)[0];
+  const dailyClass = getDailySelection(classroomPosts, 1, dayCount + 20)[0];
+  const dailyFamily = getDailySelection(familyPool, 1, dayCount + 30)[0];
 
   // 4. Hero Slides Preparation
   const slides = [
@@ -402,26 +414,29 @@ export default async function Home({ searchParams }) {
     }
   ];
 
-  const latestTwoCare = allCareAndRescue.slice(0, 2);
+  // 5. Section Previews Selection (Daily Rotation)
+  const dailyCarePreview = getDailySelection(allCareAndRescue, 2, dayCount + 5);
   
-  // 메인 페이지 미리보기에서도 문화/책 기사를 우선적으로 하나 포함시킵니다.
+  // News Preview: prioritize one culture news, then rotate others
   const homePriorityTags = ['📚 책', '🎬 문화/영화', '🎬 문화'];
   const homeCultureNews = newsPosts.filter(p => homePriorityTags.some(pt => p.tag?.includes(pt.replace(/^[^\s]+\s*/, '')) || p.tag === pt));
   const homeOtherNews = newsPosts.filter(p => !homePriorityTags.some(pt => p.tag?.includes(pt.replace(/^[^\s]+\s*/, '')) || p.tag === pt));
   
-  let latestThreeNews;
+  let dailyNewsPreview;
   if (homeCultureNews.length > 0) {
-    latestThreeNews = [homeCultureNews[0], ...homeOtherNews.slice(0, 2)];
+    const dailyCulture = homeCultureNews[dayCount % homeCultureNews.length];
+    const otherDaily = getDailySelection(homeOtherNews, 2, dayCount + 15);
+    dailyNewsPreview = [dailyCulture, ...otherDaily];
   } else {
-    latestThreeNews = newsPosts.slice(0, 3);
+    dailyNewsPreview = getDailySelection(newsPosts, 3, dayCount + 15);
   }
-  const teaserFamilyMembers = allFamilyMembers.filter(m => m.hasImage && m.images?.[0]).slice(0, 4);
 
-  const featuredFriends = friendsList.slice(0, 3);
+  const dailyFamilyPreview = getDailySelection(familyPool, 4, dayCount + 25);
+  const dailyFriendsPreview = getDailySelection(friendsList, 3, dayCount + 35);
 
   return (
     <div style={{ width: '100%' }}>
-      {/* SECTION 1: HERO SLIDER */}
+      {/* SECTION 1: HERO SLIDER (DAILY) */}
       <HeroSlider slides={slides} />
 
       {/* SECTION 2: SLOGAN + INTRO */}
@@ -438,7 +453,7 @@ export default async function Home({ searchParams }) {
         </div>
       </section>
 
-      {/* SECTION 3: CARE PREVIEW */}
+      {/* SECTION 3: CARE PREVIEW (DAILY) */}
       <section className="home-section" style={{ backgroundColor: '#ffffff', borderTop: '1px solid var(--border-color)' }}>
         <div className="section-container">
           <div className="section-header">
@@ -446,7 +461,7 @@ export default async function Home({ searchParams }) {
             <p className="section-subtitle">케어부터 구조까지, 모든 생명을 돌봅니다.</p>
           </div>
           <div className="section-grid cols-2">
-            {latestTwoCare.map(post => (
+            {dailyCarePreview.map(post => (
               <PostCard key={post.id} post={post} objectPosition="center 20%" />
             ))}
           </div>
@@ -456,7 +471,7 @@ export default async function Home({ searchParams }) {
         </div>
       </section>
 
-      {/* SECTION 4: FAMILY TEASER */}
+      {/* SECTION 4: FAMILY TEASER (DAILY) */}
       <section className="home-section bg-cream">
         <div className="section-container" style={{ textAlign: 'center' }}>
           <div className="section-header">
@@ -464,6 +479,17 @@ export default async function Home({ searchParams }) {
             <p className="section-subtitle">고양이부터 도마뱀까지, 우리와 함께 사는 모든 가족들</p>
           </div>
           
+          <div className="section-grid cols-4" style={{ marginBottom: '2rem' }}>
+            {dailyFamilyPreview.map((member) => (
+              <Link href={`/family/${member.slug}`} key={member.slug} className="family-teaser-card">
+                <div className="family-teaser-image">
+                  <img src={member.images[0]} alt={member.name} />
+                </div>
+                <h3 className="family-teaser-name">{member.name}</h3>
+              </Link>
+            ))}
+          </div>
+
           <div className="btn-group" style={{ justifyContent: 'center', marginTop: '1rem' }}>
             <Link href="/family" className="btn-primary">묘한 가족들 만나기 &gt;</Link>
             <a 
@@ -479,7 +505,7 @@ export default async function Home({ searchParams }) {
         </div>
       </section>
 
-      {/* SECTION 5: NEWS PREVIEW */}
+      {/* SECTION 5: NEWS PREVIEW (DAILY) */}
       <section className="home-section" style={{ backgroundColor: '#e8f4ee' }}>
         <div className="section-container">
           <div className="section-header">
@@ -487,7 +513,7 @@ export default async function Home({ searchParams }) {
             <p className="section-subtitle">동물권 및 공존과 관련된 의미 있는 소식을 전해드려요</p>
           </div>
           <div className="section-grid cols-3" style={{ marginBottom: '3rem' }}>
-            {latestThreeNews.map(post => (
+            {dailyNewsPreview.map(post => (
               <article key={post.id} className="news-magazine-card simple-card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <div className="news-magazine-image" style={{ height: '180px' }}>
                   {post.image ? (
@@ -518,30 +544,36 @@ export default async function Home({ searchParams }) {
         </div>
       </section>
 
-      {/* SECTION 6: CLASSROOM BANNER */}
+      {/* SECTION 6: CLASSROOM DAILY FEATURE */}
       <section className="home-section bg-forest">
         <div className="section-container classroom-banner">
           <div className="classroom-banner-content">
-            <h2 className="section-title" style={{ color: 'white' }}>동물권, 함께 배워요</h2>
+            <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>오늘의 교실</span>
+            <h2 className="section-title" style={{ color: 'white', marginTop: '0.5rem' }}>{dailyClass?.title || "동물권, 함께 배워요"}</h2>
             <p className="section-subtitle" style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '1.5rem' }}>
-              어린이부터 어른까지 함께 배우는 동물권 카드 및 교육 자료
+              {dailyClass?.summary || dailyClass?.coreQuestion || "어린이부터 어른까지 함께 배우는 동물권 카드 및 교육 자료"}
             </p>
             <div className="classroom-tags">
-              <span className="classroom-tag">#공장식축산</span>
-              <span className="classroom-tag">#멸종위기</span>
-              <span className="classroom-tag">#도시공존</span>
+               {dailyClass?.tag && <span className="classroom-tag">#{dailyClass.tag.replace(/^[^\s]+\s*/, '')}</span>}
+               {!dailyClass?.tag && (
+                 <>
+                   <span className="classroom-tag">#공장식축산</span>
+                   <span className="classroom-tag">#멸종위기</span>
+                   <span className="classroom-tag">#도시공존</span>
+                 </>
+               )}
             </div>
-            <Link href="/?category=Class" className="btn-primary" style={{ backgroundColor: 'white', color: 'var(--accent-sub)' }}>
-              묘한 교실 입장하기 &gt;
+            <Link href={dailyClass ? `/posts/${dailyClass.id}` : "/?category=Class"} className="btn-primary" style={{ backgroundColor: 'white', color: 'var(--accent-sub)' }}>
+              지금 수업 참여하기 &gt;
             </Link>
           </div>
           <div className="classroom-banner-image">
-            <img src="/hero/ricky-kharawala-adK3Vu70DEQ-unsplash.jpg" alt="Animal Education" />
+            <img src={dailyClass?.image || "/hero/ricky-kharawala-adK3Vu70DEQ-unsplash.jpg"} alt="Animal Education" />
           </div>
         </div>
       </section>
 
-      {/* SECTION 7: FRIENDS PREVIEW */}
+      {/* SECTION 7: FRIENDS PREVIEW (DAILY) */}
       <section className="home-section" style={{ backgroundColor: '#ffffff' }}>
         <div className="section-container">
           <div className="section-header">
@@ -549,7 +581,7 @@ export default async function Home({ searchParams }) {
             <p className="section-subtitle">우리가 알아야 할, 생명을 살리는 멋진 단체와 매체들</p>
           </div>
           <div className="section-grid">
-            {featuredFriends.map((friend, index) => (
+            {dailyFriendsPreview.map((friend, index) => (
               <div key={index} className="post-card" style={{ height: '100%' }}>
                 <div className="card-image-wrapper">
                   <Image src={friend.image} alt={friend.name} fill style={{ objectFit: 'cover' }} />
