@@ -334,7 +334,7 @@ export default async function Home({ searchParams }) {
       title: dailyFamily ? `${dailyFamily.name}와 함께하는 일상` : '함께 살아가는 우리 가족 이야기',
       description: dailyFamily?.description || '고양이부터 도마뱀까지, 우리와 함께 사는 소중한 생명들의 이야기를 만나보세요.',
       image: dailyFamily?.images[0] || '/hero/jordan-whitt-EerxztHCjM8-unsplash.jpg',
-      link: '/family',
+      link: dailyFamily ? `/family/${dailyFamily.slug}` : '/family',
       subtitle: '서로 다른 우리가 만나 가족이 되었습니다'
     },
     {
