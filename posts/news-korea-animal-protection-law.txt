@@ -9,7 +9,7 @@ editorNote: "길고양이에게 밥 주는 캣맘을 처벌하는 조항이 생�
 source: "농림축산식품부 보도자료"
 sourceUrl: "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156627493"
 readTime: "약 3분"
-image: "/hero/dog-law-news.jpg"
+image: "/news/marco-grosso-HpzfzpZ4HS0-unsplash.jpg"
 ---
 
 ### 📋 어떻게 바뀌었나요?

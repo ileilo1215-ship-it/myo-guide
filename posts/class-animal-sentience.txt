@@ -8,7 +8,7 @@ duration: 40
 pdfStudent: "/learn/pdf/class-animal-sentience-student.pdf"
 pdfTeacher: "/learn/pdf/class-animal-sentience-teacher.pdf"
 coreQuestion: "동물의 감정을 이해하면 우리의 행동이 어떻게 달라질까요?"
-image: "/class/animal-sentience.png"
+image: "/class/roman-kravtsov-GPOHPqSSYb8-unsplash.jpg"
 ---
 
 ## 🎯 수업 목표
