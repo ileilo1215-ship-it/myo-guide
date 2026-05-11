@@ -1,5 +1,9 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
+html {
+  height: -webkit-fill-available;
+}
+
 :root {
   --bg-color: #F8F5F0;
   --text-primary: #2C2C2A;
@@ -29,7 +33,8 @@ body {
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
   display: flex;
-  min-height: 100dvh;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
 }
 
 /* Typography */
