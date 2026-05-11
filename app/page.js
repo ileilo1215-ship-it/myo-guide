@@ -88,20 +88,62 @@ export default async function Home({ searchParams }) {
 
   // ── Home Page Multi-Section ──────────────────────────────────────
   
-  // 1. Data Prep
-  let heroImageSrc = '/cat/lily-banse-bZT3YDRjacc-unsplash.jpg';
+  // 1. Daily Rotation Logic (KST 00:00)
+  const now = new Date();
+  // Adjust to KST (UTC+9)
+  const kstOffset = 9 * 60 * 60 * 1000;
+  const kstDate = new Date(now.getTime() + kstOffset);
+  const dayCount = Math.floor(kstDate.getTime() / (1000 * 60 * 60 * 24));
+
+  // 2. Hero Image Selection (Curated bright/cheerful images)
+  const heroImages = getHeroImages();
+  // Filter/Prioritize bright and cheerful images as requested by the user
+  const brightImages = [
+    'nine-koepfer-lpgAlv8I7V8-unsplash.jpg',
+    'annie-spratt-SGXycQg_2pA-unsplash.jpg',
+    'jordan-whitt-EerxztHCjM8-unsplash.jpg',
+    'daria-shatova-BphuDA60if4-unsplash.jpg',
+    'jonatan-pie-xgTMSz6kegE-unsplash.jpg',
+    'ricky-kharawala-adK3Vu70DEQ-unsplash.jpg',
+    'mark-stoop-JAUFHzqZPd0-unsplash.jpg'
+  ].filter(img => heroImages.includes(img));
+
+  const availableHeroPool = brightImages.length > 0 ? brightImages : heroImages;
+  
+  let heroImageSrc = '/cat/lily-banse-bZT3YDRjacc-unsplash.jpg'; // fallback
   let authorName = 'Lily Banse';
 
-  const newsPosts = allPostsData.filter(post => post.category === 'News');
-  const latestNews = newsPosts.length > 0 ? newsPosts[0] : null;
+  if (availableHeroPool.length > 0) {
+    const selectedImage = availableHeroPool[dayCount % availableHeroPool.length];
+    heroImageSrc = `/hero/${selectedImage}`;
+    authorName = extractAuthorName(selectedImage);
+  }
+
+  // 3. News Selection (묘한 시선)
+  // Filtering with quote-stripping and prioritizing recent (2026) news
+  const newsPosts = allPostsData
+    .filter(post => {
+      if (!post.category) return false;
+      const cat = post.category.replace(/['"]/g, '').trim();
+      return cat === 'News';
+    })
+    .sort((a, b) => new Date(b.date) - new Date(a.date)); // Newest first
+
+  // For the Hero section, only use news from 2026 to keep it "fresh"
+  const recentNewsPosts = newsPosts.filter(post => post.date && post.date.startsWith('2026'));
+  const heroNewsPool = recentNewsPosts.length > 0 ? recentNewsPosts : newsPosts.slice(0, 3);
+
+  const latestNews = heroNewsPool.length > 0 ? heroNewsPool[dayCount % heroNewsPool.length] : allPostsData[0];
   const latestTwoNews = newsPosts.slice(0, 2);
 
-  const carePosts = allPostsData.filter(post => 
-    ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play'].includes(post.category)
-  );
-  const rescuePosts = allPostsData.filter(post => 
-    ['Street Life', 'Rights', '🚨 구조'].includes(post.category)
-  );
+  const carePosts = allPostsData.filter(post => {
+    const cat = post.category?.replace(/['"]/g, '').trim() || '';
+    return ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play'].includes(cat);
+  });
+  const rescuePosts = allPostsData.filter(post => {
+    const cat = post.category?.replace(/['"]/g, '').trim() || '';
+    return ['Street Life', 'Rights', '🚨 구조'].includes(cat);
+  });
 
   let latestTwoCare = [];
   // Pick one from each if available to ensure "mixing"
@@ -140,46 +182,15 @@ export default async function Home({ searchParams }) {
         )}
 
         {latestNews && (
-          <div className="hero-news-overlay" style={{
-            position: 'absolute',
-            bottom: '12%',
-            left: '5%',
-            right: '5%',
-            color: '#FFFFFF',
-            textShadow: '0 2px 15px rgba(0,0,0,0.4)',
-            maxWidth: '1200px',
-            margin: '0 auto',
-            padding: '2.5rem',
-            background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%)',
-            borderRadius: '12px',
-            zIndex: 5,
-            backdropFilter: 'blur(4px)'
-          }}>
-            <h2 style={{ fontSize: 'clamp(0.9rem, 2.5vw, 1.2rem)', fontWeight: '500', marginBottom: '0.8rem', opacity: 0.9 }}>
-              모든 생명이 존중받는 세상을 위해
-            </h2>
-            <span style={{ 
-              display: 'inline-block', 
-              backgroundColor: 'var(--accent-color)', 
-              color: 'white', 
-              padding: '5px 14px', 
-              borderRadius: '30px', 
-              fontSize: '0.85rem',
-              fontWeight: '800',
-              marginBottom: '1.2rem',
-              textShadow: 'none',
-              letterSpacing: '0.5px'
-            }}>
-              묘한 시선 👁️
-            </span>
+          <div className="hero-news-overlay">
+            <h2 className="news-subtitle">모든 생명이 존중받는 세상을 위해</h2>
+            <span className="news-tag">묘한 시선 👁️</span>
             <Link href={`/posts/${latestNews.id}`} style={{ textDecoration: 'none', color: 'white' }}>
-              <h1 style={{ fontSize: 'clamp(1.5rem, 5vw, 2.8rem)', fontWeight: '800', marginBottom: '1.2rem', letterSpacing: '-1.5px', lineHeight: '1.2' }}>
-                {latestNews.title}
-              </h1>
-              <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', fontWeight: '300', opacity: 0.95, lineHeight: '1.6', wordBreak: 'keep-all', maxWidth: '800px' }}>
+              <h1>{latestNews.title}</h1>
+              <p>
                 {latestNews.summary || latestNews.hook || (latestNews.content ? latestNews.content.substring(0, 120) + '...' : '')}
               </p>
-              <div style={{ marginTop: '2.5rem', fontWeight: '700', textTransform: 'uppercase', fontSize: '0.85rem', letterSpacing: '1.5px', display: 'inline-flex', alignItems: 'center', gap: '10px', borderBottom: '2px solid white', paddingBottom: '6px' }}>
+              <div className="more-link">
                 묘한 시선 ➔
               </div>
             </Link>
