@@ -429,13 +429,13 @@ export default async function Home({ searchParams }) {
 
       {/* SECTION 6: CLASSROOM BANNER */}
       <section className="home-section bg-forest">
-        <div className="section-container classroom-banner" style={{ display: 'flex', alignItems: 'center', gap: '3rem', textAlign: 'left' }}>
-          <div style={{ flex: 1 }}>
+        <div className="section-container classroom-banner">
+          <div className="classroom-banner-content">
             <h2 className="section-title" style={{ color: 'white' }}>동물권, 함께 배워요</h2>
             <p className="section-subtitle" style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '1.5rem' }}>
               어린이부터 어른까지 함께 배우는 동물권 카드 및 교육 자료
             </p>
-            <div className="classroom-tags" style={{ justifyContent: 'flex-start' }}>
+            <div className="classroom-tags">
               <span className="classroom-tag">#공장식축산</span>
               <span className="classroom-tag">#멸종위기</span>
               <span className="classroom-tag">#도시공존</span>
@@ -444,8 +444,8 @@ export default async function Home({ searchParams }) {
               교실 입장하기 →
             </Link>
           </div>
-          <div style={{ flex: 1, height: '300px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.2)' }}>
-            <img src="/hero/ricky-kharawala-adK3Vu70DEQ-unsplash.jpg" alt="Animal Education" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <div className="classroom-banner-image">
+            <img src="/hero/ricky-kharawala-adK3Vu70DEQ-unsplash.jpg" alt="Animal Education" />
           </div>
         </div>
       </section>
