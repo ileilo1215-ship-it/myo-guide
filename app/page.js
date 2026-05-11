@@ -36,7 +36,6 @@ function NewsPageItem({ post }) {
         
         {post.editorNote && (
           <div className="news-magazine-editor-note">
-            <span className="editor-quote-icon">"</span>
             {post.editorNote}
           </div>
         )}

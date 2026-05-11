@@ -1,4 +1,5 @@
 import { getPostData, getAllPostIds } from '@/lib/posts';
+import { CATEGORY_MAP } from '@/lib/constants';
 import ReactionButtons from '@/components/ReactionButtons';
 import ShareButtons from '@/components/ShareButtons';
 import GiscusComments from '@/components/GiscusComments';
@@ -58,7 +59,7 @@ export default async function Post({ params }) {
     return (
       <article className={styles.container}>
         <header className={styles.header}>
-          <span className={styles.category}>{postData.category}</span>
+          <span className={styles.category}>{CATEGORY_MAP[postData.category] || postData.category}</span>
           <h1 className={styles.title}>{postData.title}</h1>
         </header>
 
@@ -93,7 +94,7 @@ export default async function Post({ params }) {
       <article className={styles.container}>
         <header className={styles.header}>
           <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center', gap: '0.5rem' }}>
-            {postData.category && <span className={styles.category}>{postData.category}</span>}
+            {postData.category && <span className={styles.category}>{CATEGORY_MAP[postData.category] || postData.category}</span>}
             {postData.tag && <span style={{ color: '#888', fontWeight: '500' }}>| {postData.tag}</span>}
           </div>
           <h1 className={styles.title}>{postData.title}</h1>
@@ -156,7 +157,7 @@ export default async function Post({ params }) {
   return (
     <article className={styles.container}>
       <header className={styles.header}>
-        {postData.category && <span className={styles.category}>{postData.category}</span>}
+        {postData.category && <span className={styles.category}>{CATEGORY_MAP[postData.category] || postData.category}</span>}
         <h1 className={styles.title}>{postData.title}</h1>
       </header>
       

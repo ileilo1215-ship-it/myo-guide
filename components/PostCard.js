@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import { CATEGORY_MAP } from '@/lib/constants';
 
 const catImages = [
   "adinavoicu-cat-3336579_1920.jpg", "alex-d-J93PXpBPCFI-unsplash.jpg", "alexas_fotos-cat-1046544_1920.jpg",
@@ -68,20 +69,7 @@ export default function PostCard({ post, objectPosition = 'center 20%' }) {
   const isClass = rawCategory === 'Class';
   const isNews = rawCategory === 'News';
 
-  const categoryMap = {
-    'Health': '건강',
-    'Grooming': '미용',
-    'Environment': '환경',
-    'Safety': '안전',
-    'Behavior': '행동',
-    'Play': '놀이',
-    'Class': '교실',
-    'News': '뉴스',
-    'Street Life': '🚨 구조',
-    'Rights': '🚨 동물권'
-  };
-
-  const translatedCategory = categoryMap[rawCategory] || rawCategory;
+  const translatedCategory = CATEGORY_MAP[rawCategory] || rawCategory;
   const hideCategoryLabel = isClass || isNews;
   const hideReadMore = isCare || isRescue || isClass || isNews;
 
@@ -156,7 +144,7 @@ export default function PostCard({ post, objectPosition = 'center 20%' }) {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
                 {!isCare && !isRescue && !isClass && !isNews && post.date && <time className="date" style={{ fontSize: '0.8rem', color: '#888' }}>{post.date}</time>}
               </div>
-              {!hideReadMore && <span className="read-more">Read Article</span>}
+              {!hideReadMore && <span className="read-more">자세히 보기</span>}
             </div>
           )}
         </div>
