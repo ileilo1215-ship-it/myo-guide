@@ -44,59 +44,37 @@ function extractAuthorName(filename) {
 // --- NEWS PAGE ITEM COMPONENT ---
 // --- NEWS PAGE ITEM COMPONENT ---
 function NewsPageItem({ post }) {
-  const getTagStyle = (tag) => {
-    if (!tag) return { background: '#e8f4ee', color: '#2D6A4F' };
-    const t = tag.toLowerCase();
-    if (t.includes('법') || t.includes('정책')) return { background: '#e8f4ee', color: '#2D6A4F' };
-    if (t.includes('도시') || t.includes('환경')) return { background: '#e1f5ee', color: '#0F6E56' };
-    if (t.includes('책')) return { background: '#faeeda', color: '#854F0B' };
-    if (t.includes('동물권')) return { background: '#e8f4ee', color: '#1a4731' };
-    return { background: '#e8f4ee', color: '#2D6A4F' };
-  };
-
-  const tagStyle = getTagStyle(post.tag);
+  const cleanTag = post.tag?.replace(/^[^\s]+\s*/, '') || '뉴스';
 
   return (
-    <article className="news-article-entry">
-      <div className="news-image-area">
+    <article className="news-magazine-card">
+      <div className="news-magazine-image">
         {post.image ? (
-          <img 
-            src={post.image} 
-            alt={post.title} 
-            className="news-entry-image"
-          />
+          <img src={post.image} alt={post.title} />
         ) : (
-          <div className="news-image-placeholder">🐾</div>
+          <div className="news-magazine-placeholder">🐾</div>
         )}
       </div>
       
-      <div className="news-text-area">
-        <div className="news-meta-row">
-          <span className="news-tag" style={tagStyle}>
-            {post.tag || '🐾 뉴스'}
-          </span>
-          <span className="news-meta-divider">·</span>
-          <span>{post.date}</span>
-          <span className="news-meta-divider">·</span>
+      <div className="news-magazine-content">
+        <span className="news-magazine-tag">{cleanTag}</span>
+        <h2 className="news-magazine-title">{post.title}</h2>
+        <div className="news-magazine-meta">
           <span>{post.source || '매체'}</span>
-          <span className="news-meta-divider">·</span>
-          <span>{post.readTime || '3분'}</span>
-        </div>
-        
-        {post.hook && <p className="news-hook">{post.hook}</p>}
-        
-        <div className="news-title-row">
-          <h2 className="news-title">{post.title}</h2>
-          <Link href={`/posts/${post.id}`} className="news-read-pill-button">
-            기사 읽기
-          </Link>
+          <span className="news-meta-divider">|</span>
+          <span>{post.date}</span>
         </div>
         
         {post.editorNote && (
-          <div className="news-editor-note">
+          <div className="news-magazine-editor-note">
+            <span className="editor-quote-icon">"</span>
             {post.editorNote}
           </div>
         )}
+        
+        <Link href={`/posts/${post.id}`} className="news-magazine-btn">
+          기사 읽기
+        </Link>
       </div>
     </article>
   );
@@ -156,8 +134,7 @@ function ClassroomView({ posts, selectedTag }) {
   const bgImage = questionPost?.image || '/hero/sam-grozyan-hQPoYovqWR0-unsplash.jpg';
 
   return (
-    <div className="classroom-wrapper">
-      <div className="classroom-container">
+    <div className="classroom-container">
         {/* Question Box */}
         <div className="classroom-question-box">
           <img src={bgImage} alt="" className="classroom-question-bg" />
@@ -193,7 +170,6 @@ function ClassroomView({ posts, selectedTag }) {
           )}
         </section>
       </div>
-    </div>
   );
 }
 
@@ -220,14 +196,33 @@ export default async function Home({ searchParams }) {
     } else if (categoryParam === 'News') {
       bannerTitle = "묘한 뉴스";
       bannerDesc = "동물권 및 공존과 관련된 의미 있는 소식을 전해드려요";
-      filteredPosts = allPostsData.filter(post => post.category === 'News');
+      const newsPosts = allPostsData.filter(post => post.category === 'News');
+      const selectedTag = params?.tag;
       
+      const allTags = ['전체', ...new Set(newsPosts.map(p => p.tag?.replace(/^[^\s]+\s*/, '')).filter(Boolean))];
+      const filteredNews = selectedTag && selectedTag !== '전체'
+        ? newsPosts.filter(p => p.tag?.includes(selectedTag))
+        : newsPosts;
+
       return (
         <div className="news-page-wrapper">
           <Banner title={bannerTitle} description={bannerDesc} />
-          <section className="news-page-container">
-            {filteredPosts.length > 0 ? (
-              filteredPosts.map((post) => (
+          
+          <div className="news-tag-filter">
+            {allTags.map(tag => (
+              <Link 
+                key={tag}
+                href={`/?category=News${tag === '전체' ? '' : `&tag=${tag}`}`}
+                className={`news-tag-pill ${selectedTag === tag || (!selectedTag && tag === '전체') ? 'active' : ''}`}
+              >
+                {tag}
+              </Link>
+            ))}
+          </div>
+
+          <section className="news-magazine-grid">
+            {filteredNews.length > 0 ? (
+              filteredNews.map((post) => (
                 <NewsPageItem key={post.id} post={post} />
               ))
             ) : (
@@ -241,7 +236,10 @@ export default async function Home({ searchParams }) {
       filteredPosts = allPostsData.filter(post => post.category === 'Class');
       
       return (
-        <ClassroomView posts={filteredPosts} selectedTag={selectedTag} />
+        <div className="classroom-wrapper">
+          <Banner title="묘한 교실" description="어린이부터 어른까지 함께 배우는 동물권 카드 및 교육 자료" />
+          <ClassroomView posts={filteredPosts} selectedTag={selectedTag} />
+        </div>
       );
     }
 
@@ -424,7 +422,7 @@ export default async function Home({ searchParams }) {
             <h2 className="section-title">묘한 뉴스</h2>
             <p className="section-subtitle">동물권 및 공존과 관련된 의미 있는 소식을 전해드려요</p>
           </div>
-          <div className="news-page-container" style={{ background: 'transparent', padding: 0 }}>
+          <div className="news-magazine-grid" style={{ background: 'transparent', padding: 0 }}>
             {latestTwoNews.map(post => (
               <NewsPageItem key={post.id} post={post} />
             ))}

@@ -14,14 +14,14 @@ html {
   --color-text-secondary: #555555;
   --color-text-tertiary: #999999;
   --card-bg: #FFFFFF;
-  --banner-bg: #F8F5F0; /* Matching global bg as requested */
+  --banner-bg: var(--bg-color);
   --border-color: #E2DDD5;
   --color-border-tertiary: #E2DDD5;
   --border-radius-lg: 16px;
   --sidebar-width: 260px;
   --mobile-topbar-height: 60px;
-  --section-padding-pc: 60px;
-  --section-padding-mobile: 40px;
+  --section-padding-pc: 48px;
+  --section-padding-mobile: 32px;
 }
 
 * {
@@ -303,8 +303,8 @@ h1, h2, h3 {
   }
 
   .banner {
-    padding: 2rem 16px;
-    margin-bottom: 1.5rem;
+    padding: 1.5rem 16px; /* Reduced padding further */
+    margin-bottom: 0.5rem;
   }
 
   /* Typography caps */
@@ -329,10 +329,9 @@ h1, h2, h3 {
    ================================================ */
 .banner {
   background-color: var(--banner-bg);
-  padding: 4rem 2rem;
+  padding: 2.5rem 2rem;
   text-align: center;
-  border-bottom: 1px solid var(--border-color);
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
 .banner-content {
@@ -341,19 +340,19 @@ h1, h2, h3 {
 }
 
 .banner-content h1 {
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: var(--accent-sub);
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   letter-spacing: -1px;
 }
 
 .banner-content p {
   font-family: 'Noto Sans KR', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 300;
+  font-size: 1.1rem;
+  font-weight: 400;
   color: var(--text-secondary);
-  letter-spacing: 0.5px;
+  letter-spacing: -0.01em;
 }
 
 /* ================================================
@@ -510,20 +509,20 @@ h1, h2, h3 {
 
 .section-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .section-title {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: var(--accent-sub);
 }
 
 .section-subtitle {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--text-secondary);
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .section-footer {
@@ -545,11 +544,11 @@ h1, h2, h3 {
   color: var(--accent-color);
 }
 
-/* Section specific backgrounds */
-.bg-cream { background-color: #F8F5F0; }
-.bg-mint { background-color: #e8f4ee; }
-.bg-forest { background-color: #2D6A4F; color: white; }
-.bg-white { background-color: #FFFFFF; }
+/* Section specific backgrounds - Unified to ivory as requested */
+.bg-cream { background-color: var(--bg-color); }
+.bg-mint { background-color: var(--bg-color); }
+.bg-forest { background-color: #2D6A4F; color: white; } /* Keeping the distinct dark section for contrast */
+.bg-white { background-color: var(--bg-color); }
 .bg-dark { background-color: #2C2C2A; color: white; }
 
 /* Section 5: Classroom Banner */
@@ -725,54 +724,93 @@ h1, h2, h3 {
    NEW NEWS PAGE LAYOUT (Full View - 2 Column)
    ================================================ */
 .news-page-wrapper {
-  background-color: #ffffff;
+  background-color: var(--bg-color);
   min-height: 100vh;
 }
 
 .news-page-wrapper .banner {
-  background-color: #ffffff;
-  border-bottom: 1px solid var(--color-border-tertiary);
-  margin-bottom: 0;
+  background-color: var(--bg-color);
+  margin-bottom: 1rem;
 }
 
-.news-page-container {
-  width: 100%;
-  max-width: none;
+/* ================================================
+   NEWS MAGAZINE LAYOUT (Newspaper style)
+   ================================================ */
+.news-tag-filter {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  padding: 0 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.news-tag-pill {
+  padding: 8px 18px;
+  border-radius: 40px;
+  background-color: white;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.news-tag-pill:hover {
+  border-color: var(--accent-sub);
+  color: var(--accent-sub);
+  background-color: #f8fcf9;
+}
+
+.news-tag-pill.active {
+  background-color: var(--accent-sub);
+  color: white;
+  border-color: var(--accent-sub);
+  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.2);
+}
+
+.news-magazine-grid {
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 40px 80px;
+  column-count: 3;
+  column-gap: 32px;
 }
 
-.news-article-entry {
-  display: flex;
-  gap: 32px;
-  align-items: flex-start;
-  padding: 32px 0 16px;
-  border-bottom: 0.5px solid var(--color-border-tertiary);
+.news-magazine-card {
+  break-inside: avoid;
+  display: inline-block; /* Essential for column-count to not split cards */
+  width: 100%;
+  margin-bottom: 32px;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
 }
 
-.news-article-entry:last-child {
-  border-bottom: none;
+.news-magazine-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
-/* Left - Image Area */
-.news-image-area {
-  width: 280px;
-  height: 200px;
-  flex-shrink: 0;
-  border-radius: var(--border-radius-lg);
+.news-magazine-image {
+  width: 100%;
+  position: relative;
   overflow: hidden;
 }
 
-.news-entry-image {
+.news-magazine-image img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  height: auto;
+  display: block;
 }
 
-.news-image-placeholder {
+.news-magazine-placeholder {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16 / 9;
   background-color: #e8f4ee;
   display: flex;
   align-items: center;
@@ -780,109 +818,101 @@ h1, h2, h3 {
   font-size: 40px;
 }
 
-/* Right - Text Area */
-.news-text-area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+.news-magazine-content {
+  padding: 24px;
 }
 
-.news-meta-row {
+.news-magazine-tag {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent-sub);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.news-magazine-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.35;
+  margin-bottom: 12px;
+  word-break: keep-all;
+}
+
+.news-magazine-meta {
+  font-size: 13px;
+  color: #999;
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
-  color: var(--color-text-tertiary);
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
-.news-tag {
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-weight: 500;
-  line-height: 1;
+.news-magazine-editor-note {
+  position: relative;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+  padding: 16px 0;
+  border-top: 1px solid #f0f0f0;
+  margin-bottom: 20px;
 }
 
-.news-meta-divider {
-  margin: 0 4px;
+.editor-quote-icon {
+  font-family: serif;
+  font-size: 32px;
+  color: var(--accent-color);
+  opacity: 0.3;
+  position: absolute;
+  top: 5px;
+  left: -5px;
+  pointer-events: none;
 }
 
-.news-hook {
-  font-size: 15px;
-  font-style: italic;
-  color: var(--color-text-secondary);
-  margin-bottom: 8px;
-  line-height: 1.5;
-}
-
-.news-title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 20px;
-  margin-bottom: 12px;
-}
-
-.news-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--color-text-primary);
-  line-height: 1.4;
-  margin-bottom: 0;
-  flex: 1;
-}
-
-.news-read-pill-button {
-  padding: 6px 16px;
-  border-radius: 30px;
-  background-color: #2D6A4F;
+.news-magazine-btn {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  background-color: var(--accent-sub);
   color: white;
-  font-size: 13px;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
   text-decoration: none;
   transition: all 0.2s ease;
-  flex-shrink: 0;
-  margin-top: 2px; /* Align with the first line of the title */
+  border: 1px solid var(--accent-sub);
+  box-shadow: 0 4px 10px rgba(45, 106, 79, 0.15);
 }
 
-.news-read-pill-button:hover {
-  background-color: #40916c;
-  transform: translateY(-1px);
+.news-magazine-btn:hover {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(82, 183, 136, 0.2);
 }
 
-.news-editor-note {
-  border-left: 3px solid #2D6A4F;
-  background-color: #e8f4ee;
-  padding: 12px 16px;
-  border-radius: 0 8px 8px 0;
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--color-text-secondary);
-  margin-bottom: 16px;
+/* Mobile */
+@media (max-width: 1024px) {
+  .news-magazine-grid {
+    column-count: 2;
+  }
 }
 
-/* Mobile Layout */
 @media (max-width: 767px) {
-  .news-page-container {
+  .news-magazine-grid {
+    column-count: 1;
     padding: 0 20px 40px;
   }
-
-  .news-article-entry {
-    flex-direction: column;
-    gap: 20px;
-    padding: 24px 0;
+  
+  .news-tag-filter {
+    padding: 0 20px;
+    gap: 8px;
   }
-
-  .news-image-area {
-    width: 100%;
-    height: 200px;
-  }
-
-  .news-text-area {
-    width: 100%;
+  
+  .news-tag-pill {
+    padding: 6px 14px;
+    font-size: 13px;
   }
 }
 
@@ -890,7 +920,7 @@ h1, h2, h3 {
    CLASSROOM (묘한 교실) REDESIGN
    ================================================ */
 .classroom-wrapper {
-  background-color: #ffffff;
+  background-color: var(--bg-color);
   min-height: 100vh;
 }
 
@@ -904,17 +934,17 @@ h1, h2, h3 {
 .classroom-question-box {
   position: relative;
   width: 100%;
-  min-height: 240px;
+  min-height: 200px;
   background-color: #2D6A4F;
   border-radius: 20px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 40px;
-  margin: 40px 0 24px;
+  padding: 30px 40px;
+  margin: 20px 0 24px;
   color: white;
-  box-shadow: 0 10px 30px rgba(45, 106, 79, 0.2);
+  box-shadow: 0 10px 30px rgba(45, 106, 79, 0.15);
 }
 
 .classroom-question-bg {

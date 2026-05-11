@@ -10,7 +10,7 @@ const Footer = () => {
         </h3>
         <p className="footer-motto">KNOW MORE. CARE BETTER.</p>
         <div className="footer-copyright">
-          Copyright 2026 묘한 가이드 v1.1
+          Copyright 2026 묘한 가이드
         </div>
       </div>
     </footer>
