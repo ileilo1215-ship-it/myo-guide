@@ -57,7 +57,7 @@ export default async function FamilyDetailsPage({ params }) {
           <div className="header-info">
             <span className="badge">{member.type}</span>
             <h1 className="name">{member.name}</h1>
-            <p className="intro-text">"{member.contentHtml.replace(/<[^>]*>?/gm, '').trim()}"</p>
+            <p className="intro-text">{member.contentHtml.replace(/<[^>]*>?/gm, '').trim()}</p>
           </div>
         </div>
 

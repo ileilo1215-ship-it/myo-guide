@@ -107,10 +107,37 @@
 }
 
 .intro-text {
+  position: relative;
   font-size: 1rem;
   color: var(--text-secondary);
-  font-style: italic;
-  line-height: 1.5;
+  font-style: normal;
+  line-height: 1.7;
+  padding: 0.5rem 0 0.5rem 2rem;
+  margin-top: 1rem;
+  font-weight: 500;
+  max-width: 95%;
+}
+
+.intro-text::before {
+  content: '“';
+  position: absolute;
+  top: -1rem;
+  left: 0;
+  font-size: 3.5rem;
+  color: var(--accent-color);
+  opacity: 0.4;
+  font-family: Georgia, serif;
+}
+
+.intro-text::after {
+  content: '”';
+  position: absolute;
+  bottom: -2.5rem;
+  right: -1rem;
+  font-size: 3.5rem;
+  color: var(--accent-color);
+  opacity: 0.4;
+  font-family: Georgia, serif;
 }
 
 /* Profile Grid */
@@ -169,16 +196,18 @@
 }
 
 .wish-box {
-  background: linear-gradient(135deg, #FFF9C4 0%, #FFF59D 100%);
-  border: none;
+  background: white;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02);
 }
 
 .wish-text {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #827717;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
   text-align: center;
   padding: 0.5rem 0;
+  line-height: 1.6;
 }
 
 /* Gallery Section */

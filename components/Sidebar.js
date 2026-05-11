@@ -42,7 +42,7 @@ export default function Sidebar() {
     { href: "/?category=News", label: "묘한 뉴스", icon: "🗞️" },
     { href: "/?category=Class", label: "묘한 교실", icon: "🎓" },
     { href: "/family", label: "묘한 가족들", icon: "🐱" },
-    { href: "/friends", label: "친구들", icon: "👫" },
+    { href: "/friends", label: "친구들", icon: "🫂" },
     { href: "/about", label: "소개", icon: "🌿" },
   ];
 

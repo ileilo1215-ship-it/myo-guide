@@ -15,8 +15,6 @@ import path from 'path';
 
 // --- NEWS PAGE ITEM COMPONENT ---
 function NewsPageItem({ post }) {
-  const cleanTag = post.tag?.replace(/^[^\s]+\s*/, '') || '뉴스';
-
   return (
     <article className="news-magazine-card">
       <div className="news-magazine-image">
@@ -28,7 +26,7 @@ function NewsPageItem({ post }) {
       </div>
       
       <div className="news-magazine-content">
-        <span className="news-magazine-tag">{cleanTag}</span>
+        <span className="news-magazine-tag">{post.tag || '🗞️ 뉴스'}</span>
         <h2 className="news-magazine-title">{post.title}</h2>
         <div className="news-magazine-meta">
           <span>{post.source || '매체'}</span>
@@ -65,6 +63,14 @@ function ClassCard({ post }) {
         </div>
       )}
       <div className="classroom-card-meta">
+        {post.tag && (
+          <Link 
+            href={`/?category=Class&tag=${post.tag.replace(/^[^\s]+\s*/, '')}`} 
+            className="classroom-category-pill"
+          >
+            {post.tag}
+          </Link>
+        )}
         <span className="classroom-grade-badge">{post.grade || '전체'}</span>
         <span style={{ fontSize: '12px', color: '#888' }}>{post.duration || '40'}분 수업</span>
       </div>
@@ -91,8 +97,15 @@ function ClassCard({ post }) {
 }
 
 function ClassroomView({ posts, selectedTag }) {
-  // Extract unique tags from posts
-  const allTags = ['전체', ...new Set(posts.map(p => p.tag?.replace(/^[^\s]+\s*/, '')).filter(Boolean))];
+  // Extract unique full tags from posts
+  const uniqueFullTags = [...new Set(posts.map(p => p.tag).filter(Boolean))];
+  const tagObjects = [
+    { display: '🐾 전체', value: '전체' },
+    ...uniqueFullTags.map(fullTag => ({
+      display: fullTag,
+      value: fullTag.replace(/^[^\s]+\s*/, '')
+    }))
+  ];
   
   // Filter posts by tag
   const filteredPosts = selectedTag && selectedTag !== '전체' 
@@ -119,13 +132,13 @@ function ClassroomView({ posts, selectedTag }) {
 
         {/* Tag Cloud */}
         <div className="classroom-tag-cloud">
-          {allTags.map(tag => (
+          {tagObjects.map(tagObj => (
             <Link 
-              key={tag} 
-              href={`/?category=Class${tag === '전체' ? '' : `&tag=${tag}`}`}
-              className={`classroom-tag-pill ${selectedTag === tag || (!selectedTag && tag === '전체') ? 'active' : ''}`}
+              key={tagObj.value} 
+              href={`/?category=Class${tagObj.value === '전체' ? '' : `&tag=${tagObj.value}`}`}
+              className={`classroom-tag-pill ${selectedTag === tagObj.value || (!selectedTag && tagObj.value === '전체') ? 'active' : ''}`}
             >
-              #{tag}
+              {tagObj.display}
             </Link>
           ))}
         </div>
@@ -173,7 +186,15 @@ export default async function Home({ searchParams }) {
       const newsPosts = allPostsData.filter(post => post.category === 'News');
       const selectedTag = params?.tag;
       
-      const allTags = ['전체', ...new Set(newsPosts.map(p => p.tag?.replace(/^[^\s]+\s*/, '')).filter(Boolean))];
+      const uniqueFullTags = [...new Set(newsPosts.map(p => p.tag).filter(Boolean))];
+      const tagObjects = [
+        { display: '🗞️ 전체', value: '전체' },
+        ...uniqueFullTags.map(fullTag => ({
+          display: fullTag,
+          value: fullTag.replace(/^[^\s]+\s*/, '')
+        }))
+      ];
+
       const filteredNews = selectedTag && selectedTag !== '전체'
         ? newsPosts.filter(p => p.tag?.includes(selectedTag))
         : newsPosts;
@@ -183,13 +204,13 @@ export default async function Home({ searchParams }) {
           <Banner title={bannerTitle} description={bannerDesc} />
           
           <div className="news-tag-filter">
-            {allTags.map(tag => (
+            {tagObjects.map(tagObj => (
               <Link 
-                key={tag}
-                href={`/?category=News${tag === '전체' ? '' : `&tag=${tag}`}`}
-                className={`news-tag-pill ${selectedTag === tag || (!selectedTag && tag === '전체') ? 'active' : ''}`}
+                key={tagObj.value}
+                href={`/?category=News${tagObj.value === '전체' ? '' : `&tag=${tagObj.value}`}`}
+                className={`news-tag-pill ${selectedTag === tagObj.value || (!selectedTag && tagObj.value === '전체') ? 'active' : ''}`}
               >
-                {tag}
+                {tagObj.display}
               </Link>
             ))}
           </div>
@@ -277,7 +298,7 @@ export default async function Home({ searchParams }) {
       subtitle: '알고 돌보면 더 행복해져요'
     },
     {
-      label: '묘한 가족들 🫂',
+      label: '묘한 가족들 🐱',
       title: dailyFamily ? `${dailyFamily.name}와 함께하는 일상` : '함께 살아가는 우리 가족 이야기',
       description: dailyFamily?.description || '고양이부터 도마뱀까지, 우리와 함께 사는 소중한 생명들의 이야기를 만나보세요.',
       image: dailyFamily?.images[0] || '/hero/jordan-whitt-EerxztHCjM8-unsplash.jpg',
@@ -285,7 +306,7 @@ export default async function Home({ searchParams }) {
       subtitle: '서로 다른 우리가 만나 가족이 되었습니다'
     },
     {
-      label: '묘한 뉴스 👁️',
+      label: '묘한 뉴스 🗞️',
       title: dailyNews?.title || '세상을 바꾸는 동물권 소식',
       description: dailyNews?.summary || dailyNews?.hook || '동물권 및 공존과 관련된 의미 있는 소식들을 전해드립니다.',
       image: dailyNews?.image || '/hero/daria-shatova-BphuDA60if4-unsplash.jpg',
@@ -293,7 +314,7 @@ export default async function Home({ searchParams }) {
       subtitle: '모든 생명이 존중받는 세상을 위해'
     },
     {
-      label: '묘한 교실 🏫',
+      label: '묘한 교실 🎓',
       title: dailyClass?.title || '생명의 소중함, 함께 배워요',
       description: dailyClass?.summary || dailyClass?.coreQuestion || '어린이부터 어른까지 함께 배우는 동물권 카드 및 교육 자료를 확인해보세요.',
       image: dailyClass?.image || '/hero/ricky-kharawala-adK3Vu70DEQ-unsplash.jpg',

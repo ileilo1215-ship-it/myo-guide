@@ -750,18 +750,18 @@ h1, h2, h3 {
   padding: 8px 18px;
   border-radius: 40px;
   background-color: white;
-  color: var(--text-secondary);
+  color: #555;
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
-  border: 1px solid var(--border-color);
+  border: 1px solid #e2ddd5;
   transition: all 0.2s ease;
 }
 
 .news-tag-pill:hover {
   border-color: var(--accent-sub);
   color: var(--accent-sub);
-  background-color: #f8fcf9;
+  transform: translateY(-2px);
 }
 
 .news-tag-pill.active {
@@ -823,11 +823,17 @@ h1, h2, h3 {
 }
 
 .news-magazine-tag {
-  display: inline-block;
-  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
   font-weight: 700;
-  color: var(--accent-sub);
-  margin-bottom: 8px;
+  color: #666;
+  background-color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid #e2ddd5;
+  margin-bottom: 12px;
   letter-spacing: -0.01em;
 }
 
@@ -989,20 +995,21 @@ h1, h2, h3 {
 }
 
 .classroom-tag-pill {
-  padding: 8px 16px;
-  background-color: #f0f7f4;
-  color: #2D6A4F;
-  border-radius: 30px;
+  padding: 8px 18px;
+  background-color: white;
+  color: #555;
+  border-radius: 40px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  border: 1px solid transparent;
+  border: 1px solid #e2ddd5;
   transition: all 0.2s ease;
   text-decoration: none;
 }
 
 .classroom-tag-pill:hover {
-  background-color: #e8f4ee;
+  border-color: #2D6A4F;
+  color: #2D6A4F;
   transform: translateY(-2px);
 }
 
@@ -1057,6 +1064,27 @@ h1, h2, h3 {
   line-height: 1.4;
   margin: 0;
   flex: 1;
+}
+
+.classroom-category-pill {
+  font-size: 11px;
+  font-weight: 700;
+  color: #666;
+  background-color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #e2ddd5;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.classroom-category-pill:hover {
+  border-color: #2D6A4F;
+  color: #2D6A4F;
+  transform: translateY(-1px);
 }
 
 .classroom-card-footer {
