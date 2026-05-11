@@ -99,7 +99,7 @@ function ClassCard({ post }) {
   );
 }
 
-function ClassroomView({ posts, selectedTag }) {
+function ClassroomView({ posts, selectedTag, dayCount = 0 }) {
   // Extract unique full tags from posts
   const uniqueFullTags = [...new Set(posts.map(p => p.tag).filter(Boolean))];
   const tagObjects = [
@@ -115,8 +115,11 @@ function ClassroomView({ posts, selectedTag }) {
     ? posts.filter(p => p.tag?.replace(/^[^\s]+\s*/, '') === selectedTag)
     : posts;
 
-  // Pick a question for the box (either from the first post or a random one)
-  const questionPost = filteredPosts.find(p => p.coreQuestion) || posts.find(p => p.coreQuestion);
+  // 매일 다른 질문: coreQuestion이 있는 포스트들을 모아 dayCount로 순환
+  const questionPosts = posts.filter(p => p.coreQuestion);
+  const questionPost = questionPosts.length > 0
+    ? questionPosts[dayCount % questionPosts.length]
+    : (filteredPosts.find(p => p.coreQuestion) || posts[0]);
   const displayQuestion = questionPost?.coreQuestion || "우리는 동물과 어떻게 함께 살아가야 할까요?";
   const bgImage = questionPost?.image || '/hero/sam-grozyan-hQPoYovqWR0-unsplash.jpg';
 
@@ -227,9 +230,29 @@ export default async function Home({ searchParams }) {
         }))
       ];
 
-      const filteredNews = selectedTag && selectedTag !== '전체'
-        ? newsPosts.filter(p => p.tag?.replace(/^[^\s]+\s*/, '') === selectedTag)
-        : newsPosts;
+      // 태그 필터가 없을 때(전체)는 키워드별로 골고루 섞어서 표시
+      let filteredNews;
+      if (selectedTag && selectedTag !== '전체') {
+        filteredNews = newsPosts.filter(p => p.tag?.replace(/^[^\s]+\s*/, '') === selectedTag);
+      } else {
+        // 태그별로 그룹화
+        const tagGroups = {};
+        for (const post of newsPosts) {
+          const tag = post.tag || '기타';
+          if (!tagGroups[tag]) tagGroups[tag] = [];
+          tagGroups[tag].push(post);
+        }
+        // 라운드-로빈으로 섞기: 각 태그에서 하나씩 번갈아 가져옴
+        const groups = Object.values(tagGroups);
+        const interleaved = [];
+        const maxLen = Math.max(...groups.map(g => g.length));
+        for (let i = 0; i < maxLen; i++) {
+          for (const group of groups) {
+            if (i < group.length) interleaved.push(group[i]);
+          }
+        }
+        filteredNews = interleaved;
+      }
 
       return (
         <div className="news-page-wrapper">
@@ -262,10 +285,15 @@ export default async function Home({ searchParams }) {
       const selectedTag = params?.tag;
       filteredPosts = allPostsData.filter(post => post.category === 'Class');
       
+      // 매일 다른 질문을 위한 dayCount 계산 (KST 기준)
+      const nowKST = new Date();
+      const kstMs = nowKST.getTime() + 9 * 60 * 60 * 1000;
+      const classDayCount = Math.floor(kstMs / (1000 * 60 * 60 * 24));
+      
       return (
         <div className="classroom-wrapper">
           <Banner title="묘한 교실" description="어린이부터 어른까지 함께 배우는 동물권 카드 및 교육 자료" />
-          <ClassroomView posts={filteredPosts} selectedTag={selectedTag} />
+          <ClassroomView posts={filteredPosts} selectedTag={selectedTag} dayCount={classDayCount} />
         </div>
       );
     }
