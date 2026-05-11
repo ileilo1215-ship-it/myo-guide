@@ -1022,6 +1022,32 @@ h1, h2, h3 {
   box-shadow: 0 6px 15px rgba(82, 183, 136, 0.2);
 }
 
+.news-read-btn-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background-color: var(--accent-sub);
+  color: white;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(45, 106, 79, 0.15);
+}
+
+.news-read-btn-circle:hover {
+  background-color: var(--accent-color);
+  transform: scale(1.08);
+  box-shadow: 0 6px 15px rgba(82, 183, 136, 0.2);
+}
+
 /* Mobile */
 @media (max-width: 1024px) {
   .news-magazine-grid {

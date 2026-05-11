@@ -27,11 +27,19 @@ function NewsPageItem({ post }) {
       
       <div className="news-magazine-content">
         <span className="news-magazine-tag">{post.tag || '🗞️ 뉴스'}</span>
-        <h2 className="news-magazine-title">{post.title}</h2>
-        <div className="news-magazine-meta">
-          <span>{post.source || '매체'}</span>
-          <span className="news-meta-divider">|</span>
-          <span>{post.date}</span>
+        
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem' }}>
+          <div style={{ flex: 1 }}>
+            <h2 className="news-magazine-title">{post.title}</h2>
+            <div className="news-magazine-meta" style={{ marginBottom: post.editorNote ? '20px' : '0' }}>
+              <span>{post.source || '매체'}</span>
+              <span className="news-meta-divider">|</span>
+              <span>{post.date}</span>
+            </div>
+          </div>
+          <Link href={`/posts/${post.id}`} className="news-read-btn-circle">
+            기사<br />읽기
+          </Link>
         </div>
         
         {post.editorNote && (
@@ -39,10 +47,6 @@ function NewsPageItem({ post }) {
             {post.editorNote}
           </div>
         )}
-        
-        <Link href={`/posts/${post.id}`} className="news-magazine-btn">
-          기사 읽기
-        </Link>
       </div>
     </article>
   );
@@ -434,17 +438,17 @@ export default async function Home({ searchParams }) {
                     <div className="news-magazine-placeholder">🐾</div>
                   )}
                 </div>
-                <div className="news-magazine-content" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '1.5rem' }}>
-                  <div>
+                <div className="news-magazine-content" style={{ flex: 1, padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <div style={{ flex: 1 }}>
                     <h3 className="news-magazine-title" style={{ fontSize: '1.1rem', lineHeight: '1.4', margin: '0 0 0.5rem 0' }}>{post.title}</h3>
-                    <div style={{ fontSize: '0.85rem', color: '#888', marginBottom: '1.5rem' }}>
+                    <div style={{ fontSize: '0.85rem', color: '#888' }}>
                       {post.source && <span>{post.source}</span>}
                       {post.source && post.date && <span style={{ margin: '0 6px' }}>|</span>}
                       {post.date && <span>{post.date}</span>}
                     </div>
                   </div>
-                  <Link href={`/posts/${post.id}`} className="news-magazine-btn" style={{ marginTop: 'auto', textAlign: 'center' }}>
-                    기사 읽기
+                  <Link href={`/posts/${post.id}`} className="news-read-btn-circle">
+                    기사<br />읽기
                   </Link>
                 </div>
               </article>
