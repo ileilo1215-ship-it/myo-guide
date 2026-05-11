@@ -3,12 +3,14 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   // Close menu when route changes
   useEffect(() => {
@@ -36,6 +38,14 @@ export default function Sidebar() {
     setIsOpen(false);
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/?q=${encodeURIComponent(searchQuery.trim())}`);
+      setIsOpen(false);
+    }
+  };
+
   const navLinks = [
     { href: "/", label: "홈", icon: "🏠" },
     { href: "/care", label: "돌봄", icon: "🐾" },
@@ -60,6 +70,23 @@ export default function Sidebar() {
             priority
           />
         </Link>
+
+        {/* Search Bar */}
+        <form onSubmit={handleSearch} className="sidebar-search">
+          <input 
+            type="text" 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-input" 
+          />
+          <button type="submit" className="search-submit">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+        </form>
+
         <nav>
           <ul className="nav-links">
             {navLinks.map((item) => (
@@ -112,7 +139,6 @@ export default function Sidebar() {
         </div>
 
         <div className="overlay-content">
-          {/* Debug: Mobile Menu V2.1 */}
           <Link href="/" onClick={(e) => handleLinkClick(e, "/")} className="overlay-logo-link">
             <Image
               src="/logo-green-v2.png"
@@ -125,6 +151,22 @@ export default function Sidebar() {
               unoptimized
             />
           </Link>
+
+          {/* Mobile Search Bar */}
+          <form onSubmit={handleSearch} className="sidebar-search" style={{ marginBottom: '2rem' }}>
+            <input 
+              type="text" 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="search-input" 
+            />
+            <button type="submit" className="search-submit">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+          </form>
           
           <nav style={{ width: "100%" }}>
             <ul className="overlay-nav-links">

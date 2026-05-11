@@ -33,7 +33,7 @@ export default function FriendsPage() {
                   ))}
                 </div>
                 <a href={friend.url} target="_blank" rel="noopener noreferrer" className={styles.visitBtn}>
-                  방문하기 <span className={styles.arrow}>→</span>
+                  방문하기 <span className={styles.arrow}>&gt;</span>
                 </a>
               </div>
               

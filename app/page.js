@@ -162,8 +162,37 @@ import HeroSlider from '@/components/HeroSlider';
 export default async function Home({ searchParams }) {
   const params = await searchParams;
   const categoryParam = params?.category;
+  const qParam = params?.q;
   
   const allPostsData = getSortedPostsData();
+
+  if (qParam) {
+    const filteredSearchPosts = allPostsData.filter(post => 
+      post.title?.toLowerCase().includes(qParam.toLowerCase()) || 
+      post.content?.toLowerCase().includes(qParam.toLowerCase()) ||
+      post.summary?.toLowerCase().includes(qParam.toLowerCase()) ||
+      post.hook?.toLowerCase().includes(qParam.toLowerCase())
+    );
+
+    return (
+      <div style={{ width: '100%' }}>
+        <Banner title={`"${qParam}" 검색 결과`} description={`${filteredSearchPosts.length}개의 게시물을 찾았습니다.`} />
+        <section className="posts-container">
+          {filteredSearchPosts.length > 0 ? (
+            filteredSearchPosts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))
+          ) : (
+            <div style={{ textAlign: 'center', gridColumn: '1 / -1', padding: '5rem 0' }}>
+              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔍</div>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem' }}>검색 결과가 없습니다.</p>
+              <Link href="/" className="btn-primary" style={{ marginTop: '2rem' }}>홈으로 돌아가기</Link>
+            </div>
+          )}
+        </section>
+      </div>
+    );
+  }
 
   if (categoryParam) {
     // ... existing category filtering logic ...
@@ -310,7 +339,7 @@ export default async function Home({ searchParams }) {
       description: dailyNews?.summary || dailyNews?.hook || '동물권 및 공존과 관련된 의미 있는 소식들을 전해드립니다.',
       image: dailyNews?.image || '/hero/daria-shatova-BphuDA60if4-unsplash.jpg',
       link: dailyNews ? `/posts/${dailyNews.id}` : '/?category=News',
-      subtitle: '모든 생명이 존중받는 세상을 위해'
+      subtitle: '“모든 생명이 존중받는 세상을 위해”'
     },
     {
       label: '묘한 교실 🎓',
@@ -336,13 +365,13 @@ export default async function Home({ searchParams }) {
       {/* SECTION 2: SLOGAN + INTRO */}
       <section className="home-section bg-cream">
         <div className="section-container" style={{ textAlign: 'center' }}>
-          <h2 className="section-title">"모든 생명이 존중받는 세상을 위해"</h2>
+          <h2 className="section-title slogan-title">모든 생명이 존중받는 세상을 위해</h2>
           <p className="section-subtitle" style={{ marginBottom: '3rem' }}>
             고양이부터 고래까지, 알고 돌보고 함께합니다.
           </p>
           <div className="btn-group">
-            <Link href="/care" className="btn-primary">돌봄 가이드 보기 →</Link>
-            <Link href="/?category=Class" className="btn-primary" style={{ backgroundColor: 'transparent', color: 'var(--accent-sub)', border: '2px solid var(--accent-sub)' }}>묘한 교실 가기 →</Link>
+            <Link href="/care" className="btn-primary">돌봄 가이드 보기 &gt;</Link>
+            <Link href="/?category=Class" className="btn-primary" style={{ backgroundColor: 'transparent', color: 'var(--accent-sub)', border: '2px solid var(--accent-sub)' }}>묘한 교실 가기 &gt;</Link>
           </div>
         </div>
       </section>
@@ -360,7 +389,7 @@ export default async function Home({ searchParams }) {
             ))}
           </div>
           <div className="section-footer">
-            <Link href="/care" className="btn-primary">돌봄 더보기 →</Link>
+            <Link href="/care" className="btn-primary">돌봄 더보기 &gt;</Link>
           </div>
         </div>
       </section>
@@ -374,7 +403,7 @@ export default async function Home({ searchParams }) {
           </div>
           
           <div className="btn-group" style={{ justifyContent: 'center', marginTop: '1rem' }}>
-            <Link href="/family" className="btn-primary">묘한 가족들 만나기 →</Link>
+            <Link href="/family" className="btn-primary">묘한 가족들 만나기 &gt;</Link>
             <a 
               href={GOOGLE_FORM_URL} 
               target="_blank" 
@@ -382,7 +411,7 @@ export default async function Home({ searchParams }) {
               className="btn-primary" 
               style={{ backgroundColor: 'transparent', color: 'var(--accent-sub)', border: '2px solid var(--accent-sub)' }}
             >
-              우리 가족 소개하기 →
+              우리 가족 소개하기 &gt;
             </a>
           </div>
         </div>
@@ -422,7 +451,7 @@ export default async function Home({ searchParams }) {
             ))}
           </div>
           <div className="section-footer">
-            <Link href="/?category=News" className="btn-primary">묘한 뉴스 더보기 →</Link>
+            <Link href="/?category=News" className="btn-primary">묘한 뉴스 더보기 &gt;</Link>
           </div>
         </div>
       </section>
@@ -441,7 +470,7 @@ export default async function Home({ searchParams }) {
               <span className="classroom-tag">#도시공존</span>
             </div>
             <Link href="/?category=Class" className="btn-primary" style={{ backgroundColor: 'white', color: 'var(--accent-sub)' }}>
-              교실 입장하기 →
+              묘한 교실 입장하기 &gt;
             </Link>
           </div>
           <div className="classroom-banner-image">
@@ -476,7 +505,7 @@ export default async function Home({ searchParams }) {
             ))}
           </div>
           <div className="section-footer">
-            <Link href="/friends" className="btn-primary">친구들 모두 보기 →</Link>
+            <Link href="/friends" className="btn-primary">친구들 모두 보기 &gt;</Link>
           </div>
         </div>
       </section>

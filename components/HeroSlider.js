@@ -45,13 +45,13 @@ export default function HeroSlider({ slides }) {
           <div className="hero-overlay"></div>
           
           <div className="hero-news-overlay">
-            <h2 className="news-subtitle">{slide.subtitle || '모든 생명이 존중받는 세상을 위해'}</h2>
+            <h2 className="news-subtitle">{slide.subtitle || '“모든 생명이 존중받는 세상을 위해”'}</h2>
             <span className="news-tag">{slide.label}</span>
             <Link href={slide.link} className="hero-slide-link">
               <h1>{slide.title}</h1>
               <p>{slide.description}</p>
               <div className="more-link">
-                자세히 보기 ➔
+                자세히 보기 &gt;
               </div>
             </Link>
           </div>

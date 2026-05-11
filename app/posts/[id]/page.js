@@ -144,7 +144,7 @@ export default async function Post({ params }) {
           </div>
           {postData.sourceUrl && (
             <a href={postData.sourceUrl} target="_blank" rel="noopener noreferrer" className={styles.sourceButton}>
-              기사 읽기 →
+              기사 읽기 &gt;
             </a>
           )}
         </div>

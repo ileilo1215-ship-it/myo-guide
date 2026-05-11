@@ -12,7 +12,7 @@ export default function MarkdownRenderer({ content }) {
       components={{
         a: ({ href, children }) => {
           const label = children?.toString() || '';
-          if (label.includes('→')) {
+          if (label.includes('→') || label.includes('>')) {
             return <PostButton href={href}>{children}</PostButton>;
           }
           return (
