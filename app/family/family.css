@@ -47,15 +47,18 @@
 
 .filter-buttons {
   display: flex;
-  gap: 0.6rem;
-  padding: 0.5rem;
-  flex-wrap: wrap;
-  justify-content: center;
+  gap: 0.4rem;
+  padding: 6px;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 50px;
+  height: 58px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   align-items: center;
 }
 
 .filter-btn {
-  padding: 0.6rem 1.4rem;
+  padding: 0 1.4rem;
   border-radius: 30px;
   text-decoration: none;
   color: var(--text-secondary);
@@ -65,7 +68,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 40px; /* Fixed height for consistent thickness */
+  height: 46px; /* Optimized to fit inside the 58px white bar */
   white-space: nowrap;
 }
 
@@ -218,12 +221,17 @@
   }
   
   .filter-buttons {
+    height: auto;
+    border-radius: 20px;
+    padding: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 0.5rem;
-    padding: 0.4rem;
   }
   
   .filter-btn {
     padding: 0.5rem 1rem;
+    height: 36px;
     font-size: 0.85rem;
   }
   

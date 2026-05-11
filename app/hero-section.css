@@ -52,11 +52,12 @@
 
 .hero-news-overlay .news-tag {
   display: inline-block;
+  align-self: flex-start;
   background-color: var(--accent-color);
   color: white;
-  padding: 4px 12px;
+  padding: 6px 16px;
   border-radius: 30px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 800;
   margin-bottom: 0.8rem;
   text-shadow: none;
