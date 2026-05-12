@@ -5,7 +5,7 @@ import Image from 'next/image';
 import fs from 'fs';
 import path from 'path';
 import './family.css';
-import { GOOGLE_FORM_URL } from '@/lib/constants';
+import { GOOGLE_FORM_URL, DISCOVERY_FORM_URL } from '@/lib/constants';
 
 export const dynamic = 'force-dynamic';
 
@@ -127,7 +127,7 @@ export default async function FamilyPage({ searchParams }) {
               <h3>아직 첫 번째 발견을 기다리고 있어요</h3>
               <p>여러분의 소중한 발견이 이 공간을 채워줄 거예요.</p>
               <a 
-                href={GOOGLE_FORM_URL} 
+                href={DISCOVERY_FORM_URL} 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="discovery-share-link"
