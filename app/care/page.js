@@ -12,7 +12,7 @@ export default async function CarePage({ searchParams }) {
   const allPostsData = getSortedPostsData();
   
   // Define categories for 'Care' (돌봄)
-  const careCategories = ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play'];
+  const careCategories = ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play', 'Lifestyle'];
   const rescueCategories = ['Street Life', 'Rights', '🚨 구조'];
   
   const carePosts = allPostsData.filter(post => careCategories.includes(post.category));

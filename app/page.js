@@ -74,6 +74,7 @@ function NewsPageItem({ post }) {
 
 // --- CLASSROOM PAGE COMPONENTS ---
 function ClassCard({ post }) {
+  if (!post) return null;
   const hasEducationalContent = !!educationalContent[post.id];
 
   return (
@@ -226,7 +227,7 @@ export default async function Home({ searchParams }) {
     if (categoryParam === 'Cat Care') {
       bannerTitle = "케어";
       bannerDesc = "우리 아이들의 건강과 행복을 위한 필수 돌봄 가이드";
-      filteredPosts = allPostsData.filter(post => ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play'].includes(post.category));
+      filteredPosts = allPostsData.filter(post => ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play', 'Lifestyle'].includes(post.category));
     } else if (categoryParam === 'Rescue') {
       bannerTitle = "구조";
       bannerDesc = "위기에 처한 길 위의 생명들을 돕는 구조 및 공존 가이드";
@@ -364,7 +365,7 @@ export default async function Home({ searchParams }) {
 
   const allCareAndRescue = allPostsData.filter(post => {
     const cat = post.category?.replace(/['"]/g, '').trim() || '';
-    return ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play', 'Street Life', 'Rights', '🚨 구조'].includes(cat);
+    return ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play', 'Lifestyle', 'Street Life', 'Rights', '🚨 구조'].includes(cat);
   }).sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
 
   const classroomPosts = allPostsData.filter(post => post.category === 'Class');
@@ -463,7 +464,7 @@ export default async function Home({ searchParams }) {
             <p className="section-subtitle">케어부터 구조까지, 모든 생명을 돌봅니다.</p>
           </div>
           <div className="section-grid cols-2">
-            {dailyCarePreview.map(post => (
+            {dailyCarePreview?.filter(Boolean).map(post => (
               <PostCard key={post.id} post={post} objectPosition="center 20%" />
             ))}
           </div>
@@ -508,10 +509,10 @@ export default async function Home({ searchParams }) {
             <p className="section-subtitle">동물권 및 공존과 관련된 의미 있는 소식을 전해드려요</p>
           </div>
           <div className="section-grid cols-3" style={{ marginBottom: '3rem' }}>
-            {dailyNewsPreview.map(post => (
-              <article key={post.id} className="news-magazine-card simple-card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            {dailyNewsPreview?.filter(Boolean).map(post => (
+              <article key={post?.id || Math.random()} className="news-magazine-card simple-card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <div className="news-magazine-image" style={{ height: '180px' }}>
-                  {post.image ? (
+                  {post?.image ? (
                     <img src={post.image} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   ) : (
                     <div className="news-magazine-placeholder">🐾</div>
@@ -519,16 +520,18 @@ export default async function Home({ searchParams }) {
                 </div>
                 <div className="news-magazine-content" style={{ flex: 1, padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
                   <div style={{ flex: 1 }}>
-                    <h3 className="news-magazine-title" style={{ fontSize: '1.1rem', lineHeight: '1.4', margin: '0 0 0.5rem 0' }}>{post.title}</h3>
+                    <h3 className="news-magazine-title" style={{ fontSize: '1.1rem', lineHeight: '1.4', margin: '0 0 0.5rem 0' }}>{post?.title}</h3>
                     <div style={{ fontSize: '0.85rem', color: '#888' }}>
-                      {post.source && <span>{post.source}</span>}
-                      {post.source && post.date && <span style={{ margin: '0 6px' }}>|</span>}
-                      {post.date && <span>{post.date}</span>}
+                      {post?.source && <span>{post.source}</span>}
+                      {post?.source && post?.date && <span style={{ margin: '0 6px' }}>|</span>}
+                      {post?.date && <span>{post.date}</span>}
                     </div>
                   </div>
-                  <Link href={`/posts/${post.id}`} className="news-read-btn-circle">
-                    기사<br />읽기
-                  </Link>
+                  {post?.id && (
+                    <Link href={`/posts/${post.id}`} className="news-read-btn-circle">
+                      기사<br />읽기
+                    </Link>
+                  )}
                 </div>
               </article>
             ))}

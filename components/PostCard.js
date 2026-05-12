@@ -41,6 +41,7 @@ const categoryImages = {
 };
 
 const getDeterministicImage = (id) => {
+  if (!id || typeof id !== 'string') return '/placeholder.png';
   // Simple hash function for the id
   let hash = 0;
   for (let i = 0; i < id.length; i++) {
@@ -58,24 +59,27 @@ const getFallbackImage = (category, id) => {
 };
 
 export default function PostCard({ post, objectPosition = 'center 20%' }) {
+  if (!post) return null;
+  
   const excerpt = post.content ? post.content.substring(0, 100) + '...' : '';
   const rawCategory = post.category?.replace(/['"]/g, '').trim() || '';
   const fallbackImageUrl = getFallbackImage(rawCategory, post.id);
   const imageUrl = post.image || fallbackImageUrl;
   
   const isRescue = ['Street Life', 'Rights', '🚨 구조'].includes(rawCategory);
-  const isCare = ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play'].includes(rawCategory);
+  const isCare = ['Health', 'Grooming', 'Environment', 'Safety', 'Behavior', 'Play', 'Lifestyle'].includes(rawCategory);
 
   const isClass = rawCategory === 'Class';
   const isNews = rawCategory === 'News';
 
-  const translatedCategory = CATEGORY_MAP[rawCategory] || rawCategory;
+  const safeCategoryMap = CATEGORY_MAP || {};
+  const translatedCategory = safeCategoryMap[rawCategory] || rawCategory;
   const hideCategoryLabel = isClass || isNews;
   const hideReadMore = isCare || isRescue || isClass || isNews;
 
   return (
-    <Link href={`/posts/${post.id}`} style={{ textDecoration: 'none', display: 'block' }}>
-      <article className="post-card" style={isRescue ? { borderLeft: '4px solid #2D6A4F' } : {}}>
+    <Link href={`/posts/${post.id}`} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
+      <article className="post-card" style={isRescue ? { borderLeft: '4px solid #2D6A4F', height: '100%' } : { height: '100%' }}>
         <div className="card-image-wrapper">
           <img 
             src={imageUrl} 
