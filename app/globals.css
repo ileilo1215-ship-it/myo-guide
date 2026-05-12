@@ -827,18 +827,40 @@ h1, h2, h3 {
 
 /* Button styles for sections */
 .btn-primary {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--accent-sub);
   color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 12px 32px;
+  border-radius: 12px;
   text-decoration: none;
   font-weight: 600;
-  transition: background-color 0.2s ease;
+  font-size: 1.05rem;
+  transition: all 0.2s ease;
+  border: 1.5px solid var(--accent-sub);
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(45, 106, 79, 0.1);
 }
 
 .btn-primary:hover {
   background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(82, 183, 136, 0.2);
+}
+
+.btn-primary.btn-outline {
+  background-color: white;
+  color: var(--accent-sub);
+  border-color: var(--accent-sub);
+  box-shadow: none;
+}
+
+.btn-primary.btn-outline:hover {
+  background-color: #f8fcf9;
+  color: var(--accent-color);
+  border-color: var(--accent-color);
 }
 
 .btn-group {

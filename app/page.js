@@ -4,10 +4,12 @@ import { getSortedPostsData } from '@/lib/posts';
 import { friendsList } from '@/lib/friends';
 import { GOOGLE_FORM_URL } from '@/lib/constants';
 import { getFamilyData } from '@/lib/family';
+import { educationalContent } from '@/lib/educational-content';
 import '@/app/hero-credit.css';
 
 import Banner from '@/components/Banner';
 import PostCard from '@/components/PostCard';
+import HeroSlider from '@/components/HeroSlider';
 import Image from 'next/image';
 import Link from 'next/link';
 import fs from 'fs';
@@ -69,7 +71,6 @@ function NewsPageItem({ post }) {
   );
 }
 
-import { educationalContent } from '@/lib/educational-content';
 
 // --- CLASSROOM PAGE COMPONENTS ---
 function ClassCard({ post }) {
@@ -181,7 +182,6 @@ function ClassroomView({ posts, selectedTag, dayCount = 0 }) {
 }
 
 
-import HeroSlider from '@/components/HeroSlider';
 
 export default async function Home({ searchParams }) {
   const params = await searchParams;
@@ -449,7 +449,7 @@ export default async function Home({ searchParams }) {
           </p>
           <div className="btn-group">
             <Link href="/care" className="btn-primary">돌봄 가이드 보기 &gt;</Link>
-            <Link href="/?category=Class" className="btn-primary" style={{ backgroundColor: 'transparent', color: 'var(--accent-sub)', border: '2px solid var(--accent-sub)' }}>묘한 교실 가기 &gt;</Link>
+            <Link href="/?category=Class" className="btn-primary btn-outline">묘한 교실 가기 &gt;</Link>
           </div>
         </div>
       </section>
@@ -486,20 +486,12 @@ export default async function Home({ searchParams }) {
           </div>
           
           <div className="btn-group" style={{ justifyContent: 'center', gap: '1.5rem' }}>
-            <Link href="/family?tab=family" className="btn-primary" style={{ padding: '1rem 2.5rem', fontSize: '1.1rem' }}>
+            <Link href="/family?tab=family" className="btn-primary">
               우리 가족 보기 →
             </Link>
             <Link 
               href="/family?tab=discovery" 
-              className="btn-primary" 
-              style={{ 
-                padding: '1rem 2.5rem', 
-                fontSize: '1.1rem',
-                backgroundColor: 'white', 
-                color: 'var(--accent-sub)', 
-                border: '1px solid var(--accent-sub)',
-                boxShadow: 'none'
-              }}
+              className="btn-primary btn-outline"
             >
               집사의 발견 →
             </Link>
@@ -566,7 +558,7 @@ export default async function Home({ searchParams }) {
                  </>
                )}
             </div>
-            <Link href={dailyClass ? `/posts/${dailyClass.id}` : "/?category=Class"} className="btn-primary" style={{ backgroundColor: 'white', color: 'var(--accent-sub)' }}>
+            <Link href={dailyClass ? `/posts/${dailyClass.id}` : "/?category=Class"} className="btn-primary btn-outline">
               지금 수업 참여하기 &gt;
             </Link>
           </div>
