@@ -442,6 +442,7 @@ export default async function Home({ searchParams }) {
       {/* SECTION 2: SLOGAN + INTRO */}
       <section className="home-section bg-cream">
         <div className="section-container" style={{ textAlign: 'center' }}>
+          <span className="section-subtitle-en">Vision & Slogan</span>
           <h2 className="section-title slogan-title">모든 생명이 존중받는 세상을 위해</h2>
           <p className="section-subtitle" style={{ marginBottom: '3rem' }}>
             고양이부터 고래까지, 알고 돌보고 함께합니다.
@@ -457,6 +458,7 @@ export default async function Home({ searchParams }) {
       <section className="home-section" style={{ backgroundColor: '#ffffff', borderTop: '1px solid var(--border-color)' }}>
         <div className="section-container">
           <div className="section-header">
+            <span className="section-subtitle-en">Care & Rescue</span>
             <h2 className="section-title">돌봄</h2>
             <p className="section-subtitle">케어부터 구조까지, 모든 생명을 돌봅니다.</p>
           </div>
@@ -475,15 +477,7 @@ export default async function Home({ searchParams }) {
       <section className="home-section bg-cream" style={{ padding: '6rem 0' }}>
         <div className="section-container" style={{ textAlign: 'center', maxWidth: '800px' }}>
           <div className="section-header" style={{ marginBottom: '3rem' }}>
-            <span style={{ 
-              color: 'var(--accent-color)', 
-              fontWeight: '800', 
-              fontSize: '0.9rem', 
-              textTransform: 'uppercase', 
-              letterSpacing: '2px',
-              display: 'block',
-              marginBottom: '1rem'
-            }}>Family & Discovery</span>
+            <span className="section-subtitle-en">Family & Discovery</span>
             <h2 className="section-title" style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>묘한 가족들</h2>
             <p className="section-subtitle" style={{ fontSize: '1.2rem', color: '#666', lineHeight: '1.6' }}>
               우리 집 반려동물 자랑부터 집사들의 발견까지,<br />
@@ -517,6 +511,7 @@ export default async function Home({ searchParams }) {
       <section className="home-section" style={{ backgroundColor: '#e8f4ee' }}>
         <div className="section-container">
           <div className="section-header">
+            <span className="section-subtitle-en">News & Trends</span>
             <h2 className="section-title">묘한 뉴스</h2>
             <p className="section-subtitle">동물권 및 공존과 관련된 의미 있는 소식을 전해드려요</p>
           </div>
@@ -556,7 +551,7 @@ export default async function Home({ searchParams }) {
       <section className="home-section bg-forest">
         <div className="section-container classroom-banner">
           <div className="classroom-banner-content">
-            <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>오늘의 교실</span>
+            <span className="section-subtitle-en" style={{ color: 'rgba(255,255,255,0.7)' }}>Classroom</span>
             <h2 className="section-title" style={{ color: 'white', marginTop: '0.5rem' }}>{dailyClass?.title || "동물권, 함께 배워요"}</h2>
             <p className="section-subtitle" style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '1.5rem' }}>
               {dailyClass?.summary || dailyClass?.coreQuestion || "어린이부터 어른까지 함께 배우는 동물권 카드 및 교육 자료"}
@@ -585,6 +580,7 @@ export default async function Home({ searchParams }) {
       <section className="home-section" style={{ backgroundColor: '#ffffff' }}>
         <div className="section-container">
           <div className="section-header">
+            <span className="section-subtitle-en">Partners & Friends</span>
             <h2 className="section-title">좋은 친구들</h2>
             <p className="section-subtitle">우리가 알아야 할, 생명을 살리는 멋진 단체와 매체들</p>
           </div>

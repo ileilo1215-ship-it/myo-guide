@@ -602,6 +602,17 @@ h1, h2, h3 {
   font-weight: 400;
 }
 
+.section-subtitle-en {
+  color: var(--accent-color);
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 0.8rem;
+  font-family: 'Pretendard', sans-serif;
+}
+
 .section-footer {
   margin-top: 3rem;
   text-align: center;
