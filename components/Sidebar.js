@@ -25,7 +25,7 @@ export default function Sidebar() {
 
   const handleLinkClick = (e, href) => {
     // Construct current URL with search params
-    const currentQuery = searchParams.toString();
+    const currentQuery = searchParams?.toString() || "";
     const currentFullHref = currentQuery ? `${pathname}?${currentQuery}` : pathname;
     
     // Normalize href for comparison (ensure it starts with /)
@@ -87,17 +87,19 @@ export default function Sidebar() {
           </button>
         </form>
 
-        <nav>
-          <ul className="nav-links">
-            {navLinks.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} onClick={(e) => handleLinkClick(e, item.href)}>
-                  {item.label} <span className="nav-icon">{item.icon}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="sidebar-menu-area">
+          <nav>
+            <ul className="nav-links">
+              {navLinks.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} onClick={(e) => handleLinkClick(e, item.href)}>
+                    {item.label} <span className="nav-icon">{item.icon}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </aside>
 
       {/* ── MOBILE TOP BAR (hidden on desktop via CSS) ── */}
