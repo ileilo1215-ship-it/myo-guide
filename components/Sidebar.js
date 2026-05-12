@@ -62,11 +62,11 @@ export default function Sidebar() {
       <aside className="desktop-sidebar">
         <Link href="/" className="sidebar-logo-link" onClick={(e) => handleLinkClick(e, "/")}>
           <Image
-            src="/logo-green-v2.png"
+            src="/logo-refined.png"
             alt="Myo Guide Logo"
-            width={180}
-            height={110}
-            style={{ objectFit: "contain", width: "100%", height: "auto" }}
+            width={160}
+            height={90}
+            style={{ objectFit: "contain", width: "160px", height: "auto" }}
             priority
           />
         </Link>
@@ -104,11 +104,11 @@ export default function Sidebar() {
       <header className="mobile-header">
         <Link href="/" className="mobile-logo-link" onClick={(e) => handleLinkClick(e, "/")}>
           <Image
-            src="/logo-green-v2.png"
+            src="/logo-refined.png"
             alt="Myo Guide Logo"
             width={240}
             height={148}
-            style={{ objectFit: "contain", width: "auto" }}
+            style={{ objectFit: "contain", width: "auto", maxHeight: "42px" }}
             priority
           />
         </Link>
@@ -141,10 +141,10 @@ export default function Sidebar() {
         <div className="overlay-content">
           <Link href="/" onClick={(e) => handleLinkClick(e, "/")} className="overlay-logo-link">
             <Image
-              src="/logo-green-v2.png"
+              src="/logo-refined.png"
               alt="Myo Guide Logo"
               width={140}
-              height={86}
+              height={80}
               className="overlay-logo"
               style={{ objectFit: "contain" }}
               priority

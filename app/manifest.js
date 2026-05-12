@@ -14,8 +14,13 @@ export default function manifest() {
         type: 'image/x-icon',
       },
       {
-        src: '/logo-green-v2.png',
+        src: '/logo-refined.png',
         sizes: '192x192',
+        type: 'image/png',
+      },
+      {
+        src: '/logo-refined.png',
+        sizes: '512x512',
         type: 'image/png',
       },
     ],

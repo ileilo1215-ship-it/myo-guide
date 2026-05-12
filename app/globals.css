@@ -1,4 +1,5 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+@import url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/GyeonggiTitleM.css');
 
 html {
   height: -webkit-fill-available;
@@ -44,7 +45,7 @@ body {
 
 /* Typography */
 h1, h2, h3 {
-  font-family: 'Pretendard', sans-serif;
+  font-family: 'GyeonggiTitleM', 'Pretendard', sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
@@ -75,7 +76,7 @@ h1, h2, h3 {
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  padding: 0 2rem 2rem;
+  padding: 2.2rem 2.2rem;
   gap: 0;
   z-index: 100;
 }
@@ -84,7 +85,7 @@ h1, h2, h3 {
   display: block;
   width: 100%;
   margin-top: 0;
-  margin-bottom: -16px; /* Reduced from 24px to move the search bar and nav up by about one search bar height */
+  margin-bottom: 20px;
 }
 
 .sidebar-search {
@@ -386,6 +387,7 @@ h1, h2, h3 {
 }
 
 .banner-content h1 {
+  font-family: 'GyeonggiTitleM', sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--accent-sub);
