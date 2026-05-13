@@ -49,6 +49,7 @@ export default function Sidebar() {
   const navLinks = [
     { href: "/", label: "홈", icon: "🏠" },
     { href: "/care", label: "돌봄", icon: "🐾" },
+    { href: "/assistant", label: "묘한 비서", icon: "🤖" },
     { href: "/?category=News", label: "묘한 뉴스", icon: "🗞️" },
     { href: "/?category=Class", label: "묘한 교실", icon: "🎓" },
     { href: "/family", label: "묘한 가족들", icon: "🐱" },
