@@ -23,6 +23,9 @@ html {
   --mobile-topbar-height: 60px;
   --section-padding-pc: 48px;
   --section-padding-mobile: 32px;
+  --container-max-width: 1200px;
+  --container-padding-pc: 2rem;
+  --container-padding-mobile: 16px;
 }
 
 * {
@@ -352,8 +355,8 @@ h1, h2, h3 {
   }
 
   /* Content padding */
-  .posts-container {
-    padding: 0 16px 3rem !important;
+  .posts-container, .news-magazine-grid, .standard-container {
+    padding: 0 var(--container-padding-mobile) 3rem !important;
     grid-template-columns: 1fr !important;
   }
 
@@ -415,12 +418,18 @@ h1, h2, h3 {
    POSTS GRID
    ================================================ */
 .posts-container {
-  max-width: 1200px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 2rem 5rem;
+  padding: 0 var(--container-padding-pc) 5rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 3rem 2.5rem;
+}
+
+.standard-container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding-pc);
 }
 
 @media (max-width: 1024px) and (min-width: 768px) {
@@ -991,25 +1000,24 @@ h1, h2, h3 {
 }
 
 .news-magazine-grid {
-  max-width: 1200px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 40px 80px;
-  column-count: 3;
-  column-gap: 32px;
+  padding: 0 var(--container-padding-pc) 80px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
 }
 
 .news-magazine-card {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 32px;
-  break-inside: avoid;
   background: white;
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
-  height: auto;
+  height: 100%;
 }
 
 .news-magazine-card:hover {
@@ -1027,6 +1035,7 @@ h1, h2, h3 {
   width: 100%;
   height: auto;
   display: block;
+  object-fit: cover;
 }
 
 .news-magazine-placeholder {
@@ -1148,14 +1157,14 @@ h1, h2, h3 {
 /* Mobile */
 @media (max-width: 1024px) {
   .news-magazine-grid {
-    column-count: 2;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 767px) {
   .news-magazine-grid {
-    column-count: 1;
-    padding: 0 20px 40px;
+    grid-template-columns: 1fr;
+    padding: 0 var(--container-padding-mobile) 40px !important;
   }
   
   .news-tag-filter {
@@ -1433,9 +1442,9 @@ h1, h2, h3 {
 }
 
 .discovery-content-container {
-  max-width: 1200px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0;
   text-align: left;
 }
 

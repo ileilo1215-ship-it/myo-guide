@@ -557,7 +557,7 @@ export default function AssistantHub() {
   return (
     <main className="assistant-hub-page">
       <Banner title="묘한 비서" description="똑똑한 AI 기술로 반려묘의 건강과 안전을 세심히 보살핍니다." />
-      <div className="section-container content-area">
+      <div className="standard-container content-area">
         <AnimatePresence mode="wait">
           {!activeTool ? (
             <motion.div key="dashboard" className="hub-dashboard" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
@@ -619,8 +619,8 @@ export default function AssistantHub() {
 
         .hub-notice-footer { margin-top: 40px; background: ${LIGHT_GREEN_BG}; border-radius: var(--border-radius-lg); padding: 20px 24px; font-size: 14px; color: ${PRIMARY_GREEN}; text-align: center; }
 
-        .tool-detail-view { width: 100%; max-width: 650px; margin: 0 auto; position: relative; }
-        .content-container { padding: 0 20px 40px; }
+        .tool-detail-view { width: 100%; max-width: 800px; margin: 0 auto; position: relative; }
+        .content-container { padding: 0 var(--container-padding-pc) 40px; }
         .sticky-nav-wrapper { position: sticky; top: 0; z-index: 100; background-color: var(--bg-color); padding: 16px 20px; margin-bottom: 8px; }
         .custom-back-btn { background: white; color: ${PRIMARY_GREEN}; border: 2px solid ${PRIMARY_GREEN}; border-radius: 40px; padding: 10px 24px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px rgba(45, 106, 79, 0.1); }
 
@@ -737,8 +737,8 @@ export default function AssistantHub() {
         @media (max-width: 900px) { .main-tools-grid { grid-template-columns: 1fr; } }
         @media (max-width: 768px) {
           .tool-detail-view { max-width: 100%; }
-          .content-container { padding: 0 1rem 40px; }
-          .sticky-nav-wrapper { padding: 12px 1rem; }
+          .content-container { padding: 0 var(--container-padding-mobile) 40px; }
+          .sticky-nav-wrapper { padding: 12px var(--container-padding-mobile); }
           .symptom-tag-grid { justify-content: center; gap: 8px; }
           .photo-actions-container { flex-direction: column; }
           .hub-tool-card { padding: 24px; min-height: 250px; }

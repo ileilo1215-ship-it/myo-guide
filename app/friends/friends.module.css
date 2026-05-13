@@ -1,12 +1,12 @@
 .container {
-  max-width: 1200px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0 var(--container-padding-pc) 3rem;
 }
 
 @media (max-width: 767px) {
   .container {
-    padding: 1rem 16px;
+    padding: 0 var(--container-padding-mobile) 2rem;
   }
 
   .title {

@@ -501,7 +501,7 @@ export default async function Home({ searchParams }) {
             <div style={{ marginBottom: '2rem' }}>
               <div className="section-grid cols-3">
                 {dailyNewsPreview?.filter(Boolean).map(post => (
-                  <article key={post?.id || Math.random()} className="news-magazine-card simple-card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <article key={post?.id || Math.random()} className="news-magazine-card simple-card">
                     <div className="news-magazine-image" style={{ height: '160px' }}>
                       {post?.image ? (
                         <img src={post.image} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
