@@ -85,6 +85,42 @@ const EMERGENCY_ADVICE = {
     details: "경련을 일으키거나 의식을 잃고 쓰러진 경우입니다. 뇌질환이나 심장 마비일 가능성이 있습니다.",
     action: "1. 주변에 부딪힐 만한 물건을 치워 2차 부상을 방지하세요. 2. 혀가 기도를 막지 않도록 고개를 옆으로 돌려주세요. 3. 발작이 5분 이상 지속되면 뇌손상이 올 수 있으므로 신속히 이동해야 합니다.",
     pro: "발작 당시의 모습을 동영상으로 촬영해 두면 수의사의 진단에 큰 도움이 됩니다."
+  },
+  "🚽 소변을 못 봐요": {
+    warning: "🚨 초응급: 요도 폐쇄 (FLUTD)",
+    details: "고양이가 화장실에 자주 가지만 소변을 보지 못하거나 소리를 지른다면 방광이 터질 수 있는 매우 위험한 상황입니다.",
+    action: "1. 즉시 24시 동물병원으로 이동하세요. 24시간 이상 배뇨를 못 하면 급성 신부전과 요독증으로 사망할 수 있습니다. 2. 배 부위를 억지로 누르지 마세요. 방광 파열의 위험이 있습니다.",
+    pro: "수컷 고양이에게 특히 흔하며, 하부 요로기 질환의 가장 치명적인 증상입니다."
+  },
+  "🥵 더위를 타는 거 같아요": {
+    warning: "열사병 (Heatstroke)",
+    details: "여름철 환기가 안 되는 곳에 있거나 격한 놀이 후 헉헉거리며 침을 흘린다면 체온이 과도하게 올라간 상태입니다.",
+    action: "1. 시원하고 바람이 잘 통하는 곳으로 옮겨주세요. 2. 찬물에 적신 수건으로 몸을 닦아주고 발바닥에 물을 묻혀 체온을 식혀주세요. 3. 의식이 있다면 시원한 물을 급여하세요.",
+    pro: "고양이는 땀샘이 적어 열 배출이 어렵습니다. 체온이 40도 이상이면 장기 손상이 시작됩니다."
+  },
+  "🥶 몸을 떨어요": {
+    warning: "저체온증 또는 통증/공포",
+    details: "추위 때문일 수도 있지만, 심한 통증이나 독성 물질 섭취, 쇼크 상태에서도 몸을 떨 수 있습니다.",
+    action: "1. 실내 온도를 높이고 따뜻한 담요로 몸을 감싸주세요. 2. 담요 안에 따뜻한 물병(수건으로 감싼 것)을 넣어 체온을 서서히 올려주세요. 3. 떨림과 함께 잇몸이 하얗게 변한다면 즉시 내원하세요.",
+    pro: "수술 후 회복기나 노령묘에게서 체온 조절 능력이 저하되어 자주 나타납니다."
+  },
+  "🦟 벌레에 쏘였어요": {
+    warning: "알레르기 반응 (Anaphylaxis)",
+    details: "벌이나 곤충에 쏘여 얼굴이 붓거나 가려워하며 긁는 경우입니다. 드물게 호흡 곤란이 올 수 있습니다.",
+    action: "1. 침이 박혀 있다면 신용카드 등으로 밀어서 제거하세요(손으로 짜지 마세요). 2. 부은 부위에 냉찜질을 해주세요. 3. 구토, 설사, 호흡 곤란 증상이 동반되면 아나필락시스 쇼크이므로 즉시 내원하세요.",
+    pro: "얼굴이 붓는 '호박머리' 증상은 전신 알레르기 반응의 신호입니다."
+  },
+  "😵 자꾸 비틀거려요": {
+    warning: "신경계 이상 또는 빈혈",
+    details: "똑바로 걷지 못하고 한쪽으로 쓰러지거나 고개가 기우는(사경) 증상은 전정기관이나 뇌 문제일 수 있습니다.",
+    action: "1. 높은 곳에서 떨어지지 않게 바닥에 푹신한 것을 깔아주고 가둬두어 안정을 취하게 하세요. 2. 눈동자가 좌우나 위아래로 빠르게 떨리는지(안구진탕) 확인하세요.",
+    pro: "중이염이 심해지거나 고령묘의 특발성 전정질환에서 자주 발견됩니다."
+  },
+  "🦷 입에서 냄새가 나요": {
+    warning: "구강 질환 또는 내과 질환",
+    details: "단순히 사료 냄새가 아니라 하수구 냄새 같은 악취가 나고 침을 흘린다면 구내염이나 치주염이 심한 상태입니다.",
+    action: "1. 잇몸이 빨갛게 부었는지, 입안에 궤양이 있는지 확인하세요. 2. 밥을 먹으려다 비명을 지르며 포기한다면 통증이 매우 심한 것이니 부드러운 습식으로 교체해주고 병원 진료를 받으세요.",
+    pro: "입에서 암모니아 냄새가 난다면 신부전으로 인한 요독증일 가능성이 큽니다."
   }
 };
 
@@ -184,20 +220,69 @@ const PhotoActionButtons = ({ onPhoto, onCamera }) => {
 const VoiceAssistant = () => {
   const [isListening, setIsListening] = useState(false);
   const [text, setText] = useState("");
-  const toggleListen = () => {
-    setIsListening(!isListening);
-    if (!isListening) {
+  
+  const startListening = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      setIsListening(true);
       setText("음성을 인식하고 있습니다... 말씀해 주세요.");
       setTimeout(() => {
         setText("분석 결과: 말씀하신 내용을 바탕으로 AI 진단을 준비 중입니다. 사진과 증상을 함께 등록해 주세요.");
         setIsListening(false);
-      }, 2000);
+      }, 3000);
+      return;
     }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'ko-KR';
+    recognition.interimResults = false;
+
+    recognition.onstart = () => {
+      setIsListening(true);
+      setText("듣고 있습니다... 말씀해 주세요.");
+    };
+
+    recognition.onresult = (event) => {
+      const speechToText = event.results[0][0].transcript;
+      setText(`인식 결과: "${speechToText}"\n\n잠시만 기다려 주세요...`);
+      
+      setTimeout(() => {
+        setText(`말씀하신 "${speechToText}" 증상을 바탕으로 AI가 분석을 준비 중입니다. 더 정확한 진단을 위해 고양이 사진과 증상을 함께 선택해 주세요.`);
+        setIsListening(false);
+      }, 1500);
+    };
+
+    recognition.onerror = (event) => {
+      setIsListening(false);
+      setText("음성 인식 중 오류가 발생했습니다. 마이크 권한을 확인해 주세요.");
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognition.start();
   };
+
   return (
     <div className="voice-assistant-bar">
-      <button className={`voice-trigger-btn ${isListening ? 'listening' : ''}`} onClick={toggleListen}><Mic size={20} /> <span>{isListening ? "듣고 있어요..." : "음성으로 물어보기"}</span></button>
-      {text && <motion.div className="voice-response-bubble" initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }}>{text}</motion.div>}
+      <button 
+        className={`voice-trigger-btn ${isListening ? 'listening' : ''}`} 
+        onClick={startListening}
+        disabled={isListening}
+      >
+        <Mic size={20} /> 
+        <span>{isListening ? "듣고 있어요..." : "음성으로 물어보기"}</span>
+      </button>
+      {text && (
+        <motion.div 
+          className="voice-response-bubble" 
+          initial={{ opacity: 0, y: 5 }} 
+          animate={{ opacity: 1, y: 0 }}
+        >
+          {text.split('\n').map((line, i) => <p key={i} style={{ marginBottom: line ? '8px' : '0' }}>{line}</p>)}
+        </motion.div>
+      )}
     </div>
   );
 };
@@ -512,7 +597,6 @@ const EmergencyFirstAidTool = ({ onBack }) => {
               whileTap={{ scale: 0.98 }}
             >
               <span className="topic-name">{topic}</span>
-              <ChevronRight size={16} />
             </motion.button>
           ))}
         </div>
@@ -725,7 +809,7 @@ const CareSimulator = ({ onBack }) => {
       <BackButton onClick={onBack} />
       <div className="content-container">
         <ToolHeader 
-          emoji="🏠"
+          emoji="🛋️"
           title="실내 환경 분석"
           description="반려묘가 주로 지내는 실내 공간 사진을 통해 더 나은 환경을 제안합니다."
           instructions={["거실이나 방의 전체적인 모습을 촬영해 주세요.", "수직 공간이나 위험 요소(식물 등)를 AI가 판별합니다."]}
@@ -769,7 +853,7 @@ const CareSimulator = ({ onBack }) => {
           )}
           {analysisComplete && !isAnalyzing && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="analysis-result-simple">
-              🏠 <strong>환경 진단 결과:</strong> 
+              🛋️ <strong>환경 진단 결과:</strong> 
               <br/>수직 공간이 다소 부족하며, 창가 근처에 고양이가 먹을 경우 위험할 수 있는 식물이 감지되었습니다. 캣타워 위치 조정과 식물 격리를 권장합니다.
             </motion.div>
           )}
@@ -789,7 +873,7 @@ export default function AssistantHub() {
     { id: 'total', title: 'AI 종합 건강 검진', desc: '사진과 증상을 통해 현재 건강과 응급 상태를 통합 분석합니다.', icon: '🏥' },
     { id: 'emergency', title: '응급처치 가이드', desc: '사고 발생 시 즉시 대처할 수 있는 실무 지침입니다.', icon: '🚨' },
     { id: 'analyzer', title: '성분 분석기', desc: '사료나 간식 성분을 체크하여 안전성을 확인합니다.', icon: '🥫' },
-    { id: 'simulator', title: '실내 환경 분석', desc: '우리 집이 반려묘에게 안전한지 AI가 분석합니다.', icon: '🏠' }
+    { id: 'simulator', title: '실내 환경 분석', desc: '우리 집이 반려묘에게 안전한지 AI가 분석합니다.', icon: '🛋️' }
   ];
 
   return (
@@ -834,7 +918,7 @@ export default function AssistantHub() {
       <style jsx global>{`
         .assistant-hub-page { width: 100%; min-height: 100vh; background-color: var(--bg-color); }
         .content-area { padding-top: 1rem; padding-bottom: 8rem; }
-        .main-tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .main-tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
         .hub-tool-card {
           background: white; border: 1px solid ${BORDER_COLOR}; border-left: 4px solid ${PRIMARY_GREEN};
           border-radius: var(--border-radius-lg); padding: 24px; display: flex; flex-direction: column;
@@ -911,6 +995,16 @@ export default function AssistantHub() {
         .main-action-btn:hover:not(:disabled) { background: #1B4332; transform: translateY(-2px); }
         .main-action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
+        .camera-live-container { width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden; border-radius: 16px; background: #000; margin-bottom: 20px; }
+        .camera-video-feed { width: 100%; height: 100%; object-fit: cover; }
+        .camera-ui-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.5), transparent 40%); }
+        .camera-shutter-area { display: flex; align-items: center; justify-content: center; position: relative; }
+        .shutter-btn { width: 64px; height: 64px; border-radius: 50%; background: white; border: 4px solid rgba(255,255,255,0.3); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; outline: none; }
+        .shutter-inner { width: 48px; height: 48px; border-radius: 50%; background: ${PRIMARY_GREEN}; transition: transform 0.1s; }
+        .shutter-btn:active .shutter-inner { transform: scale(0.9); }
+        .camera-close-x { position: absolute; right: 0; background: rgba(0,0,0,0.5); color: white; border: none; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; }
+        .camera-error-msg { color: white; padding: 20px; text-align: center; font-size: 14px; }
+
         /* Detailed Report Styles */
         .comprehensive-result-box { margin-top: 0; padding: 32px; background: white; border-radius: 24px; border: 1px solid ${BORDER_COLOR}; box-shadow: 0 10px 40px rgba(0,0,0,0.05); }
         .report-summary-card { display: flex; background: #f8faf9; border-radius: 16px; padding: 20px; gap: 40px; margin-bottom: 32px; }
@@ -971,13 +1065,14 @@ export default function AssistantHub() {
         .mt-24 { margin-top: 24px; }
         .mt-32 { margin-top: 32px; }
 
-        @media (max-width: 900px) { .main-tools-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 1100px) { .main-tools-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) {
           .tool-detail-view { max-width: 100%; }
           .content-container { padding: 0 var(--container-padding-mobile) 40px; }
           .sticky-nav-wrapper { padding: 12px var(--container-padding-mobile); top: 0; }
           .symptom-tag-grid { justify-content: flex-start; gap: 8px; }
           .hub-tool-card { padding: 24px; min-height: 200px; }
+          .main-tools-grid { grid-template-columns: 1fr; gap: 12px; }
           .tool-intro-card, .usage-guide-card, .tool-feature-card { padding: 24px 20px; }
           .card-desc-text { padding-right: 0; }
           .intro-desc { padding-left: 0; margin-top: 8px; }
