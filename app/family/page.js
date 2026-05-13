@@ -19,7 +19,7 @@ export default async function FamilyPage({ searchParams }) {
   
   const filteredMembers = filter === '전체' 
     ? allMembers 
-    : allMembers.filter(m => m.type === filter);
+    : allMembers.filter(m => m.type && m.type.includes(filter));
 
   return (
     <main className="family-page">

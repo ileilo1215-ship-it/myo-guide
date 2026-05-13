@@ -178,24 +178,24 @@ export default function AnalyzerPage() {
               <div className="upload-options">
                 <div 
                   className="upload-option-card"
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <div className="upload-icon-wrapper">
-                    <Upload size={32} />
-                  </div>
-                  <h3>사진 올리기</h3>
-                  <p>갤러리에서 선택</p>
-                </div>
-                
-                <div 
-                  className="upload-option-card highlight"
                   onClick={startCamera}
                 >
                   <div className="upload-icon-wrapper">
                     <ImageIcon size={32} />
                   </div>
                   <h3>사진 촬영</h3>
-                  <p>카메라로 직접 찍기</p>
+                  <p>카메라로 촬영하기</p>
+                </div>
+
+                <div 
+                  className="upload-option-card highlight"
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <div className="upload-icon-wrapper">
+                    <Upload size={32} />
+                  </div>
+                  <h3>사진 업로드</h3>
+                  <p>앨범에서 선택하기</p>
                 </div>
               </div>
 
@@ -357,6 +357,10 @@ export default function AnalyzerPage() {
           gap: 1.5rem;
           width: 100%;
           max-width: 500px;
+        }
+        .upload-options.single-option {
+          display: flex;
+          justify-content: center;
         }
         .upload-option-card {
           background: #fff;
