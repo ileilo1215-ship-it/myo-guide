@@ -1059,11 +1059,11 @@ h1, h2, h3 {
 }
 
 .news-magazine-title {
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 800;
   color: var(--text-primary);
-  line-height: 1.35;
-  margin-bottom: 12px;
+  line-height: 1.3;
+  margin-bottom: 8px;
   word-break: keep-all;
 }
 
@@ -1073,17 +1073,17 @@ h1, h2, h3 {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .news-magazine-editor-note {
   position: relative;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.5;
   color: #555;
-  padding: 16px 0;
+  padding: 12px 0;
   border-top: 1px solid #f0f0f0;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .editor-quote-icon {
@@ -1383,15 +1383,20 @@ h1, h2, h3 {
 /* Mobile */
 @media (max-width: 767px) {
   .classroom-container {
-    padding: 0 16px 40px;
+    padding: 0 1rem 40px;
   }
   
   .classroom-question-box {
-    padding: 30px 20px;
-    min-height: 200px;
-    margin: 20px 0;
+    padding: 24px 20px;
+    height: 120px;
+    margin: 1.5rem 0;
   }
   
+  .classroom-card {
+    padding: 20px;
+    gap: 12px;
+  }
+
   .classroom-grid {
     grid-template-columns: 1fr;
   }
@@ -1430,7 +1435,7 @@ h1, h2, h3 {
 .discovery-content-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1rem;
   text-align: left;
 }
 
@@ -1484,7 +1489,8 @@ h1, h2, h3 {
 /* Mobile */
 @media (max-width: 767px) {
   .discovery-nav-tabs {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
     padding: 4px;
   }
   
@@ -1499,8 +1505,8 @@ h1, h2, h3 {
 /* Content Headers */
 .news-content-header, .learn-content-header {
   text-align: center;
-  margin-bottom: 3rem;
-  padding: 0 2rem;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
 }
 
 .news-main-title {
@@ -1527,8 +1533,8 @@ h1, h2, h3 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.6rem;
-  margin-bottom: 2.5rem;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
   padding: 0;
   max-width: 1000px;
   margin-left: auto;
@@ -1536,11 +1542,11 @@ h1, h2, h3 {
 }
 
 .news-tag-pill, .classroom-tag-pill {
-  padding: 0.4rem 1rem;
+  padding: 0.4rem 0.8rem;
   background: white;
   border: 1px solid var(--border-color);
   border-radius: 40px;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-secondary);
   text-decoration: none;
@@ -1570,8 +1576,8 @@ h1, h2, h3 {
 .classroom-question-box {
   position: relative;
   width: 100%;
-  height: 160px;
-  margin: 0 auto 2.5rem;
+  height: 140px;
+  margin: 0 auto 1.5rem;
   border-radius: 24px;
   overflow: hidden;
   display: flex;

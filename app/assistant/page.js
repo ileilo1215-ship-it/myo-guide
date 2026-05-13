@@ -737,9 +737,16 @@ export default function AssistantHub() {
         @media (max-width: 900px) { .main-tools-grid { grid-template-columns: 1fr; } }
         @media (max-width: 768px) {
           .tool-detail-view { max-width: 100%; }
-          .content-container { padding: 0 16px 40px; }
-          .symptom-tag-grid { justify-content: center; }
+          .content-container { padding: 0 1rem 40px; }
+          .sticky-nav-wrapper { padding: 12px 1rem; }
+          .symptom-tag-grid { justify-content: center; gap: 8px; }
           .photo-actions-container { flex-direction: column; }
+          .hub-tool-card { padding: 24px; min-height: 250px; }
+          .tool-intro-card, .usage-guide-card, .tool-feature-card { padding: 24px 20px; }
+          .card-desc-text { padding-right: 0; }
+          .intro-desc { padding-left: 0; margin-top: 8px; }
+          .intro-main { gap: 12px; }
+          .intro-title { font-size: 20px; }
         }
       `}</style>
     </main>
