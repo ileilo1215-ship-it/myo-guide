@@ -461,24 +461,25 @@ export default async function Home({ searchParams }) {
       </section>
 
       {/* SECTION 4: FAMILY TEASER (MINIMALIST) */}
-      <section className="home-section bg-cream" style={{ padding: '6rem 0' }}>
+      <section className="home-section bg-cream" style={{ padding: '3rem 0' }}>
         <div className="section-container" style={{ textAlign: 'center', maxWidth: '800px' }}>
-          <div className="section-header" style={{ marginBottom: '3rem' }}>
+          <div className="section-header" style={{ marginBottom: '2rem' }}>
             <span className="section-subtitle-en">Family & Discovery</span>
             <h2 className="section-title" style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>묘한 가족들</h2>
-            <p className="section-subtitle" style={{ fontSize: '1.2rem', color: '#666', lineHeight: '1.6' }}>
+            <p className="section-subtitle" style={{ fontSize: '1rem', color: '#666', lineHeight: '1.6' }}>
               우리 집 반려동물 자랑부터 집사들의 발견까지,<br />
               함께 만들어가는 소중한 공간입니다.
             </p>
           </div>
           
-          <div className="btn-group" style={{ justifyContent: 'center', gap: '1.5rem' }}>
-            <Link href="/family?tab=family" className="btn-primary">
+          <div className="btn-group" style={{ flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+            <Link href="/family?tab=family" className="btn-primary" style={{ width: '100%', maxWidth: '280px' }}>
               우리 가족 보기 →
             </Link>
             <Link 
               href="/family?tab=discovery" 
               className="btn-primary btn-outline"
+              style={{ width: '100%', maxWidth: '280px' }}
             >
               집사의 발견 →
             </Link>
@@ -501,16 +502,16 @@ export default async function Home({ searchParams }) {
               <div className="section-grid cols-3">
                 {dailyNewsPreview?.filter(Boolean).map(post => (
                   <article key={post?.id || Math.random()} className="news-magazine-card simple-card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                    <div className="news-magazine-image" style={{ height: '180px' }}>
+                    <div className="news-magazine-image" style={{ height: '160px' }}>
                       {post?.image ? (
                         <img src={post.image} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       ) : (
                         <div className="news-magazine-placeholder">🐾</div>
                       )}
                     </div>
-                    <div className="news-magazine-content" style={{ flex: 1, padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div className="news-magazine-content" style={{ flex: 1, padding: '1.2rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
                       <div style={{ flex: 1 }}>
-                        <h3 className="news-magazine-title" style={{ fontSize: '1.1rem', lineHeight: '1.4', margin: '0 0 0.5rem 0' }}>{post?.title}</h3>
+                        <h3 className="news-magazine-title" style={{ fontSize: '1rem', lineHeight: '1.4', margin: '0 0 0.5rem 0' }}>{post?.title}</h3>
                         <div style={{ fontSize: '0.85rem', color: '#888' }}>
                           {post?.source && <span>{post.source}</span>}
                           {post?.source && post?.date && <span style={{ margin: '0 6px' }}>|</span>}
@@ -518,7 +519,7 @@ export default async function Home({ searchParams }) {
                         </div>
                       </div>
                       {post?.id && (
-                        <Link href={`/posts/${post.id}`} className="news-read-btn-circle">
+                        <Link href={`/posts/${post.id}`} className="news-read-btn-circle" style={{ width: '56px', height: '56px', fontSize: '13px' }}>
                           기사<br />읽기
                         </Link>
                       )}

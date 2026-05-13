@@ -598,20 +598,20 @@ export default function AssistantHub() {
         .main-tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
         .hub-tool-card {
           background: white; border: 1px solid ${BORDER_COLOR}; border-left: 4px solid ${PRIMARY_GREEN};
-          border-radius: var(--border-radius-lg); padding: 32px; display: flex; flex-direction: column;
-          justify-content: space-between; cursor: pointer; transition: all 0.3s ease; min-height: 300px;
+          border-radius: var(--border-radius-lg); padding: 24px; display: flex; flex-direction: column;
+          justify-content: space-between; cursor: pointer; transition: all 0.3s ease; min-height: 240px;
           box-shadow: 0 4px 12px rgba(0,0,0,0.03); position: relative;
         }
         .hub-tool-card.alternate { background: ${EDITOR_NOTE_BG}; }
         .hub-tool-card:hover { transform: translateY(-6px); box-shadow: 0 12px 24px rgba(45, 106, 79, 0.1); }
-        .card-emoji-text { font-size: 40px; margin-bottom: 16px; display: block; }
-        .card-title-text { font-size: 20px; font-weight: 700; color: var(--color-text-primary); margin-bottom: 10px; }
-        .card-desc-text { font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 24px; padding-right: 48px; }
+        .card-emoji-text { font-size: 32px; margin-bottom: 12px; display: block; }
+        .card-title-text { font-size: 18px; font-weight: 700; color: var(--color-text-primary); margin-bottom: 8px; }
+        .card-desc-text { font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; margin-bottom: 20px; padding-right: 40px; }
         
-        .circle-btn-wrapper { position: absolute; bottom: 32px; right: 32px; }
+        .circle-btn-wrapper { position: absolute; bottom: 24px; right: 24px; }
         .circular-enter-btn {
-          width: 64px; height: 64px; border-radius: 50%; background: ${PRIMARY_GREEN};
-          color: white; border: none; font-size: 13px; font-weight: 700; cursor: pointer;
+          width: 56px; height: 56px; border-radius: 50%; background: ${PRIMARY_GREEN};
+          color: white; border: none; font-size: 12px; font-weight: 700; cursor: pointer;
           display: flex; align-items: center; justify-content: center; line-height: 1.2;
           box-shadow: 0 4px 12px rgba(45, 106, 79, 0.3); transition: all 0.2s;
         }
