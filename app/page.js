@@ -120,13 +120,14 @@ function ClassCard({ post }) {
 }
 
 function DiscoveryView({ newsPosts = [], classPosts = [], currentTab = 'news', params = {} }) {
+  const safeParams = params || {};
   const activeTab = currentTab || 'news';
   
   return (
     <div className="discovery-wrapper">
       <Banner 
         title="묘한 탐구" 
-        description="동물권 뉴스부터 생명 존중 배움까지 함께하는 탐구" 
+        description="동물권 뉴스부터 생명 존중 배움까지 함께하는 곳" 
       />
 
       <div className="discovery-nav-tabs" style={{ marginTop: '0', marginBottom: '1rem' }}>
@@ -152,7 +153,7 @@ function DiscoveryView({ newsPosts = [], classPosts = [], currentTab = 'news', p
             <div className="news-tag-cloud" style={{ marginBottom: '1.5rem' }}>
               <Link 
                 href="/?category=Discovery&tab=news" 
-                className={`news-tag-pill ${!params?.tag ? 'active' : ''}`}
+                className={`news-tag-pill ${!safeParams?.tag ? 'active' : ''}`}
               >
                 🖋️ 전체
               </Link>
@@ -163,23 +164,23 @@ function DiscoveryView({ newsPosts = [], classPosts = [], currentTab = 'news', p
                 { label: '문화/영화', icon: '🎬' },
                 { label: '책', icon: '📚' }
               ].map(tagObj => (
-                <Link 
-                  key={tagObj.label} 
-                  href={`/?category=Discovery&tab=news&tag=${tagObj.label}`} 
-                  className={`news-tag-pill ${params?.tag === tagObj.label ? 'active' : ''}`}
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}
-                >
-                  <span>{tagObj.icon}</span>
-                  <span>{tagObj.label}</span>
-                </Link>
+                  <Link 
+                    key={tagObj.label} 
+                    href={`/?category=Discovery&tab=news&tag=${tagObj.label}`} 
+                    className={`news-tag-pill ${safeParams?.tag === tagObj.label ? 'active' : ''}`}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                  >
+                    <span>{tagObj.icon}</span>
+                    <span>{tagObj.label}</span>
+                  </Link>
               ))}
             </div>
             <section className="discovery-section">
               <div className="news-magazine-grid" style={{ marginTop: '0.5rem' }}>
                 {(newsPosts || [])
-                  .filter(post => post && (!params?.tag || post.tag?.includes(params?.tag)))
-                  .map(post => (
-                    <div key={post?.id || Math.random()} className="news-magazine-item">
+                  .filter(post => post && (!safeParams?.tag || post.tag?.includes(safeParams?.tag)))
+                  .map((post, i) => (
+                    <div key={post?.id || `news-${i}`} className="news-magazine-item">
                       <NewsPageItem post={post} />
                     </div>
                   ))}
@@ -207,7 +208,7 @@ function DiscoveryView({ newsPosts = [], classPosts = [], currentTab = 'news', p
             <div className="classroom-tag-cloud" style={{ marginBottom: '1.5rem' }}>
               <Link 
                 href="/?category=Discovery&tab=class" 
-                className={`classroom-tag-pill ${!params?.tag ? 'active' : ''}`}
+                className={`classroom-tag-pill ${!safeParams?.tag ? 'active' : ''}`}
               >
                 🖋️ 전체
               </Link>
@@ -228,7 +229,7 @@ function DiscoveryView({ newsPosts = [], classPosts = [], currentTab = 'news', p
                 <Link 
                   key={tagObj.label} 
                   href={`/?category=Discovery&tab=class&tag=${tagObj.label}`} 
-                  className={`classroom-tag-pill ${params?.tag === tagObj.label ? 'active' : ''}`}
+                  className={`classroom-tag-pill ${safeParams?.tag === tagObj.label ? 'active' : ''}`}
                   style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}
                 >
                   <span>{tagObj.icon}</span>
@@ -240,8 +241,8 @@ function DiscoveryView({ newsPosts = [], classPosts = [], currentTab = 'news', p
             <section className="discovery-section">
               <div className="classroom-grid" style={{ marginTop: '0.5rem' }}>
                 {(classPosts || [])
-                  .filter(post => post && (!params?.tag || post.tag?.includes(params?.tag)))
-                  .map(post => <ClassCard key={post?.id || Math.random()} post={post} />)}
+                  .filter(post => post && (!safeParams?.tag || post.tag?.includes(safeParams?.tag)))
+                  .map((post, i) => <ClassCard key={post?.id || `class-${i}`} post={post} />)}
               </div>
             </section>
           </>
@@ -380,7 +381,7 @@ export default async function Home({ searchParams }) {
     {
       label: '묘한 탐구 🔍',
       title: '세상을 배우고 소식을 나눠요',
-      description: '동물권 뉴스부터 생명 존중 배움까지, 묘한 탐구에서 함께 시작해보세요.',
+      description: '동물권 뉴스부터 생명 존중 배움까지 함께하는 곳',
       image: dailyNews?.image || dailyClass?.image || '/hero/daria-shatova-BphuDA60if4-unsplash.jpg',
       link: '/?category=Discovery',
       subtitle: '아는 만큼 더 사랑할 수 있어요'
@@ -467,7 +468,7 @@ export default async function Home({ searchParams }) {
           <div className="section-header">
             <span className="section-subtitle-en">News & Education</span>
             <h2 className="section-title">묘한 탐구</h2>
-            <p className="section-subtitle">동물권 소식과 생명 존중 교육을 한곳에서 만나보세요</p>
+            <p className="section-subtitle">동물권 뉴스부터 생명 존중 배움까지 함께하는 곳</p>
           </div>
           
           {showNewsToday ? (

@@ -19,7 +19,7 @@ html {
   --border-color: #E2DDD5;
   --color-border-tertiary: #E2DDD5;
   --border-radius-lg: 16px;
-  --sidebar-width: 260px;
+  --sidebar-width: 250px;
   --mobile-topbar-height: 60px;
   --section-padding-pc: 48px;
   --section-padding-mobile: 32px;
@@ -61,6 +61,7 @@ h1, h2, h3 {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  width: 100%;
 }
 
 /* ================================================
@@ -426,17 +427,28 @@ h1, h2, h3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 3rem 2.5rem;
+  width: 100%;
 }
 
 .standard-container {
   max-width: var(--container-max-width);
   margin: 0 auto;
   padding: 0 var(--container-padding-pc);
+  width: 100%;
 }
 
-@media (max-width: 1024px) and (min-width: 768px) {
-  .posts-container {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 1100px) {
+  .posts-container, .news-magazine-grid, .classroom-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 2rem 1.5rem !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .posts-container, .news-magazine-grid, .classroom-grid {
+    grid-template-columns: 1fr !important;
+    padding: 0 var(--container-padding-mobile) 3rem !important;
+    gap: 2rem !important;
   }
 }
 
@@ -1009,7 +1021,8 @@ h1, h2, h3 {
   padding: 0 var(--container-padding-pc) 80px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  gap: 3rem 2.5rem; /* Unify with posts-container */
+  width: 100%;
 }
 
 .news-magazine-card {
@@ -1159,27 +1172,16 @@ h1, h2, h3 {
 }
 
 /* Mobile */
-@media (max-width: 1024px) {
-  .news-magazine-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+/* Unified via .posts-container block above */
+
+.news-tag-filter {
+  padding: 0 20px;
+  gap: 8px;
 }
 
-@media (max-width: 767px) {
-  .news-magazine-grid {
-    grid-template-columns: 1fr;
-    padding: 0 var(--container-padding-mobile) 40px !important;
-  }
-  
-  .news-tag-filter {
-    padding: 0 20px;
-    gap: 8px;
-  }
-  
-  .news-tag-pill {
-    padding: 6px 14px;
-    font-size: 13px;
-  }
+.news-tag-pill {
+  padding: 6px 14px;
+  font-size: 13px;
 }
 
 /* ================================================
@@ -1281,8 +1283,12 @@ h1, h2, h3 {
 /* Lesson Cards Grid */
 .classroom-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr); /* Match other grids for consistency */
+  gap: 3rem 2.5rem; /* Unify with posts-container */
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
 }
 
 .classroom-card {
@@ -1394,38 +1400,20 @@ h1, h2, h3 {
 }
 
 /* Mobile */
-@media (max-width: 767px) {
-  .classroom-container {
-    padding: 0 1rem 40px;
-  }
-  
-  .classroom-question-box {
-    padding: 24px 20px;
-    height: 120px;
-    margin: 1.5rem 0;
-  }
-  
-  .classroom-card {
-    padding: 20px;
-    gap: 12px;
-  }
+/* Unified via .posts-container block above */
 
-  .classroom-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .classroom-tag-cloud {
-    margin-bottom: 30px;
-  }
+.classroom-tag-cloud {
+  margin-bottom: 30px;
+}
 
-  .classroom-btn-group {
-    flex-wrap: wrap;
-  }
+.classroom-btn-group {
+  flex-wrap: wrap;
 }
 
 /* Discovery View Styles */
 .discovery-page-wrapper {
-  max-width: 1200px;
+  width: 100%;
+  /* Removed max-width here so Banner can be full-width like the Care page */
   margin: 0 auto;
   padding-bottom: 5rem;
 }
@@ -1448,8 +1436,9 @@ h1, h2, h3 {
 .discovery-content-container {
   max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0;
+  padding: 0 var(--container-padding-pc);
   text-align: left;
+  width: 100%;
 }
 
 .discovery-nav-item {
@@ -1548,8 +1537,8 @@ h1, h2, h3 {
   justify-content: center;
   gap: 0.5rem;
   margin-bottom: 2rem;
-  padding: 0;
-  max-width: 1000px;
+  padding: 0 var(--container-padding-pc);
+  max-width: var(--container-max-width);
   margin-left: auto;
   margin-right: auto;
 }
@@ -1711,31 +1700,6 @@ h1, h2, h3 {
   display: block;
 }
 
-@media (max-width: 1024px) {
-  .news-magazine-grid {
-    column-count: 2;
-  }
-}
-
-@media (max-width: 767px) {
-  .news-magazine-grid {
-    column-count: 1;
-  }
-}
-
-.news-magazine-item {
-  break-inside: avoid;
-  margin-bottom: 2rem;
-  display: inline-block;
-  width: 100%;
-}
-
-.classroom-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
 
 .discovery-section {
   padding: 0;
