@@ -7,15 +7,12 @@ import {
   AlertCircle,
   Camera,
   Upload,
-  Mic,
   CheckCircle2,
   ChevronRight,
   Info,
   Loader2
 } from "lucide-react";
 import Banner from "@/components/Banner";
-import { createWorker } from "tesseract.js";
-import { analyzeIngredients } from "@/lib/ingredient-db";
 
 // Design Tokens
 const PRIMARY_GREEN = "#2D6A4F";
@@ -217,75 +214,6 @@ const PhotoActionButtons = ({ onPhoto, onCamera }) => {
   );
 };
 
-const VoiceAssistant = () => {
-  const [isListening, setIsListening] = useState(false);
-  const [text, setText] = useState("");
-  
-  const startListening = () => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      setIsListening(true);
-      setText("음성을 인식하고 있습니다... 말씀해 주세요.");
-      setTimeout(() => {
-        setText("분석 결과: 말씀하신 내용을 바탕으로 AI 진단을 준비 중입니다. 사진과 증상을 함께 등록해 주세요.");
-        setIsListening(false);
-      }, 3000);
-      return;
-    }
-
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'ko-KR';
-    recognition.interimResults = false;
-
-    recognition.onstart = () => {
-      setIsListening(true);
-      setText("듣고 있습니다... 말씀해 주세요.");
-    };
-
-    recognition.onresult = (event) => {
-      const speechToText = event.results[0][0].transcript;
-      setText(`인식 결과: "${speechToText}"\n\n잠시만 기다려 주세요...`);
-      
-      setTimeout(() => {
-        setText(`말씀하신 "${speechToText}" 증상을 바탕으로 AI가 분석을 준비 중입니다. 더 정확한 진단을 위해 고양이 사진과 증상을 함께 선택해 주세요.`);
-        setIsListening(false);
-      }, 1500);
-    };
-
-    recognition.onerror = (event) => {
-      setIsListening(false);
-      setText("음성 인식 중 오류가 발생했습니다. 마이크 권한을 확인해 주세요.");
-    };
-
-    recognition.onend = () => {
-      setIsListening(false);
-    };
-
-    recognition.start();
-  };
-
-  return (
-    <div className="voice-assistant-bar">
-      <button 
-        className={`voice-trigger-btn ${isListening ? 'listening' : ''}`} 
-        onClick={startListening}
-        disabled={isListening}
-      >
-        <Mic size={20} /> 
-        <span>{isListening ? "듣고 있어요..." : "음성으로 물어보기"}</span>
-      </button>
-      {text && (
-        <motion.div 
-          className="voice-response-bubble" 
-          initial={{ opacity: 0, y: 5 }} 
-          animate={{ opacity: 1, y: 0 }}
-        >
-          {text.split('\n').map((line, i) => <p key={i} style={{ marginBottom: line ? '8px' : '0' }}>{line}</p>)}
-        </motion.div>
-      )}
-    </div>
-  );
-};
 
 const ToolHeader = ({ emoji, title, description, instructions }) => (
   <div className="tool-header-section">
@@ -322,35 +250,53 @@ const ComprehensiveHealthTool = ({ onBack }) => {
   const handleCapture = (dataUrl) => {
     setPreview(dataUrl);
     setIsCameraOpen(false);
-    startSimulatedAnalysis();
+    detectCatWithAI(dataUrl);
   };
 
-  const startSimulatedAnalysis = () => {
+  const detectCatWithAI = async (imageDataUrl) => {
     setIsAnalyzing(true);
     setAnalysisComplete(false);
     setAnalysisError(null);
     
-    // Simulated Cat Detection + Analysis
-    setTimeout(() => {
-      // Randomly simulate non-cat detection for testing
-      const detectedAsCat = Math.random() > 0.1; 
-      setIsCat(detectedAsCat);
-      
-      if (!detectedAsCat) {
-        setAnalysisError("이미지 분석 결과 고양이를 찾을 수 없습니다. 고양이가 잘 보이는 사진을 올려주세요.");
-        setIsAnalyzing(false);
-      } else {
-        setIsAnalyzing(false);
+    try {
+      const base64Image = imageDataUrl.split(',')[1];
+      const mimeType = imageDataUrl.split(',')[0].split(':')[1].split(';')[0];
+
+      const response = await fetch('/api/gemini', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt: "이 사진에 고양이가 있는지 확인해주세요. 고양이가 있다면 'CAT_CONFIRMED'라고만 답변하고, 고양이가 아니거나 잘 보이지 않는다면 그 이유를 한 문장으로 한국어로 답변해주세요.",
+          image: base64Image,
+          mimeType: mimeType
+        })
+      });
+
+      const data = await response.json();
+      if (data.text.includes('CAT_CONFIRMED')) {
+        setIsCat(true);
         setAnalysisComplete(true);
+      } else {
+        setIsCat(false);
+        setAnalysisError(data.text || "고양이를 인식하지 못했습니다. 다시 시도해주세요.");
       }
-    }, 2500);
+    } catch (err) {
+      setAnalysisError("AI 분석 중 오류가 발생했습니다.");
+    } finally {
+      setIsAnalyzing(false);
+    }
   };
 
   const handleImage = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setPreview(URL.createObjectURL(file));
-      startSimulatedAnalysis();
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const dataUrl = event.target.result;
+        setPreview(dataUrl);
+        detectCatWithAI(dataUrl);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -362,12 +308,54 @@ const ComprehensiveHealthTool = ({ onBack }) => {
     }
   };
 
-  const generateDetailedReport = () => {
+  const [aiReport, setAiReport] = useState(null);
+
+  const generateDetailedReport = async () => {
     setIsAnalyzing(true);
-    setTimeout(() => {
-      setIsAnalyzing(false);
+    try {
+      const base64Image = preview.split(',')[1];
+      const mimeType = preview.split(',')[0].split(':')[1].split(';')[0];
+      
+      const prompt = `고양이 건강 상태 분석 요청:
+- 증상: ${selectedSymptoms.join(', ') || '특이사항 없음'}
+- 몸무게: ${weight}kg
+- 사료 섭취량: ${intake}g
+- 사진: 첨부된 고양이 사진
+
+위 정보를 바탕으로 다음 형식의 JSON으로만 답변해주세요:
+{
+  "summary": "전체적인 상태 요약",
+  "findings": [
+    {
+      "symptom": "증상명",
+      "analysis": "AI 분석 내용 (사진과 증상 연계)",
+      "guide": "집사 대처 가이드",
+      "severity": "위험도 (낮음/보통/높음/매우높음)"
+    }
+  ],
+  "advice": "수의사 관점의 추가 조언"
+}`;
+
+      const response = await fetch('/api/gemini', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt,
+          image: base64Image,
+          mimeType: mimeType
+        })
+      });
+
+      const data = await response.json();
+      const report = JSON.parse(data.text.replace(/```json|```/g, '').trim());
+      setAiReport(report);
       setShowResult(true);
-    }, 2000);
+    } catch (err) {
+      console.error(err);
+      setAnalysisError("리포트 생성 중 오류가 발생했습니다.");
+    } finally {
+      setIsAnalyzing(false);
+    }
   };
 
   return (
@@ -520,31 +508,36 @@ const ComprehensiveHealthTool = ({ onBack }) => {
                     </div>
 
                     <div className="detailed-analysis-section">
-                      {selectedSymptoms.length > 0 ? (
+                      {aiReport ? (
                         <>
-                          <h4 className="section-title">📍 주요 증상별 정밀 분석</h4>
-                          {selectedSymptoms.map((s, idx) => (
+                          <h4 className="section-title">📍 AI 정밀 분석 결과</h4>
+                          <p className="report-summary-text" style={{ marginBottom: '20px', fontSize: '15px', color: 'var(--color-text-secondary)' }}>{aiReport.summary}</p>
+                          
+                          {aiReport.findings.map((item, idx) => (
                             <div key={idx} className="analysis-card-item">
                               <div className="card-header">
-                                <span className="warning-badge">{EMERGENCY_ADVICE[s].warning}</span>
-                                <h5 className="symptom-name">{s}</h5>
+                                <span className={`warning-badge ${item.severity === '매우높음' ? 'critical' : ''}`}>{item.severity}</span>
+                                <h5 className="symptom-name">{item.symptom}</h5>
                               </div>
                               <div className="card-body">
-                                <p className="analysis-desc"><strong>현상 이해:</strong> {EMERGENCY_ADVICE[s].details}</p>
+                                <p className="analysis-desc"><strong>AI 판독:</strong> {item.analysis}</p>
                                 <div className="action-steps">
-                                  <strong>⚠️ 집사 대처 가이드:</strong>
-                                  <p>{EMERGENCY_ADVICE[s].action}</p>
+                                  <strong>⚠️ 대처 가이드:</strong>
+                                  <p>{item.guide}</p>
                                 </div>
-                                <p className="pro-tip">💡 <strong>전문가 팁:</strong> {EMERGENCY_ADVICE[s].pro}</p>
                               </div>
                             </div>
                           ))}
+                          
+                          <div className="pro-tip" style={{ marginTop: '20px' }}>
+                            💡 <strong>수의사 코멘트:</strong> {aiReport.advice}
+                          </div>
                         </>
                       ) : (
                         <div className="healthy-result">
                           <CheckCircle2 size={40} color="#2D6A4F" />
                           <h5>현재 상태는 양호해 보입니다</h5>
-                          <p>특별한 이상 증상이 발견되지 않았으며, 입력하신 몸무게와 식사량은 정상 범주 내에 있습니다. 주기적인 기록을 통해 변화를 관찰해 주세요.</p>
+                          <p>특별한 이상 증상이 발견되지 않았으며, 입력하신 몸무게와 식사량은 정상 범주 내에 있습니다.</p>
                         </div>
                       )}
                     </div>
@@ -561,7 +554,7 @@ const ComprehensiveHealthTool = ({ onBack }) => {
             )}
           </AnimatePresence>
         </div>
-        <VoiceAssistant />
+
         <div className="common-warning-box">🐾 묘한 비서는 AI 기반 참고 정보를 제공하며, 정확한 진단은 반드시 병원을 방문해야 합니다.</div>
       </div>
     </div>
@@ -654,27 +647,45 @@ const IngredientAnalyzer = ({ onBack }) => {
   const [analysisResult, setAnalysisResult] = useState(null);
   const [error, setError] = useState(null);
 
-  const runOcrAnalysis = async (source) => {
+  const runOcrAnalysis = async (imageDataUrl) => {
     setIsAnalyzing(true);
     setAnalysisComplete(false);
     setError(null);
     setAnalysisResult(null);
 
     try {
-      const worker = await createWorker("kor+eng");
-      const { data: { text } } = await worker.recognize(source);
-      await worker.terminate();
+      const base64Image = imageDataUrl.split(',')[1];
+      const mimeType = imageDataUrl.split(',')[0].split(':')[1].split(';')[0];
 
-      const result = analyzeIngredients(text);
-      if (!result || result.isInvalid) {
-        setError("사진에서 성분표를 찾을 수 없습니다. 사료나 간식 뒷면의 성분 함량표가 선명하게 보이도록 다시 촬영해 주세요.");
-      } else {
-        setAnalysisResult(result);
-        setAnalysisComplete(true);
-      }
+      const prompt = `이 사진은 반려동물 사료나 간식의 성분표입니다. 
+다음 내용을 분석하여 한국어 JSON 형식으로만 답변해주세요:
+{
+  "findings": [
+    {
+      "name": "주의 성분 이름",
+      "reason": "주의해야 하는 이유 (한국어)"
+    }
+  ],
+  "overall": "전체적인 안전성 평가"
+}`;
+
+      const response = await fetch('/api/gemini', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt,
+          image: base64Image,
+          mimeType: mimeType
+        })
+      });
+
+      const data = await response.json();
+      const result = JSON.parse(data.text.replace(/```json|```/g, '').trim());
+      setAnalysisResult(result);
+      setAnalysisComplete(true);
     } catch (err) {
       console.error(err);
-      setError("분석 중 오류가 발생했습니다. 네트워크 상태를 확인하고 다시 시도해 주세요.");
+      setError("AI 분석 중 오류가 발생했습니다. 성분표가 잘 보이도록 다시 찍어주세요.");
     } finally {
       setIsAnalyzing(false);
     }
@@ -683,8 +694,13 @@ const IngredientAnalyzer = ({ onBack }) => {
   const handleImage = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setPreview(URL.createObjectURL(file));
-      runOcrAnalysis(file);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const dataUrl = event.target.result;
+        setPreview(dataUrl);
+        runOcrAnalysis(dataUrl);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -753,117 +769,26 @@ const IngredientAnalyzer = ({ onBack }) => {
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="analysis-result-simple">
               {analysisResult.findings.length > 0 ? (
                 <>
-                  🔍 <strong>성분 분석 결과:</strong> 주의가 필요한 성분이 {analysisResult.findings.length}개 발견되었습니다.
+                  🔍 <strong>AI 성분 분석:</strong> {analysisResult.overall}
                   <ul style={{ marginTop: '8px', fontSize: '13px', color: '#c53030' }}>
-                    {analysisResult.findings.slice(0, 2).map((f, i) => <li key={i}>• {f.name}: {f.reason}</li>)}
-                    {analysisResult.findings.length > 2 && <li>외 {analysisResult.findings.length - 2}종 더 있음...</li>}
+                    {analysisResult.findings.map((f, i) => <li key={i}>• {f.name}: {f.reason}</li>)}
                   </ul>
                 </>
               ) : (
                 <>
-                  ✅ <strong>성분 분석 결과:</strong> 유해 성분이 발견되지 않았습니다. 안심하고 급여하셔도 좋습니다.
+                  ✅ <strong>AI 성분 분석:</strong> 유해하거나 주의가 필요한 성분이 발견되지 않았습니다. ({analysisResult.overall})
                 </>
               )}
             </motion.div>
           )}
         </div>
-        <VoiceAssistant />
+
         <div className="common-warning-box">🐾 성분 데이터는 제조사 제공 정보를 기반으로 분석됩니다.</div>
       </div>
     </div>
   );
 };
 
-// --- Tool 3: 실내 환경 분석 ---
-const CareSimulator = ({ onBack }) => {
-  const [preview, setPreview] = useState(null);
-  const [isCameraOpen, setIsCameraOpen] = useState(false);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [analysisComplete, setAnalysisComplete] = useState(false);
-
-  const startSimulatedAnalysis = () => {
-    setIsAnalyzing(true);
-    setAnalysisComplete(false);
-    setTimeout(() => {
-      setIsAnalyzing(false);
-      setAnalysisComplete(true);
-    }, 2500);
-  };
-
-  const handleImage = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setPreview(URL.createObjectURL(file));
-      startSimulatedAnalysis();
-    }
-  };
-
-  const handleCapture = (dataUrl) => {
-    setPreview(dataUrl);
-    setIsCameraOpen(false);
-    startSimulatedAnalysis();
-  };
-
-  return (
-    <div className="tool-detail-view">
-      <BackButton onClick={onBack} />
-      <div className="content-container">
-        <ToolHeader 
-          emoji="🛋️"
-          title="실내 환경 분석"
-          description="반려묘가 주로 지내는 실내 공간 사진을 통해 더 나은 환경을 제안합니다."
-          instructions={["거실이나 방의 전체적인 모습을 촬영해 주세요.", "수직 공간이나 위험 요소(식물 등)를 AI가 판별합니다."]}
-        />
-        <div className="tool-feature-card">
-          {isCameraOpen ? (
-            <CameraView 
-              onCapture={handleCapture} 
-              onCancel={() => setIsCameraOpen(false)} 
-            />
-          ) : (
-            <>
-              <div className="photo-display-zone">
-                {preview ? (
-                  <>
-                    <img src={preview} alt="Room" className="full-preview-img" />
-                    {isAnalyzing && (
-                      <div className="analysis-overlay">
-                        <div className="scanning-line" />
-                        <div className="analysis-text-wrapper">
-                          <Loader2 className="spinner-icon" size={32} />
-                          <span>실내 환경을 분석하고 있습니다...</span>
-                        </div>
-                      </div>
-                    )}
-                    {analysisComplete && !isAnalyzing && (
-                      <div className="analysis-done-badge">
-                        <CheckCircle2 size={16} /> 분석 완료
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <div className="photo-placeholder"><Camera size={40} /><p>공간 사진 등록</p></div>
-                )}
-              </div>
-              <PhotoActionButtons 
-                onPhoto={handleImage} 
-                onCamera={() => setIsCameraOpen(true)} 
-              />
-            </>
-          )}
-          {analysisComplete && !isAnalyzing && (
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="analysis-result-simple">
-              🛋️ <strong>환경 진단 결과:</strong> 
-              <br/>수직 공간이 다소 부족하며, 창가 근처에 고양이가 먹을 경우 위험할 수 있는 식물이 감지되었습니다. 캣타워 위치 조정과 식물 격리를 권장합니다.
-            </motion.div>
-          )}
-        </div>
-        <VoiceAssistant />
-        <div className="common-warning-box">🐾 고양이의 성향에 따라 최적의 환경은 다를 수 있습니다.</div>
-      </div>
-    </div>
-  );
-};
 
 // --- Main Hub ---
 
@@ -872,8 +797,7 @@ export default function AssistantHub() {
   const tools = [
     { id: 'total', title: 'AI 종합 건강 검진', desc: '사진과 증상을 통해 현재 건강과 응급 상태를 통합 분석합니다.', icon: '🏥' },
     { id: 'emergency', title: '응급처치 가이드', desc: '사고 발생 시 즉시 대처할 수 있는 실무 지침입니다.', icon: '🚨' },
-    { id: 'analyzer', title: '성분 분석기', desc: '사료나 간식 성분을 체크하여 안전성을 확인합니다.', icon: '🥫' },
-    { id: 'simulator', title: '실내 환경 분석', desc: '우리 집이 반려묘에게 안전한지 AI가 분석합니다.', icon: '🛋️' }
+    { id: 'analyzer', title: '성분 분석기', desc: '사료나 간식 성분을 체크하여 안전성을 확인합니다.', icon: '🥫' }
   ];
 
   return (
@@ -908,7 +832,6 @@ export default function AssistantHub() {
                 {activeTool === 'total' && <ComprehensiveHealthTool onBack={() => setActiveTool(null)} />}
                 {activeTool === 'emergency' && <EmergencyFirstAidTool onBack={() => setActiveTool(null)} />}
                 {activeTool === 'analyzer' && <IngredientAnalyzer onBack={() => setActiveTool(null)} />}
-                {activeTool === 'simulator' && <CareSimulator onBack={() => setActiveTool(null)} />}
               </div>
             </motion.div>
           )}
@@ -918,7 +841,7 @@ export default function AssistantHub() {
       <style jsx global>{`
         .assistant-hub-page { width: 100%; min-height: 100vh; background-color: var(--bg-color); }
         .content-area { padding-top: 1rem; padding-bottom: 8rem; }
-        .main-tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .main-tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
         .hub-tool-card {
           background: white; border: 1px solid ${BORDER_COLOR}; border-left: 4px solid ${PRIMARY_GREEN};
           border-radius: var(--border-radius-lg); padding: 24px; display: flex; flex-direction: column;
@@ -1017,6 +940,8 @@ export default function AssistantHub() {
         .analysis-card-item { background: #fffcfc; border: 1px solid #fed7d7; border-radius: 16px; padding: 24px; margin-bottom: 20px; }
         .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
         .warning-badge { background: #fee2e2; color: #ef4444; font-size: 11px; font-weight: 800; padding: 4px 8px; border-radius: 4px; }
+        .warning-badge.critical { background: #7f1d1d; color: white; }
+
         .symptom-name { font-size: 18px; font-weight: 700; color: #c53030; }
         .card-body { display: flex; flex-direction: column; gap: 16px; }
         .analysis-desc { font-size: 15px; color: #742a2a; line-height: 1.6; }
@@ -1053,10 +978,7 @@ export default function AssistantHub() {
         .call-24h-btn { width: 100%; padding: 16px; background: #ef4444; color: white; border: none; border-radius: 12px; font-weight: 700; font-size: 16px; margin-top: 24px; cursor: pointer; }
         .panel-footer { margin-top: 24px; font-size: 12px; color: var(--color-text-tertiary); text-align: center; }
 
-        .voice-assistant-bar { margin-bottom: 24px; }
-        .voice-trigger-btn { display: flex; align-items: center; gap: 10px; padding: 12px 24px; border-radius: 40px; background: white; color: ${PRIMARY_GREEN}; border: 2px solid ${PRIMARY_GREEN}; font-weight: 700; cursor: pointer; }
-        .voice-trigger-btn.listening { background: #c53030; border-color: #c53030; color: white; animation: pulse 1.5s infinite; }
-        .voice-response-bubble { margin-top: 12px; padding: 16px 20px; background: white; border-radius: 20px; border: 1px solid ${BORDER_COLOR}; font-size: 14px; }
+
 
         .common-warning-box { background: #fff5f5; border-radius: var(--border-radius-lg); padding: 20px; font-size: 14px; color: #c53030; border: 1px solid #fed7d7; margin-top: 24px; }
 

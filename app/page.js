@@ -397,14 +397,14 @@ export default async function Home({ searchParams }) {
   let dailyNewsPreview;
   if (homeCultureNews.length > 0) {
     const dailyCulture = homeCultureNews[dayCount % homeCultureNews.length];
-    const otherDaily = getDailySelection(homeOtherNews, 2, dayCount + 15);
+    const otherDaily = getDailySelection(homeOtherNews, 1, dayCount + 15);
     dailyNewsPreview = [dailyCulture, ...otherDaily];
   } else {
-    dailyNewsPreview = getDailySelection(newsPosts, 3, dayCount + 15);
+    dailyNewsPreview = getDailySelection(newsPosts, 2, dayCount + 15);
   }
 
   const dailyFamilyPreview = getDailySelection(familyPool, 4, dayCount + 25);
-  const dailyFriendsPreview = getDailySelection(friendsList, 3, dayCount + 35);
+  const dailyFriendsPreview = getDailySelection(friendsList, 2, dayCount + 35);
 
   return (
     <div style={{ width: '100%' }}>
@@ -426,23 +426,8 @@ export default async function Home({ searchParams }) {
         </div>
       </section>
 
-      {/* SECTION: MYO ASSISTANT (SECRETARY) TEASER */}
-      <section className="home-section" style={{ backgroundColor: '#ffffff', borderTop: '1px solid var(--border-color)' }}>
-        <div className="section-container">
-          <div className="section-header">
-            <span className="section-subtitle-en">Smart AI Assistant</span>
-            <h2 className="section-title">묘한 비서</h2>
-            <p className="section-subtitle">똑똑한 AI 기술로 반려묘의 건강과 안전을 세심히 보살핍니다.</p>
-          </div>
-          
-          <div className="section-footer">
-            <Link href="/assistant" className="btn-primary">묘한 비서 이용하기 &gt;</Link>
-          </div>
-        </div>
-      </section>
-
       {/* SECTION 3: CARE PREVIEW (DAILY) */}
-      <section className="home-section" style={{ backgroundColor: '#ffffff', borderTop: '1px solid var(--border-color)' }}>
+      <section className="home-section" style={{ backgroundColor: '#e8f4ee' }}>
         <div className="section-container">
           <div className="section-header">
             <span className="section-subtitle-en">Care & Rescue</span>
@@ -460,29 +445,17 @@ export default async function Home({ searchParams }) {
         </div>
       </section>
 
-      {/* SECTION 4: FAMILY TEASER (MINIMALIST) */}
-      <section className="home-section bg-cream" style={{ padding: '3rem 0' }}>
-        <div className="section-container" style={{ textAlign: 'center', maxWidth: '800px' }}>
-          <div className="section-header" style={{ marginBottom: '2rem' }}>
-            <span className="section-subtitle-en">Family & Discovery</span>
-            <h2 className="section-title" style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>묘한 가족들</h2>
-            <p className="section-subtitle" style={{ fontSize: '1rem', color: '#666', lineHeight: '1.6' }}>
-              우리 집 반려동물 자랑부터 집사들의 발견까지,<br />
-              함께 만들어가는 소중한 공간입니다.
-            </p>
+      {/* SECTION: MYO ASSISTANT (SECRETARY) TEASER */}
+      <section className="home-section bg-cream">
+        <div className="section-container">
+          <div className="section-header">
+            <span className="section-subtitle-en">Smart AI Assistant</span>
+            <h2 className="section-title">묘한 비서</h2>
+            <p className="section-subtitle">똑똑한 AI 기술로 반려묘의 건강과 안전을 세심히 보살핍니다.</p>
           </div>
           
-          <div className="btn-group" style={{ flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-            <Link href="/family?tab=family" className="btn-primary" style={{ width: '100%', maxWidth: '280px' }}>
-              우리 가족 보기 →
-            </Link>
-            <Link 
-              href="/family?tab=discovery" 
-              className="btn-primary btn-outline"
-              style={{ width: '100%', maxWidth: '280px' }}
-            >
-              집사의 발견 →
-            </Link>
+          <div className="section-footer">
+            <Link href="/assistant" className="btn-primary">묘한 비서 이용하기 &gt;</Link>
           </div>
         </div>
       </section>
@@ -499,7 +472,7 @@ export default async function Home({ searchParams }) {
           {showNewsToday ? (
             /* News Preview */
             <div style={{ marginBottom: '2rem' }}>
-              <div className="section-grid cols-3">
+              <div className="section-grid cols-2">
                 {dailyNewsPreview?.filter(Boolean).map(post => (
                   <article key={post?.id || Math.random()} className="news-magazine-card simple-card">
                     <div className="news-magazine-image" style={{ height: '160px' }}>
@@ -533,8 +506,8 @@ export default async function Home({ searchParams }) {
             <div style={{ marginBottom: '2rem' }}>
               <div className="classroom-banner" style={{ margin: 0, padding: '2rem' }}>
                 <div className="classroom-banner-content">
-                  <h2 className="section-title" style={{ color: 'white', marginTop: '0', fontSize: '1.8rem' }}>{dailyClass?.title || "동물권, 함께 배워요"}</h2>
-                  <p className="section-subtitle" style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '1.5rem' }}>
+                  <h2 className="section-title" style={{ color: 'var(--accent-sub)', marginTop: '0', fontSize: '1.8rem' }}>{dailyClass?.title || "동물권, 함께 배워요"}</h2>
+                  <p className="section-subtitle" style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
                     {dailyClass?.summary || dailyClass?.coreQuestion || "어린이부터 어른까지 함께 배우는 동물권 카드 및 교육 자료"}
                   </p>
                   <Link href={dailyClass ? `/posts/${dailyClass.id}` : "/?category=Discovery&tab=class"} className="btn-primary btn-outline">
@@ -554,15 +527,42 @@ export default async function Home({ searchParams }) {
         </div>
       </section>
 
+      {/* SECTION 4: FAMILY TEASER (MINIMALIST) */}
+      <section className="home-section bg-cream" style={{ padding: '3rem 0' }}>
+        <div className="section-container" style={{ textAlign: 'center', maxWidth: '800px' }}>
+          <div className="section-header" style={{ marginBottom: '2rem' }}>
+            <span className="section-subtitle-en">Family & Discovery</span>
+            <h2 className="section-title" style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>묘한 가족들</h2>
+            <p className="section-subtitle" style={{ fontSize: '1rem', color: '#666', lineHeight: '1.6' }}>
+              우리 집 반려동물 자랑부터 집사들의 발견까지,<br />
+              함께 만들어가는 소중한 공간입니다.
+            </p>
+          </div>
+          
+          <div className="btn-group" style={{ flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+            <Link href="/family?tab=family" className="btn-primary" style={{ width: '100%', maxWidth: '280px' }}>
+              우리 가족 보기 →
+            </Link>
+            <Link 
+              href="/family?tab=discovery" 
+              className="btn-primary btn-outline"
+              style={{ width: '100%', maxWidth: '280px' }}
+            >
+              집사의 발견 →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* SECTION 7: FRIENDS PREVIEW (DAILY) */}
-      <section className="home-section" style={{ backgroundColor: '#ffffff' }}>
+      <section className="home-section" style={{ backgroundColor: '#e8f4ee' }}>
         <div className="section-container">
           <div className="section-header">
             <span className="section-subtitle-en">Partners & Friends</span>
-            <h2 className="section-title">좋은 친구들</h2>
+            <h2 className="section-title">친구들</h2>
             <p className="section-subtitle">우리가 알아야 할, 생명을 살리는 멋진 단체와 매체들</p>
           </div>
-          <div className="section-grid">
+          <div className="section-grid cols-2">
             {dailyFriendsPreview.map((friend, index) => (
               <div key={index} className="post-card" style={{ height: '100%' }}>
                 <div className="card-image-wrapper">
