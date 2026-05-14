@@ -124,7 +124,12 @@ function DiscoveryView({ newsPosts = [], classPosts = [], currentTab = 'news', p
   
   return (
     <div className="discovery-wrapper">
-      <div className="discovery-nav-tabs">
+      <Banner 
+        title="묘한 탐구" 
+        description="동물권 뉴스부터 생명 존중 배움까지 함께하는 탐구" 
+      />
+
+      <div className="discovery-nav-tabs" style={{ marginTop: '0', marginBottom: '1rem' }}>
         <Link 
           href="/?category=Discovery&tab=news" 
           className={`discovery-nav-item news-theme ${activeTab === 'news' ? 'active' : ''}`}
@@ -144,11 +149,7 @@ function DiscoveryView({ newsPosts = [], classPosts = [], currentTab = 'news', p
       <div className="discovery-content-container">
         {activeTab === 'news' && (
           <>
-            <div className="news-content-header">
-              <h2 className="news-main-title">뉴스</h2>
-            </div>
-
-            <div className="news-tag-cloud">
+            <div className="news-tag-cloud" style={{ marginBottom: '1.5rem' }}>
               <Link 
                 href="/?category=Discovery&tab=news" 
                 className={`news-tag-pill ${!params?.tag ? 'active' : ''}`}
@@ -174,10 +175,14 @@ function DiscoveryView({ newsPosts = [], classPosts = [], currentTab = 'news', p
               ))}
             </div>
             <section className="discovery-section">
-              <div className="news-magazine-grid">
+              <div className="news-magazine-grid" style={{ marginTop: '0.5rem' }}>
                 {(newsPosts || [])
                   .filter(post => post && (!params?.tag || post.tag?.includes(params?.tag)))
-                  .map(post => <NewsPageItem key={post?.id || Math.random()} post={post} />)}
+                  .map(post => (
+                    <div key={post?.id || Math.random()} className="news-magazine-item">
+                      <NewsPageItem post={post} />
+                    </div>
+                  ))}
               </div>
             </section>
           </>
@@ -185,11 +190,7 @@ function DiscoveryView({ newsPosts = [], classPosts = [], currentTab = 'news', p
 
         {activeTab === 'class' && (
           <>
-            <div className="learn-content-header">
-              <h2 className="learn-main-title">배움</h2>
-            </div>
-
-            <div className="classroom-question-box">
+            <div className="classroom-question-box" style={{ marginTop: '0', marginBottom: '1.5rem' }}>
               <img 
                 src={classPosts?.[0]?.image || "/hero/ricky-kharawala-adK3Vu70DEQ-unsplash.jpg"} 
                 alt="Background" 
@@ -203,7 +204,7 @@ function DiscoveryView({ newsPosts = [], classPosts = [], currentTab = 'news', p
               </div>
             </div>
 
-            <div className="classroom-tag-cloud">
+            <div className="classroom-tag-cloud" style={{ marginBottom: '1.5rem' }}>
               <Link 
                 href="/?category=Discovery&tab=class" 
                 className={`classroom-tag-pill ${!params?.tag ? 'active' : ''}`}
@@ -237,7 +238,7 @@ function DiscoveryView({ newsPosts = [], classPosts = [], currentTab = 'news', p
             </div>
 
             <section className="discovery-section">
-              <div className="classroom-grid">
+              <div className="classroom-grid" style={{ marginTop: '0.5rem' }}>
                 {(classPosts || [])
                   .filter(post => post && (!params?.tag || post.tag?.includes(params?.tag)))
                   .map(post => <ClassCard key={post?.id || Math.random()} post={post} />)}
@@ -432,7 +433,7 @@ export default async function Home({ searchParams }) {
           <div className="section-header">
             <span className="section-subtitle-en">Care & Rescue</span>
             <h2 className="section-title">돌봄</h2>
-            <p className="section-subtitle">케어부터 구조까지, 모든 생명을 돌봅니다.</p>
+            <p className="section-subtitle">우리 아이들의 건강한 삶과 길 위 생명들의 안전한 공존을 위한 가이드</p>
           </div>
           <div className="section-grid cols-2">
             {dailyCarePreview?.filter(Boolean).map(post => (
@@ -451,7 +452,7 @@ export default async function Home({ searchParams }) {
           <div className="section-header">
             <span className="section-subtitle-en">Smart AI Assistant</span>
             <h2 className="section-title">묘한 비서</h2>
-            <p className="section-subtitle">똑똑한 AI 기술로 반려묘의 건강과 안전을 세심히 보살핍니다.</p>
+            <p className="section-subtitle">똑똑한 AI 기술을 활용한 반려묘 건강·안전 통합 케어 서비스</p>
           </div>
           
           <div className="section-footer">
@@ -534,8 +535,7 @@ export default async function Home({ searchParams }) {
             <span className="section-subtitle-en">Family & Discovery</span>
             <h2 className="section-title" style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>묘한 가족들</h2>
             <p className="section-subtitle" style={{ fontSize: '1rem', color: '#666', lineHeight: '1.6' }}>
-              우리 집 반려동물 자랑부터 집사들의 발견까지,<br />
-              함께 만들어가는 소중한 공간입니다.
+              반려가족의 일상 공유와 집사들의 새로운 발견이 있는 커뮤니티
             </p>
           </div>
           

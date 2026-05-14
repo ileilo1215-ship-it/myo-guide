@@ -25,7 +25,7 @@ export default async function FamilyPage({ searchParams }) {
     <main className="family-page">
       <Banner 
         title="묘한 가족들" 
-        description="우리 집 반려동물부터 집사들의 발견까지, 함께 만들어가는 공간이에요." 
+        description="반려가족의 일상 공유와 집사들의 새로운 발견이 있는 커뮤니티" 
       />
 
       <div className="tab-container">

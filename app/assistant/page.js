@@ -802,7 +802,10 @@ export default function AssistantHub() {
 
   return (
     <main className="assistant-hub-page">
-      <Banner title="묘한 비서" description="똑똑한 AI 기술로 반려묘의 건강과 안전을 세심히 보살핍니다." />
+      <Banner 
+        title="묘한 비서" 
+        description="똑똑한 AI 기술을 활용한 반려묘 건강·안전 통합 케어 서비스" 
+      />
       <div className="standard-container content-area">
         <AnimatePresence mode="wait">
           {!activeTool ? (

@@ -414,6 +414,8 @@ h1, h2, h3 {
   letter-spacing: -0.01em;
 }
 
+
+
 /* ================================================
    POSTS GRID
    ================================================ */
@@ -632,6 +634,8 @@ h1, h2, h3 {
   color: var(--text-secondary);
   font-weight: 400;
 }
+
+
 
 .section-subtitle-en {
   color: var(--accent-color);

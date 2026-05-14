@@ -8,3 +8,5 @@ export default function Banner({ title = "🐾 묘한 가이드 🐾", descripti
     </div>
   );
 }
+
+
