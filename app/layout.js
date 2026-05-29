@@ -8,6 +8,10 @@ export const metadata = {
   metadataBase: new URL('https://myo-guide.vercel.app'),
   title: "묘한 가이드",
   description: "반려동물과 함께하는 특별하고 묘한 일상 가이드",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
     title: "묘한 가이드",
     description: "반려동물과 함께하는 특별하고 묘한 일상 가이드",
